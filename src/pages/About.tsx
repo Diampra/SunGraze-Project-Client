@@ -2,6 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { 
   Target, 
   Eye, 
@@ -13,6 +14,7 @@ import {
   ArrowRight,
   CheckCircle
 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const values = [
   {
@@ -52,6 +54,68 @@ const stats = [
   { value: "500+", label: "Happy Families" },
   { value: "2", label: "States Coverage" },
 ];
+
+
+const PremiumTimeline = ({ milestones }) => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    return scrollYProgress.on("change", (latest) => {
+      const index = Math.min(
+        milestones.length - 1,
+        Math.floor(latest * milestones.length)
+      );
+      setActiveIndex(index);
+    });
+  }, [scrollYProgress, milestones.length]);
+
+  return (
+    <section
+      ref={ref}
+      className="relative bg-primary py-8"
+      style={{ height: `${milestones.length * 50}vh` }}
+    >
+      <div className="sticky top-0 h-screen flex items-center justify-center">
+
+        {/* Vertical Line */}
+        <div className="absolute left-1/2 -translate-x-1/2 w-0.5 h-3/4 bg-primary-foreground/20" />
+
+        {/* Content */}
+        <div className="relative text-center max-w-2xl px-6">
+          <motion.div
+            key={activeIndex}
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <div className="mb-10">
+              <div className="w-24 h-24 mx-auto rounded-full bg-gold flex items-center justify-center shadow-2xl ring-8 ring-primary/20">
+                <Calendar className="w-8 h-8 text-charcoal" />
+              </div>
+            </div>
+
+            <h3 className="text-5xl font-heading font-bold text-gold mb-6">
+              {milestones[activeIndex].year}
+            </h3>
+
+            <p className="text-primary-foreground/80 text-xl leading-relaxed">
+              {milestones[activeIndex].event}
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
 
 const About = () => {
   return (
@@ -216,36 +280,23 @@ const About = () => {
       </section>
 
       {/* Timeline */}
-      <section className="py-20 bg-primary">
+      <section className="py-8 bg-primary relative">
         <div className="container">
-          <div className="text-center max-w-2xl mx-auto mb-12">
+
+          {/* Header */}
+          <div className="text-center max-w-2xl mx-auto mb-8">
             <span className="text-gold font-medium text-sm uppercase tracking-wider">
               Our Journey
             </span>
-            <h2 className="font-heading text-3xl md:text-4xl text-primary-foreground mt-2">
+            <h2 className="font-heading text-4xl md:text-5xl text-primary-foreground mt-4">
               Milestones <span className="text-gold">Achieved</span>
             </h2>
           </div>
-          <div className="max-w-3xl mx-auto">
-            {milestones.map((milestone, index) => (
-              <div key={milestone.year} className="flex gap-6 mb-8 last:mb-0">
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 rounded-full bg-gold flex items-center justify-center">
-                    <Calendar className="w-5 h-5 text-charcoal" />
-                  </div>
-                  {index < milestones.length - 1 && (
-                    <div className="w-0.5 h-full bg-primary-foreground/20 mt-2" />
-                  )}
-                </div>
-                <div className="pb-8">
-                  <p className="text-gold font-heading font-bold text-xl">{milestone.year}</p>
-                  <p className="text-primary-foreground/80 mt-1">{milestone.event}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+
+          <PremiumTimeline milestones={milestones} />
         </div>
       </section>
+
 
       {/* Coverage */}
       <section className="py-20 bg-background">

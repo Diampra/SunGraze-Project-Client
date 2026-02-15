@@ -82,7 +82,7 @@ const Services = () => {
       {/* HERO */}
       <section className="pt-36 pb-24 bg-primary">
         <div className="container max-w-4xl text-center">
-          <span className="uppercase tracking-widest text-gold text-sm">
+          <span className="uppercase tracking-widest text-gold text-sm font-bold">
             Our Services
           </span>
 
