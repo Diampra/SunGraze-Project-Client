@@ -5,265 +5,253 @@ import { Badge } from "@/components/ui/badge";
 import { Helmet } from "react-helmet-async";
 import {
   MapPin,
-  ArrowLeft,
   ArrowRight,
   CheckCircle,
-  FileText,
   Phone,
-  Calendar,
-  Ruler,
-  Home,
-  Trees,
 } from "lucide-react";
-import { getProjectById } from "@/data/projects";
+
 import { ContactForm } from "@/components/contact/ContactForm";
-import projectResidential from "@/assets/project-residential.jpg";
-import projectFarmland from "@/assets/project-farmland.jpg";
-
-const statusColors = {
-  completed: "bg-green-100 text-green-800 border-green-200",
-  ongoing: "bg-gold/20 text-gold border-gold/30",
-  upcoming: "bg-blue-100 text-blue-800 border-blue-200",
-};
-
-const typeIcons = {
-  residential: Home,
-  farmland: Trees,
-};
-
-function getProjectImage(type: string) {
-  return type === "farmland" ? projectFarmland : projectResidential;
-}
+import { getProjectBySlug, projects } from "@/data/projects";
 
 const ProjectDetail = () => {
-  const { id } = useParams<{ id: string }>();
-  const project = id ? getProjectById(id) : undefined;
+  const { slug } = useParams<{ slug: string }>();
+  const project = slug ? getProjectBySlug(slug) : undefined;
 
-  if (!project) {
-    return <Navigate to="/projects" replace />;
-  }
+  if (!project) return <Navigate to="/projects" replace />;
 
-  const TypeIcon = typeIcons[project.type];
+  const relatedProjects = projects
+    .filter((p) => p.type === project.type && p.slug !== project.slug)
+    .slice(0, 3);
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "RealEstateListing",
+    name: project.name,
+    description: project.description,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: project.location,
+      addressRegion: project.region,
+      addressCountry: "India",
+    },
+    offers: {
+      "@type": "Offer",
+      price: project.priceValue,
+      priceCurrency: "INR",
+    },
+  };
 
   return (
     <Layout>
       <Helmet>
-        <title>{project.name} - Sungraze Projects | {project.type === "residential" ? "Residential Plots" : "Farmland"}</title>
-        <meta name="description" content={`${project.tagline}. ${project.description.slice(0, 150)}...`} />
+        <title>
+          {project.name} in {project.location} | Sungraze Projects
+        </title>
+        <meta
+          name="description"
+          content={`${project.tagline}. ${project.description.slice(0, 155)}`}
+        />
+        <link rel="canonical" href={`/projects/${project.slug}`} />
+
+        {/* OpenGraph */}
+        <meta property="og:title" content={project.name} />
+        <meta property="og:description" content={project.tagline} />
+        <meta property="og:image" content={project.image} />
+        <meta property="og:type" content="website" />
+
+        {/* JSON-LD */}
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
       </Helmet>
 
-      {/* Hero */}
-      <section className="pt-24 pb-8 bg-secondary/30">
-        <div className="container">
-          <Link
-            to="/projects"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-6"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Projects
-          </Link>
-
-          <div className="grid lg:grid-cols-2 gap-8 items-start">
-            {/* Image */}
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
-              <img
-                src={getProjectImage(project.type)}
-                alt={project.name}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute top-4 left-4 flex gap-2">
-                <Badge variant="secondary" className={statusColors[project.status]}>
-                  {project.status.charAt(0).toUpperCase() + project.status.slice(1)}
-                </Badge>
-                <Badge variant="secondary">
-                  {project.type === "residential" ? "Residential" : "Farmland"}
-                </Badge>
-              </div>
-            </div>
-
-            {/* Info */}
-            <div>
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-lg gradient-forest flex items-center justify-center">
-                  <TypeIcon className="w-5 h-5 text-cream" />
-                </div>
-                <Badge variant="outline">{project.region}</Badge>
-              </div>
-
-              <h1 className="font-heading text-3xl md:text-4xl text-foreground mb-2">
-                {project.name}
-              </h1>
-              <p className="text-gold font-medium mb-4">{project.tagline}</p>
-
-              <div className="flex items-center gap-2 text-muted-foreground mb-6">
-                <MapPin className="w-5 h-5 text-gold" />
-                <span>{project.location}</span>
-              </div>
-
-              {/* Key Info Grid */}
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="bg-card rounded-xl p-4 border border-border">
-                  <div className="flex items-center gap-2 text-muted-foreground mb-1">
-                    <Ruler className="w-4 h-4" />
-                    <span className="text-xs">Plot Sizes</span>
-                  </div>
-                  <p className="font-semibold text-foreground">{project.plotSizes}</p>
-                </div>
-                <div className="bg-card rounded-xl p-4 border border-border">
-                  <div className="flex items-center gap-2 text-muted-foreground mb-1">
-                    <Home className="w-4 h-4" />
-                    <span className="text-xs">Total Plots</span>
-                  </div>
-                  <p className="font-semibold text-foreground">{project.totalPlots}</p>
-                </div>
-                <div className="bg-card rounded-xl p-4 border border-border col-span-2">
-                  <div className="flex items-center gap-2 text-muted-foreground mb-1">
-                    <Calendar className="w-4 h-4" />
-                    <span className="text-xs">Price Range</span>
-                  </div>
-                  <p className="font-heading font-bold text-xl text-primary">
-                    {project.priceRange}
-                  </p>
-                </div>
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-wrap gap-4">
-                <Button variant="default" size="lg" asChild>
-                  <a href="#enquiry">
-                    Enquire Now
-                    <ArrowRight className="w-5 h-5" />
-                  </a>
-                </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <a href="tel:+919876543210">
-                    <Phone className="w-5 h-5" />
-                    Call Us
-                  </a>
-                </Button>
-              </div>
-            </div>
+      {/* HERO IMAGE */}
+      <section className="relative h-[60vh]">
+        <img
+          src={project.image}
+          alt={project.name}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/40 flex items-end">
+          <div className="container pb-12 text-white">
+            <p className="uppercase tracking-wider text-sm opacity-90">
+              {project.region}
+            </p>
+            <h1 className="text-4xl md:text-5xl font-heading font-semibold mt-2">
+              {project.name}
+            </h1>
+            <p className="mt-3 text-lg opacity-90">
+              {project.tagline}
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Details */}
-      <section className="py-16 bg-background">
-        <div className="container">
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-10">
-              {/* Description */}
-              <div>
-                <h2 className="font-heading text-2xl text-foreground mb-4">About This Project</h2>
-                <p className="text-muted-foreground leading-relaxed">{project.description}</p>
-              </div>
+      {/* OVERVIEW STRIP */}
+      <section className="py-12 border-b bg-background">
+        <div className="container grid md:grid-cols-4 gap-6 text-center">
+          <div>
+            <p className="text-sm text-muted-foreground">Location</p>
+            <p className="font-medium">{project.location}</p>
+          </div>
+          <div>
+            <p className="text-sm text-muted-foreground">Total Plots</p>
+            <p className="font-medium">{project.totalPlots}</p>
+          </div>
+          <div>
+            <p className="text-sm text-muted-foreground">Approval</p>
+            <p className="font-medium">{project.approvalType}</p>
+          </div>
+          <div>
+            <p className="text-sm text-muted-foreground">Starting Price</p>
+            <p className="font-semibold text-primary">
+              {project.priceRange}
+            </p>
+          </div>
+        </div>
+      </section>
 
-              {/* Features */}
+      {/* MAIN CONTENT */}
+      <section className="py-20">
+        <div className="container grid lg:grid-cols-3 gap-12">
+          <div className="lg:col-span-2 space-y-16">
+            
+            {/* DESCRIPTION */}
+            <div>
+              <h2 className="text-3xl font-heading font-semibold mb-6">
+                About {project.name}
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                {project.description}
+              </p>
+            </div>
+
+            {/* FEATURES */}
+            <div>
+              <h2 className="text-2xl font-semibold mb-6">
+                Key Features
+              </h2>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {project.features.map((feature) => (
+                  <div
+                    key={feature}
+                    className="flex items-start gap-3"
+                  >
+                    <CheckCircle className="text-gold mt-1" />
+                    <span>{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* AMENITIES */}
+            {project.amenities.length > 0 && (
               <div>
-                <h2 className="font-heading text-2xl text-foreground mb-4">Key Features</h2>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {project.features.map((feature) => (
-                    <div
-                      key={feature}
-                      className="flex items-center gap-3 p-3 bg-secondary/50 rounded-lg"
-                    >
-                      <CheckCircle className="w-5 h-5 text-gold flex-shrink-0" />
-                      <span className="text-foreground">{feature}</span>
-                    </div>
+                <h2 className="text-2xl font-semibold mb-6">
+                  Amenities
+                </h2>
+                <div className="flex flex-wrap gap-3">
+                  {project.amenities.map((a) => (
+                    <Badge key={a} variant="secondary">
+                      {a}
+                    </Badge>
                   ))}
                 </div>
               </div>
+            )}
 
-              {/* Amenities */}
-              {project.amenities.length > 0 && (
-                <div>
-                  <h2 className="font-heading text-2xl text-foreground mb-4">Amenities</h2>
-                  <div className="flex flex-wrap gap-3">
-                    {project.amenities.map((amenity) => (
-                      <Badge key={amenity} variant="secondary" className="px-4 py-2 text-sm">
-                        {amenity}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Highlights */}
-              {project.highlights.length > 0 && (
-                <div>
-                  <h2 className="font-heading text-2xl text-foreground mb-4">Location Highlights</h2>
-                  <div className="grid sm:grid-cols-3 gap-4">
-                    {project.highlights.map((highlight) => (
-                      <div
-                        key={highlight}
-                        className="p-4 bg-card border border-border rounded-xl text-center"
-                      >
-                        <MapPin className="w-6 h-6 text-gold mx-auto mb-2" />
-                        <p className="text-sm text-foreground">{highlight}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Legal Info */}
-              <div className="bg-secondary/50 rounded-2xl p-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-card flex items-center justify-center flex-shrink-0">
-                    <FileText className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-heading font-semibold text-lg text-foreground mb-2">
-                      Legal & Documentation
-                    </h3>
-                    <p className="text-muted-foreground">{project.legalInfo}</p>
-                    <p className="text-sm text-muted-foreground mt-2">
-                      All documents available for verification. Request a site visit for detailed documentation review.
-                    </p>
-                  </div>
+            {/* GALLERY */}
+            {project.gallery.length > 0 && (
+              <div>
+                <h2 className="text-2xl font-semibold mb-6">
+                  Project Gallery
+                </h2>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {project.gallery.map((img) => (
+                    <img
+                      key={img}
+                      src={img}
+                      className="rounded-xl object-cover"
+                    />
+                  ))}
                 </div>
               </div>
-            </div>
+            )}
+          </div>
 
-            {/* Sidebar - Enquiry Form */}
-            <div className="lg:col-span-1" id="enquiry">
-              <div className="bg-card rounded-2xl p-6 shadow-elegant sticky top-24">
-                <h3 className="font-heading font-semibold text-xl text-foreground mb-4">
-                  Interested in {project.name}?
-                </h3>
-                <p className="text-muted-foreground text-sm mb-6">
-                  Fill out the form below and our team will get back to you within 24 hours.
-                </p>
-                <ContactForm projectName={project.name} compact />
+          {/* SIDEBAR */}
+          <div>
+            <div className="sticky top-24 bg-card p-8 rounded-2xl border shadow-sm">
+              <h3 className="text-xl font-semibold mb-4">
+                Enquire About This Project
+              </h3>
+              <ContactForm
+                projectName={project.name}
+                compact
+              />
+              <div className="mt-6">
+                <Button size="lg" className="w-full" asChild>
+                  <a href="tel:+919876543210">
+                    <Phone className="mr-2 w-4 h-4" />
+                    Call Now
+                  </a>
+                </Button>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 bg-primary">
-        <div className="container">
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="font-heading text-2xl md:text-3xl text-primary-foreground mb-4">
-              Ready to Visit the Site?
+      {/* RELATED PROJECTS */}
+      {relatedProjects.length > 0 && (
+        <section className="py-20 bg-secondary/30">
+          <div className="container">
+            <h2 className="text-3xl font-heading font-semibold text-center mb-12">
+              Similar Projects
             </h2>
-            <p className="text-primary-foreground/70 mb-6">
-              Schedule a free site visit and see the project firsthand. Our team will guide you through every detail.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button variant="hero" size="lg" asChild>
-                <a href="tel:+919876543210">
-                  <Phone className="w-5 h-5" />
-                  Schedule Site Visit
-                </a>
-              </Button>
-              <Button variant="hero-outline" size="lg" asChild>
-                <Link to="/projects">View Other Projects</Link>
-              </Button>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {relatedProjects.map((p) => (
+                <Link
+                  key={p.id}
+                  to={`/projects/${p.slug}`}
+                  className="bg-card rounded-xl overflow-hidden border hover:shadow-lg transition"
+                >
+                  <img
+                    src={p.image}
+                    className="h-52 w-full object-cover"
+                  />
+                  <div className="p-6">
+                    <h3 className="font-semibold mb-2">
+                      {p.name}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {p.priceRange}
+                    </p>
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
+        </section>
+      )}
+
+      {/* FINAL CTA */}
+      <section className="py-20 bg-primary text-primary-foreground text-center">
+        <div className="container max-w-3xl">
+          <h2 className="text-3xl md:text-4xl font-semibold mb-6">
+            Schedule a Private Site Visit
+          </h2>
+          <p className="mb-8 opacity-90">
+            Explore the project firsthand and review all legal
+            documentation with our experts.
+          </p>
+          <Button size="lg" variant="secondary" asChild>
+            <Link to="/contact">
+              Book Consultation
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </Link>
+          </Button>
         </div>
       </section>
     </Layout>

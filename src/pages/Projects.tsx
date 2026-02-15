@@ -4,14 +4,18 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Helmet } from "react-helmet-async";
-import { MapPin, ArrowRight, Filter } from "lucide-react";
+import {
+  MapPin,
+  ArrowRight,
+  Filter,
+  CheckCircle,
+  SlidersHorizontal,
+} from "lucide-react";
 import { projects, ProjectType, ProjectStatus } from "@/data/projects";
-import projectResidential from "@/assets/project-residential.jpg";
-import projectFarmland from "@/assets/project-farmland.jpg";
 
 const statusColors = {
   completed: "bg-green-100 text-green-800 border-green-200",
-  ongoing: "bg-gold/20 text-gold border-gold/30",
+  ongoing: "bg-amber-100 text-amber-800 border-amber-200",
   upcoming: "bg-blue-100 text-blue-800 border-blue-200",
 };
 
@@ -20,227 +24,286 @@ const typeLabels = {
   farmland: "Farmland",
 };
 
-function getProjectImage(type: string) {
-  return type === "farmland" ? projectFarmland : projectResidential;
-}
+type SortOption = "latest" | "price_low" | "price_high";
 
 const Projects = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialType = searchParams.get("type") as ProjectType | null;
-  const initialStatus = searchParams.get("status") as ProjectStatus | null;
 
-  const [typeFilter, setTypeFilter] = useState<ProjectType | "all">(initialType || "all");
-  const [statusFilter, setStatusFilter] = useState<ProjectStatus | "all">(initialStatus || "all");
+  const [typeFilter, setTypeFilter] = useState<ProjectType | "all">(
+    (searchParams.get("type") as ProjectType) || "all"
+  );
+
+  const [statusFilter, setStatusFilter] = useState<ProjectStatus | "all">(
+    (searchParams.get("status") as ProjectStatus) || "all"
+  );
+
+  const [regionFilter, setRegionFilter] = useState<string>(
+    searchParams.get("region") || "all"
+  );
+
+  const [sortBy, setSortBy] = useState<SortOption>("latest");
+
+  const regions = useMemo(() => {
+    const unique = Array.from(new Set(projects.map((p) => p.region)));
+    return unique;
+  }, []);
 
   const filteredProjects = useMemo(() => {
-    return projects.filter((project) => {
+    let filtered = projects.filter((project) => {
       const matchesType = typeFilter === "all" || project.type === typeFilter;
-      const matchesStatus = statusFilter === "all" || project.status === statusFilter;
-      return matchesType && matchesStatus;
+      const matchesStatus =
+        statusFilter === "all" || project.status === statusFilter;
+      const matchesRegion =
+        regionFilter === "all" || project.region === regionFilter;
+
+      return matchesType && matchesStatus && matchesRegion;
     });
-  }, [typeFilter, statusFilter]);
 
-  const handleTypeChange = (type: ProjectType | "all") => {
-    setTypeFilter(type);
-    if (type === "all") {
-      searchParams.delete("type");
-    } else {
-      searchParams.set("type", type);
+    if (sortBy === "price_low") {
+      filtered.sort((a, b) => a.priceValue - b.priceValue);
     }
-    setSearchParams(searchParams);
-  };
 
-  const handleStatusChange = (status: ProjectStatus | "all") => {
-    setStatusFilter(status);
-    if (status === "all") {
-      searchParams.delete("status");
-    } else {
-      searchParams.set("status", status);
+    if (sortBy === "price_high") {
+      filtered.sort((a, b) => b.priceValue - a.priceValue);
     }
-    setSearchParams(searchParams);
-  };
+
+    return filtered;
+  }, [typeFilter, statusFilter, regionFilter, sortBy]);
+
+  const dynamicTitle =
+    typeFilter !== "all"
+      ? `${typeLabels[typeFilter]} Projects in ${regionFilter !== "all" ? regionFilter : "Karnataka & Tamil Nadu"} | Sungraze`
+      : "Residential & Farmland Projects in Karnataka & Tamil Nadu | Sungraze";
+
 
   return (
     <Layout>
       <Helmet>
-        <title>Our Projects - Sungraze Projects | Residential Plots & Farmland</title>
-        <meta name="description" content="Explore our portfolio of residential plots and managed farmland projects across Karnataka and Tamil Nadu. BMRDA/DTCP approved layouts with clear titles." />
+        <title>{dynamicTitle}</title>
+        <meta
+          name="description"
+          content="Explore premium residential and managed farmland projects across Karnataka and Tamil Nadu. Clear titles, legal approvals, and high-growth investment opportunities."
+        />
+        <meta property="og:title" content={dynamicTitle} />
+        <meta property="og:description" content="Premium residential and farmland projects by Sungraze." />
+        <meta property="og:type" content="website" />
+
       </Helmet>
 
-      {/* Hero */}
-      <section className="pt-32 pb-16 bg-secondary/30">
-        <div className="container">
-          <div className="max-w-3xl">
-            <span className="text-gold font-medium text-sm uppercase tracking-wider">
-              Our Portfolio
-            </span>
-            <h1 className="font-heading text-4xl md:text-5xl text-foreground mt-2 mb-6">
-              Explore Our <span className="text-primary">Projects</span>
-            </h1>
-            <p className="text-muted-foreground text-lg leading-relaxed">
-              From premium residential plots to managed farmland, discover projects 
-              that match your investment goals across Karnataka and Tamil Nadu.
-            </p>
-          </div>
+      {/* HERO */}
+      <section className="pt-32 pb-20 text-primary-foreground bg-primary">
+        <div className="container text-center max-w-3xl">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            Explore Our Premium <span className="text-gold">Projects</span>
+          </h1>
+          <div className="w-20 h-1 bg-gold mx-auto my-8 rounded-full" />
+          <p className="bg-primary text-lg">
+            Discover legally approved residential layouts and managed farmland
+            projects designed for appreciation, lifestyle, and long-term
+            growth.
+          </p>
         </div>
       </section>
 
-      {/* Filters & Projects */}
-      <section className="py-16 bg-background">
+      {/* TRUST SECTION */}
+      {/* <section className="py-16 bg-muted/20">
+        <div className="container grid md:grid-cols-4 gap-8 text-center">
+          {[
+            "BMRDA / DTCP Approved",
+            "Clear Title & Documentation",
+            "Loan Assistance Available",
+            "1000+ Happy Customers",
+          ].map((item) => (
+            <div key={item} className="flex flex-col items-center gap-3">
+              <CheckCircle className="text-primary w-8 h-8" />
+              <p className="font-medium">{item}</p>
+            </div>
+          ))}
+        </div>
+      </section> */}
+
+      {/* FILTERS */}
+      <section className="py-16">
         <div className="container">
-          {/* Filters */}
-          <div className="flex flex-wrap items-center gap-4 mb-10 pb-6 border-b border-border">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Filter className="w-4 h-4" />
-              <span className="text-sm font-medium">Filters:</span>
-            </div>
-            
-            {/* Type Filter */}
-            <div className="flex flex-wrap gap-2">
-              {(["all", "residential", "farmland"] as const).map((type) => (
-                <Button
-                  key={type}
-                  variant={typeFilter === type ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => handleTypeChange(type)}
-                >
-                  {type === "all" ? "All Types" : typeLabels[type]}
-                </Button>
+          <div className="flex flex-wrap items-center gap-4 mb-10">
+            <Filter className="w-5 h-5 text-muted-foreground" />
+
+            {/* TYPE */}
+            {(["all", "residential", "farmland"] as const).map((type) => (
+              <Button
+                key={type}
+                size="sm"
+                variant={typeFilter === type ? "default" : "outline"}
+                onClick={() => setTypeFilter(type)}
+              >
+                {type === "all" ? "All Types" : typeLabels[type]}
+              </Button>
+            ))}
+
+            {/* REGION */}
+            <select
+              value={regionFilter}
+              onChange={(e) => setRegionFilter(e.target.value)}
+              className="border rounded-md px-3 py-1 text-sm"
+            >
+              <option value="all">All Regions</option>
+              {regions.map((region) => (
+                <option key={region}>{region}</option>
               ))}
-            </div>
+            </select>
 
-            <div className="w-px h-6 bg-border hidden sm:block" />
-
-            {/* Status Filter */}
-            <div className="flex flex-wrap gap-2">
-              {(["all", "ongoing", "completed", "upcoming"] as const).map((status) => (
+            {/* STATUS */}
+            {(["all", "ongoing", "completed", "upcoming"] as const).map(
+              (status) => (
                 <Button
                   key={status}
-                  variant={statusFilter === status ? "default" : "outline"}
                   size="sm"
-                  onClick={() => handleStatusChange(status)}
+                  variant={statusFilter === status ? "default" : "outline"}
+                  onClick={() => setStatusFilter(status)}
                 >
-                  {status === "all" ? "All Status" : status.charAt(0).toUpperCase() + status.slice(1)}
+                  {status === "all"
+                    ? "All Status"
+                    : status.charAt(0).toUpperCase() + status.slice(1)}
                 </Button>
-              ))}
+              )
+            )}
+
+            {/* SORT */}
+            <div className="ml-auto flex items-center gap-2">
+              <SlidersHorizontal className="w-4 h-4" />
+              <select
+                value={sortBy}
+                onChange={(e) =>
+                  setSortBy(e.target.value as SortOption)
+                }
+                className="border rounded-md px-3 py-1 text-sm"
+              >
+                <option value="latest">Latest</option>
+                <option value="price_low">Price Low → High</option>
+                <option value="price_high">Price High → Low</option>
+              </select>
             </div>
           </div>
 
-          {/* Results Count */}
+          {/* RESULTS */}
           <p className="text-muted-foreground mb-8">
-            Showing {filteredProjects.length} project{filteredProjects.length !== 1 ? "s" : ""}
+            Showing {filteredProjects.length} Projects
           </p>
 
-          {/* Projects Grid */}
-          {filteredProjects.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProjects.map((project) => (
-                <Link
-                  key={project.id}
-                  to={`/projects/${project.id}`}
-                  className="group bg-card rounded-2xl overflow-hidden shadow-elegant card-hover"
-                >
-                  {/* Image */}
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img
-                      src={getProjectImage(project.type)}
-                      alt={project.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent" />
-                    
-                    {/* Badges */}
-                    <div className="absolute top-4 left-4 flex gap-2">
-                      <Badge variant="secondary" className={statusColors[project.status]}>
-                        {project.status.charAt(0).toUpperCase() + project.status.slice(1)}
-                      </Badge>
-                      <Badge variant="secondary">
-                        {typeLabels[project.type]}
-                      </Badge>
-                    </div>
-
-                    {/* Region Tag */}
-                    <div className="absolute top-4 right-4">
-                      <Badge variant="secondary" className="bg-charcoal/70 text-cream border-0">
-                        {project.region}
-                      </Badge>
-                    </div>
-
-                    {/* Price */}
-                    <div className="absolute bottom-4 left-4">
-                      <p className="text-cream font-heading font-semibold text-lg">
-                        {project.priceRange}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-6">
-                    <h3 className="font-heading font-semibold text-xl text-foreground group-hover:text-primary transition-colors">
-                      {project.name}
-                    </h3>
-                    <p className="text-muted-foreground text-sm mt-1 mb-3">
-                      {project.tagline}
-                    </p>
-                    <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                      <MapPin className="w-4 h-4 text-gold" />
-                      <span>{project.location}</span>
-                    </div>
-                    <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
-                      <div>
-                        <p className="text-xs text-muted-foreground">Plot Sizes</p>
-                        <p className="text-sm font-medium text-foreground">{project.plotSizes}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-xs text-muted-foreground">Total Plots</p>
-                        <p className="text-sm font-medium text-foreground">{project.totalPlots}</p>
-                      </div>
-                    </div>
-                    <div className="mt-4 flex items-center text-primary text-sm font-medium group-hover:gap-3 gap-2 transition-all">
-                      View Details
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16">
-              <p className="text-muted-foreground text-lg mb-4">
-                No projects found matching your filters.
-              </p>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setTypeFilter("all");
-                  setStatusFilter("all");
-                  setSearchParams({});
-                }}
+          {/* GRID */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProjects.map((project) => (
+              <Link
+                key={project.id}
+                to={`/projects/${project.slug}`}
+                className="bg-card rounded-2xl overflow-hidden shadow-lg group hover:shadow-xl transition"
               >
-                Clear Filters
-              </Button>
-            </div>
-          )}
+                <div className="relative h-60">
+                  <img
+                    src={project.image}
+                    className="w-full h-full object-cover group-hover:scale-105 transition"
+                  />
+                  <div className="absolute top-4 left-4 flex gap-2">
+                    <Badge className={statusColors[project.status]}>
+                      {project.status}
+                    </Badge>
+                    <Badge>{typeLabels[project.type]}</Badge>
+                  </div>
+                </div>
+
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">
+                    {project.name}
+                  </h3>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                    <MapPin className="w-4 h-4" />
+                    {project.location}
+                  </div>
+
+                  {/* AMENITIES */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.amenities.slice(0, 3).map((a: string) => (
+                      <Badge key={a} variant="secondary">
+                        {a}
+                      </Badge>
+                    ))}
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold text-primary">
+                      {project.priceRange}
+                    </span>
+                    <span className="flex items-center gap-1 text-sm text-primary">
+                      View Details <ArrowRight className="w-4 h-4" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
+      {/* STATS BAR */}
+      <section className="py-12 bg-primary border-y">
+        <div className="container grid md:grid-cols-4 text-center gap-6">
+          <div>
+            <h3 className="text-3xl font-bold text-gold">25+</h3>
+            <p className="text-primary-foreground/70">Projects Delivered</p>
+          </div>
+          <div>
+            <h3 className="text-3xl font-bold text-gold">500+ Acres</h3>
+            <p className="text-primary-foreground/70">Land Developed</p>
+          </div>
+          <div>
+            <h3 className="text-3xl font-bold text-gold">10+ Years</h3>
+            <p className="text-primary-foreground/70">Industry Experience</p>
+          </div>
+          <div>
+            <h3 className="text-3xl font-bold text-gold">1000+</h3>
+            <p className="text-primary-foreground/70">Customers</p>
+          </div>
+        </div>
+      </section>
+      {/* INVESTMENT PROCESS */}
+      {/* <section className="py-20 bg-muted/30">
+        <div className="container text-center max-w-4xl">
+          <h2 className="text-3xl font-bold mb-12">
+            Simple 5-Step Investment Process
+          </h2>
+          <div className="grid md:grid-cols-5 gap-6 text-sm">
+            {[
+              "Select Project",
+              "Schedule Site Visit",
+              "Booking Confirmation",
+              "Legal Documentation",
+              "Registration & Handover",
+            ].map((step, i) => (
+              <div key={step}>
+                <div className="text-primary font-bold text-lg mb-2">
+                  {i + 1}
+                </div>
+                <p>{step}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section> */}
 
       {/* CTA */}
-      <section className="py-16 bg-secondary/30">
-        <div className="container">
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="font-heading text-2xl md:text-3xl text-foreground mb-4">
-              Can't Find What You're Looking For?
-            </h2>
-            <p className="text-muted-foreground mb-6">
-              Tell us your requirements and we'll help you find the perfect plot.
-            </p>
-            <Button variant="default" size="lg" asChild>
-              <Link to="/contact">
-                Contact Us
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </Button>
-          </div>
+      <section className="py-20 text-center">
+        <div className="container max-w-2xl">
+          <h2 className="text-3xl font-bold mb-4">
+            Ready to Invest in Your Future?
+          </h2>
+          <p className="text-muted-foreground mb-8">
+            Connect with our team and schedule a free consultation or site
+            visit today.
+          </p>
+          <Button size="lg" asChild>
+            <Link to="/contact">
+              Contact Us <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
+          </Button>
         </div>
       </section>
     </Layout>

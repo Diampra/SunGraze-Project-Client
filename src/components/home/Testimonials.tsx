@@ -36,7 +36,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-20 lg:py-28 bg-slate-900 relative overflow-hidden">
+    <section className="py-20 lg:py-28 bg-primary relative overflow-hidden">
 
       {/* Modern Gradient Mesh Background */}
       <div className="absolute inset-0 opacity-30">
@@ -90,7 +90,7 @@ export default function Testimonials() {
             </span>
           </h2>
           
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-primary-foreground text-lg max-w-2xl mx-auto leading-relaxed">
             Discover why discerning investors choose Sungraze Projects for their land investment journey
           </p>
         </motion.div>

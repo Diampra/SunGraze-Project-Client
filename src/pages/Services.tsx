@@ -16,203 +16,233 @@ import {
 const services = [
   {
     icon: Home,
-    title: "Residential Plots",
+    title: "Premium Residential Plots",
     description:
-      "Premium residential plots in high-growth corridors of Bangalore, Hosur, and surrounding areas. All plots come with BMRDA/DTCP approvals and clear titles.",
-    features: [
-      "BMRDA/DTCP Approved Layouts",
-      "Clear Title & Documentation",
-      "Prime Locations Near IT Hubs",
-      "Modern Infrastructure",
-      "Flexible Plot Sizes",
-      "Easy Payment Plans",
-    ],
+      "Carefully curated residential layouts in high-growth corridors of Bangalore, Hosur, and surrounding regions.",
+    link: "/projects?type=residential",
+    image: "/images/services/residential.jpg",
   },
   {
     icon: Trees,
-    title: "Managed Farmland",
+    title: "Managed Farmland Investments",
     description:
-      "Own agricultural land without the hassle of managing it. Our managed farmland projects offer regular returns while we handle all farming operations.",
-    features: [
-      "Fully Managed Operations",
-      "Regular Agricultural Returns",
-      "Clear Land Titles",
-      "Water & Irrigation Setup",
-      "Plantation Support",
-      "Annual Farm Visits",
-    ],
+      "Own productive agricultural land while our experts manage operations and ensure long-term sustainability.",
+    link: "/projects?type=farmland",
+    image: "/images/services/farmland.jpg",
   },
   {
     icon: FileCheck,
-    title: "Legal Documentation Support",
+    title: "Legal & Documentation Support",
     description:
-      "Complete end-to-end legal support for all your land transactions. From title verification to registration, we ensure a hassle-free experience.",
-    features: [
-      "Title Verification",
-      "Encumbrance Certificate",
-      "Registration Assistance",
-      "Loan Documentation",
-      "Mutation Support",
-      "Legal Consultation",
-    ],
+      "Complete end-to-end assistance including title verification, registration, and compliance.",
+    link: "/contact",
+    image: "/images/services/legal.jpg",
   },
   {
     icon: Users,
-    title: "Investment Consultation",
+    title: "Investment Advisory",
     description:
-      "Expert guidance to help you make informed real estate investment decisions. We analyze markets, growth corridors, and appreciation potential.",
-    features: [
-      "Market Analysis",
-      "Growth Corridor Insights",
-      "ROI Projections",
-      "Portfolio Diversification",
-      "NRI Investment Support",
-      "Tax Planning Guidance",
-    ],
+      "Strategic guidance based on market trends, appreciation corridors, and ROI potential.",
+    link: "/contact",
+    image: "/images/services/advisory.jpg",
   },
   {
     icon: MapPin,
-    title: "Site Visits & Tours",
+    title: "Exclusive Site Visits",
     description:
-      "Experience our projects firsthand with complimentary site visits. Our team guides you through every aspect of the property and surrounding area.",
-    features: [
-      "Free Site Visits",
-      "Transportation Arranged",
-      "Expert Project Walkthrough",
-      "Surrounding Area Tour",
-      "Q&A with Sales Team",
-      "Documentation Preview",
-    ],
+      "Private guided tours with complete project walkthrough and documentation preview.",
+    link: "/contact",
+    image: "/images/services/sitevisit.jpg",
   },
   {
     icon: Briefcase,
-    title: "Post-Purchase Support",
+    title: "Post-Purchase Assistance",
     description:
-      "Our relationship doesn't end at purchase. We provide ongoing support for construction, maintenance, and any queries you may have.",
-    features: [
-      "Construction Guidance",
-      "Architect Referrals",
-      "Contractor Network",
-      "Maintenance Support",
-      "Resale Assistance",
-      "Community Updates",
-    ],
+      "Ongoing support including construction referrals, resale guidance, and portfolio management.",
+    link: "/contact",
+    image: "/images/services/support.jpg",
   },
 ];
+
 
 const Services = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Our Services - Sungraze Projects | Real Estate Services</title>
-        <meta name="description" content="Explore our comprehensive real estate services including residential plots, managed farmland, legal documentation, investment consultation, and more." />
+        <title>
+          Real Estate Services in Karnataka & Tamil Nadu | Sungraze
+        </title>
+        <meta
+          name="description"
+          content="Premium residential plots, managed farmland investments, legal documentation, and real estate advisory services by Sungraze."
+        />
+        <link rel="canonical" href="/services" />
       </Helmet>
 
-      {/* Hero */}
-      <section className="pt-32 pb-16 bg-secondary/30">
-        <div className="container">
-          <div className="max-w-3xl">
-            <span className="text-gold font-medium text-sm uppercase tracking-wider">
-              What We Offer
-            </span>
-            <h1 className="font-heading text-4xl md:text-5xl text-foreground mt-2 mb-6">
-              Comprehensive <span className="text-primary">Real Estate Services</span>
-            </h1>
-            <p className="text-muted-foreground text-lg leading-relaxed">
-              From finding the perfect plot to post-purchase support, we offer end-to-end 
-              services to make your real estate journey seamless and rewarding.
-            </p>
-          </div>
+      {/* HERO */}
+      <section className="pt-36 pb-24 bg-primary">
+        <div className="container max-w-4xl text-center">
+          <span className="uppercase tracking-widest text-gold text-sm">
+            Our Services
+          </span>
+
+          <h1 className="text-4xl md:text-5xl font-heading font-semibold mt-6 leading-tight text-primary-foreground">
+            Refined Real Estate Solutions
+            <br />
+            Built on Trust & Transparency
+          </h1>
+
+          <div className="w-20 h-1 bg-gold mx-auto my-8 rounded-full" />
+
+          <p className="text-primary-foreground text-lg leading-relaxed">
+            From land acquisition to post-purchase support, Sungraze delivers
+            seamless, legally verified and strategically positioned real estate
+            opportunities.
+          </p>
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="py-16 bg-background">
-        <div className="container">
-          <div className="grid md:grid-cols-2 gap-8">
-            {services.map((service, index) => (
+      {/* TRUST STRIP */}
+      {/* <section className="py-12 bg-background border-y">
+        <div className="container grid md:grid-cols-4 gap-6 text-center text-sm">
+          <div className="font-medium text-foreground">
+            10+ Years Market Experience
+          </div>
+          <div className="font-medium text-foreground">
+            1000+ Happy Investors
+          </div>
+          <div className="font-medium text-foreground">
+            BMRDA / DTCP Approved
+          </div>
+          <div className="font-medium text-foreground">
+            End-to-End Legal Support
+          </div>
+        </div>
+      </section> */}
+
+      {/* SERVICES GRID */}
+      <section className="py-28 bg-background">
+        <div className="container max-w-6xl space-y-32">
+          {services.map((service, index) => {
+            const Icon = service.icon;
+            const isEven = index % 2 === 0;
+          
+            return (
               <div
                 key={service.title}
-                className="bg-card rounded-2xl p-8 border border-border hover:border-gold/30 transition-all hover:shadow-elegant"
+                className="grid md:grid-cols-2 gap-16 items-center"
               >
-                <div className="w-14 h-14 rounded-xl gradient-forest flex items-center justify-center mb-6">
-                  <service.icon className="w-7 h-7 text-cream" />
+                {/* IMAGE */}
+                <div className={isEven ? "" : "md:order-2"}>
+                  <div className="relative rounded-2xl overflow-hidden group">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-[420px] object-cover group-hover:scale-105 transition duration-700"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition" />
+                  </div>
                 </div>
-                <h3 className="font-heading text-xl text-foreground mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-muted-foreground mb-6">{service.description}</p>
-                <ul className="grid grid-cols-2 gap-2">
-                  {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="w-4 h-4 text-gold flex-shrink-0" />
-                      <span className="text-foreground">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+            
+                {/* TEXT */}
+                <div>
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center">
+                      <Icon className="w-6 h-6 text-gold" />
+                    </div>
+                    <h3 className="text-2xl font-heading font-semibold">
+                      {service.title}
+                    </h3>
+                  </div>
+            
+                  <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                    {service.description}
+                  </p>
+            
+                  <Link
+                    to={service.link}
+                    className="inline-flex items-center text-primary font-medium hover:gap-3 gap-2 transition-all"
+                  >
+                    Explore
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </section>
+        
+      {/* PROCESS */}
+      {/* <section className="py-24 bg-secondary/30">
+        <div className="container max-w-5xl text-center">
+          <h2 className="text-3xl md:text-4xl font-heading font-semibold mb-16 text-foreground">
+            Our Investment Process
+          </h2>
 
-      {/* Process */}
-      <section className="py-16 bg-primary">
-        <div className="container">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-gold font-medium text-sm uppercase tracking-wider">
-              Our Process
-            </span>
-            <h2 className="font-heading text-3xl md:text-4xl text-primary-foreground mt-2">
-              How We <span className="text-gold">Work</span>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-4 gap-12">
             {[
-              { step: "01", title: "Consultation", desc: "Understand your requirements and budget" },
-              { step: "02", title: "Shortlist", desc: "Present matching projects and options" },
-              { step: "03", title: "Site Visit", desc: "Experience the property firsthand" },
-              { step: "04", title: "Documentation", desc: "Seamless registration and handover" },
-            ].map((item, index) => (
-              <div key={item.step} className="text-center relative">
-                <div className="w-16 h-16 rounded-full bg-gold text-charcoal flex items-center justify-center mx-auto mb-4 font-heading font-bold text-xl">
-                  {item.step}
+              "Consultation",
+              "Project Shortlisting",
+              "Private Site Visit",
+              "Documentation & Registration",
+            ].map((step, i) => (
+              <div key={step}>
+                <div className="text-gold text-3xl font-bold mb-4">
+                  0{i + 1}
                 </div>
-                <h3 className="font-heading font-semibold text-lg text-primary-foreground mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-primary-foreground/70 text-sm">{item.desc}</p>
-                {index < 3 && (
-                  <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-0.5 bg-primary-foreground/20" />
-                )}
+                <p className="text-muted-foreground">{step}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section> */}
+
+      {/* WHY CHOOSE US */}
+      <section className="py-24 bg-background">
+        <div className="container max-w-4xl text-center">
+          <h2 className="text-3xl md:text-4xl font-heading font-semibold mb-12 text-foreground">
+            Why Choose Sungraze
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-10 text-left">
+            {[
+              "Prime Growth Locations",
+              "Transparent Pricing",
+              "Structured Legal Framework",
+              "Dedicated Relationship Managers",
+              "Flexible Investment Options",
+              "Long-Term Wealth Focus",
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-4">
+                <CheckCircle className="text-gold mt-1" />
+                <p className="text-muted-foreground">{item}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 bg-secondary/30">
-        <div className="container">
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="font-heading text-2xl md:text-3xl text-foreground mb-4">
-              Ready to Get Started?
-            </h2>
-            <p className="text-muted-foreground mb-6">
-              Let's discuss how we can help you achieve your real estate goals.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button variant="default" size="lg" asChild>
-                <Link to="/contact">
-                  Contact Us
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link to="/projects">Browse Projects</Link>
-              </Button>
-            </div>
+      {/* FINAL CTA */}
+      <section className="py-24 bg-primary text-primary-foreground text-center">
+        <div className="container max-w-3xl">
+          <h2 className="text-3xl md:text-4xl font-heading font-semibold mb-6">
+            Begin Your Investment Journey
+          </h2>
+
+          <p className="mb-8 opacity-90">
+            Connect with our advisors to explore curated real estate
+            opportunities aligned with your long-term vision.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-6">
+            <Button size="lg" variant="secondary" asChild>
+              <Link to="/contact">Schedule Consultation</Link>
+            </Button>
+
+            <Button size="lg" variant="secondary" asChild>
+              <Link to="/projects">Explore Projects</Link>
+            </Button>
           </div>
         </div>
       </section>
