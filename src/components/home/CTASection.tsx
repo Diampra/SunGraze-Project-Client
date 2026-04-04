@@ -4,73 +4,38 @@ import { Phone, Mail, ArrowRight } from "lucide-react";
 
 export function CTASection() {
   return (
-    <section className="py-20 lg:py-28 bg-secondary/50">
+    <section className="py-32 bg-background relative overflow-hidden">
       <div className="container">
-        <div className="bg-card rounded-3xl shadow-elegant-lg overflow-hidden">
-          <div className="grid lg:grid-cols-2">
-            {/* Content */}
-            <div className="p-8 lg:p-12 xl:p-16">
-              <span className="text-gold font-medium text-sm uppercase tracking-wider">
-                Ready to Invest?
-              </span>
-              <h2 className="font-heading text-3xl md:text-4xl text-foreground mt-2 mb-4">
-                Start Your Journey with{" "}
-                <span className="text-primary">Sungraze</span>
-              </h2>
-              <p className="text-muted-foreground leading-relaxed mb-8">
-                Whether you're looking for a residential plot to build your dream home or 
-                farmland for sustainable investment, we're here to help you every step of the way.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <Button variant="default" size="lg" asChild>
-                  <Link to="/contact">
-                    Schedule a Site Visit
-                    <ArrowRight className="w-5 h-5" />
-                  </Link>
-                </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <Link to="/projects">Browse Projects</Link>
-                </Button>
-              </div>
-
-              {/* Contact Info */}
-              <div className="flex flex-col sm:flex-row gap-6">
-                <a
-                  href="tel:+919876543210"
-                  className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
-                    <Phone className="w-5 h-5 text-primary" />
-                  </div>
-                  <span className="font-medium">+91 98765 43210</span>
-                </a>
-                <a
-                  href="mailto:info@sungrazeprojects.com"
-                  className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
-                    <Mail className="w-5 h-5 text-primary" />
-                  </div>
-                  <span className="font-medium">info@sungrazeprojects.com</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Image */}
-            <div className="relative hidden lg:block">
-              <img
-                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80"
-                alt="Happy family with their new home"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 gradient-forest opacity-60" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center text-cream">
-                  <p className="text-5xl font-heading font-bold mb-2">500+</p>
-                  <p className="text-cream/80">Happy Families</p>
-                </div>
-              </div>
+        <div className="relative bg-primary rounded-[4rem] p-16 md:p-32 text-center text-white overflow-hidden shadow-3xl border border-white/10 group">
+          {/* Background Overlay */}
+          <div className="absolute inset-0 z-0 opacity-20 pointer-events-none group-hover:opacity-30 transition-opacity duration-700">
+            <img 
+              src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=1500" 
+              alt="Community Legacy" 
+              className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000"
+            />
+          </div>
+          
+          {/* Animated Accents */}
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gold/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-white/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+          
+          <div className="relative z-10">
+            <span className="inline-block px-5 py-2 rounded-full border border-white/20 bg-white/5 text-white text-[10px] font-bold uppercase tracking-[0.3em] mb-8">
+              Start Your Journey
+            </span>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-10 tracking-tight leading-none italic"> Ready to Build Your <span className="text-gold not-italic font-serif">Legacy</span>?</h2>
+            <p className="text-lg md:text-xl text-primary-foreground/80 mb-16 max-w-3xl mx-auto font-light leading-relaxed text-balance">
+              Join over 500 happy families who have secured their future with Sungraze Projects. 
+              Let's find the perfect land for your dreams.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Button size="xl" className="rounded-full bg-gold hover:bg-gold/90 text-primary shadow-2xl px-12 h-16 font-bold" asChild>
+                <Link to="/contact">Get Expert Guidance</Link>
+              </Button>
+              <Button variant="outline" size="xl" className="rounded-full border-white/30 text-white hover:bg-white/10 px-12 h-16 backdrop-blur-md" asChild>
+                <Link to="/projects">View All Projects</Link>
+              </Button>
             </div>
           </div>
         </div>

@@ -12,6 +12,8 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import ProjectSectionDetail from "./components/ProjectSectionDetail";
+import Clubhouse from "./pages/ClubHouse";
+import Farmland from "./pages/Farmland";
 
 const queryClient = new QueryClient();
 
@@ -29,10 +31,12 @@ const App = () => (
             <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/services" element={<Services />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/club-house" element={<Clubhouse />} />
+            <Route path="/farmland" element={<Farmland />} />
             <Route
-  path="/projects/:slug/:section"
-  element={<ProjectSectionDetail />}
-/>
+              path="/projects/:slug/:section"
+              element={<ProjectSectionDetail />}
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

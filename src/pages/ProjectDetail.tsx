@@ -235,9 +235,8 @@ const ProjectDetail = () => {
                   {stat.label}
                 </p>
                 <p
-                  className={`text-base font-semibold ${
-                    stat.highlight ? "text-primary text-lg" : ""
-                  }`}
+                  className={`text-base font-semibold ${stat.highlight ? "text-primary text-lg" : ""
+                    }`}
                 >
                   {stat.value}
                 </p>
@@ -285,11 +284,11 @@ const ProjectDetail = () => {
                     Sungraze Experiences
                   </h2>
                   <p className="text-muted-foreground text-[15px] max-w-xl">
-                    Discover holistic living, nature, wellness and recreation — all within one integrated community.
+                    Discover holistic living, nature, wellness and recreation - all within one integrated community.
                   </p>
                 </div>
 
-                {/* Experience Cards — editorial 2-col grid */}
+                {/* Experience Cards - editorial 2-col grid */}
                 <div className="grid md:grid-cols-2 gap-6">
                   {farmlandSections.map((section, i) => (
                     <div
@@ -383,11 +382,10 @@ const ProjectDetail = () => {
                                 <button
                                   key={tab.key}
                                   onClick={() => setActiveTab(tab.key)}
-                                  className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                                    activeTab === tab.key
+                                  className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${activeTab === tab.key
                                       ? "bg-primary text-primary-foreground shadow-sm"
                                       : "bg-secondary text-secondary-foreground hover:bg-secondary/70"
-                                  }`}
+                                    }`}
                                 >
                                   {tab.label}
                                 </button>
@@ -460,9 +458,8 @@ const ProjectDetail = () => {
                   {project.gallery.map((img, i) => (
                     <div
                       key={img}
-                      className={`overflow-hidden rounded-lg ${
-                        i === 0 ? "col-span-2 row-span-2" : ""
-                      }`}
+                      className={`overflow-hidden rounded-lg ${i === 0 ? "col-span-2 row-span-2" : ""
+                        }`}
                       style={{ aspectRatio: i === 0 ? "16/10" : "4/3" }}
                     >
                       <img

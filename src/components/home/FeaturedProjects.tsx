@@ -25,85 +25,71 @@ export function FeaturedProjects() {
   const featuredProjects = projects.slice(0, 3);
 
   return (
-    <section className="py-20 lg:py-28 bg-secondary/50">
+    <section className="py-32 bg-secondary/20 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2" />
       <div className="container">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div>
-            <span className="text-gold font-medium text-sm uppercase tracking-wider">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-20">
+          <div className="max-w-2xl">
+            <span className="inline-block px-5 py-2 rounded-full border border-gold bg-gold/10 text-gold text-xs font-bold uppercase tracking-[0.2em] mb-6 shadow-sm">
               Our Projects
             </span>
-            <h2 className="font-heading text-3xl md:text-4xl text-foreground mt-2">
-              Featured <span className="text-primary">Developments</span>
+            <h2 className="font-heading text-3xl md:text-4xl text-foreground leading-none tracking-tight">
+              Featured <span className="text-primary italic font-serif">Developments</span>
             </h2>
-            <p className="text-muted-foreground mt-3 max-w-xl">
+            <p className="text-muted-foreground mt-6 text-lg font-light leading-relaxed">
               Explore our carefully curated selection of residential plots and farmland 
               projects across Karnataka and Tamil Nadu.
             </p>
           </div>
-          <Button variant="outline" asChild>
+          <Button variant="outline" size="xl" className="rounded-full border-primary/20 text-primary hover:bg-primary/5 px-10" asChild>
             <Link to="/projects">
-              View All Projects
-              <ArrowRight className="w-4 h-4" />
+              View Portfolio
+              <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
           </Button>
         </div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {featuredProjects.map((project) => (
             <Link
               key={project.id}
               to={`/projects/${project.id}`}
-              className="group bg-card rounded-2xl overflow-hidden shadow-elegant card-hover"
+              className="group bg-white rounded-[2.5rem] overflow-hidden shadow-elegant border border-border/50 hover:shadow-2xl transition-all duration-700 relative"
             >
-              {/* Image */}
-              <div className="relative aspect-[4/3] overflow-hidden">
+              {/* Image Container */}
+              <div className="relative aspect-[4/5] overflow-hidden">
                 <img
                   src={getProjectImage(project.type)}
                   alt={project.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
                 
-                {/* Badges */}
-                <div className="absolute top-4 left-4 flex gap-2">
-                  <Badge variant="secondary" className={statusColors[project.status]}>
-                    {project.status.charAt(0).toUpperCase() + project.status.slice(1)}
-                  </Badge>
-                  <Badge variant="secondary">
-                    {typeLabels[project.type]}
-                  </Badge>
-                </div>
-
-                {/* Price */}
-                <div className="absolute bottom-4 left-4">
-                  <p className="text-cream font-heading font-semibold text-lg">
-                    {project.priceRange}
-                  </p>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="font-heading font-semibold text-xl text-foreground group-hover:text-primary transition-colors">
-                  {project.name}
-                </h3>
-                <p className="text-muted-foreground text-sm mt-1 mb-3">
-                  {project.tagline}
-                </p>
-                <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                  <MapPin className="w-4 h-4 text-gold" />
-                  <span>{project.location}</span>
-                </div>
-                <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
-                  <div>
-                    <p className="text-xs text-muted-foreground">Plot Sizes</p>
-                    <p className="text-sm font-medium text-foreground">{project.plotSizes}</p>
+                {/* Status Badge */}
+                <div className="absolute top-6 left-6 flex flex-col gap-2">
+                  <div className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest border backdrop-blur-md ${statusColors[project.status]}`}>
+                    {project.status === "ongoing" ? "Developing" : project.status.charAt(0).toUpperCase() + project.status.slice(1)}
                   </div>
-                  <div className="text-right">
-                    <p className="text-xs text-muted-foreground">Total Plots</p>
-                    <p className="text-sm font-medium text-foreground">{project.totalPlots}</p>
+                  <div className="px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] font-bold uppercase tracking-widest">
+                    {typeLabels[project.type]}
+                  </div>
+                </div>
+
+                {/* Price Label Overlay */}
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-white/80 text-xs font-bold uppercase tracking-widest mb-1">{project.location}</p>
+                  <h3 className="text-white text-2xl font-heading font-bold tracking-tight mb-4 group-hover:text-gold transition-colors">
+                    {project.name}
+                  </h3>
+                  <div className="flex items-center justify-between">
+                    <div className="px-4 py-2 bg-gold/90 text-primary font-bold rounded-xl text-sm shadow-xl">
+                      {project.priceRange}
+                    </div>
+                    <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/30 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
+                      <ArrowRight className="w-5 h-5" />
+                    </div>
                   </div>
                 </div>
               </div>

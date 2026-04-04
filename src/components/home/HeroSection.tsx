@@ -64,10 +64,10 @@ export function HeroSection() {
           {/* Badge */}
           <motion.div
             variants={fadeUp}
-            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 mb-6 border border-white/20"
+            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-5 py-2.5 mb-8 border border-white/20"
           >
             <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
-            <span className="text-white/90 text-sm font-medium">
+            <span className="text-white/90 text-xs font-bold uppercase tracking-[0.2em]">
               Projects Across Karnataka & Tamil Nadu
             </span>
           </motion.div>
@@ -75,19 +75,19 @@ export function HeroSection() {
           {/* Headline */}
           <motion.h1
             variants={fadeUp}
-            className="font-heading text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-6"
+            className="font-heading text-3xl md:text-4xl lg:text-5xl text-white leading-tight mb-8 drop-shadow-2xl"
           >
             Premium Farmland & Residential Projects{" "}
-            <span className="text-gradient-gold">You Can Trust</span>
+            <span className="text-gradient-gold italic font-serif">You Can Trust</span>
           </motion.h1>
 
           {/* Subheading */}
           <motion.p
             variants={fadeUp}
-            className="text-white/80 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl"
+            className="text-white/80 text-base md:text-lg leading-relaxed mb-12 max-w-2xl font-light"
           >
             Discover transparent, legally-compliant farmland and residential
-            plotting opportunities. Build your future with Sungraze Projects —
+            plotting opportunities. Build your future with Sungraze Projects -
             where trust meets growth.
           </motion.p>
 

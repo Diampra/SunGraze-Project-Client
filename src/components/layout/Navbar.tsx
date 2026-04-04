@@ -15,7 +15,9 @@ const navLinks = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
   { name: "Projects", path: "/projects" },
-  { name: "Services", path: "/services" },
+  { name: "Club House", path: "/club-house" },
+  { name: "Farmland", path: "/farmland" },
+  // { name: "Services", path: "/services" },
   { name: "Contact", path: "/contact" },
 ];
 
@@ -42,11 +44,11 @@ export function Navbar() {
       )}
     >
       <div className="container flex items-center justify-between">
-        
+
         {/* Logo Section */}
         <Link to="/" className="flex items-center gap-3">
           <img
-            src="/assets/logo.png"
+            src="/assets/sungraze_logo.png"
             alt="Sungraze Projects Logo"
             className="h-12 w-auto object-contain"
           />
