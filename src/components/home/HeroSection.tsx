@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin, Shield, TrendingUp } from "lucide-react";
+import clubhouseImage from "@/assets/clubhouse-1.png";
+import farmlandImage from "@/assets/farmland-1.png";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import heroFallback from "@/assets/hero-farmland.jpg";
+import { useEffect, useRef, useState } from "react";
 
 const stats = [
   { icon: MapPin, value: "2", label: "States" },
@@ -18,6 +19,7 @@ const fadeUp = {
 
 export function HeroSection() {
   const [offsetY, setOffsetY] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // PARALLAX SCROLL LISTENER
   useEffect(() => {
@@ -29,28 +31,38 @@ export function HeroSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // PLAY VIDEO ON LOAD
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch((error) => {
+        console.log("Video autoplay failed:", error);
+      });
+    }
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
 
       {/* Video Background with Parallax */}
       <div className="absolute inset-0 overflow-hidden">
         <video
-          autoPlay
+          ref={videoRef}
           loop
           muted
           playsInline
           className="w-full h-full object-cover will-change-transform"
-          poster={heroFallback}
+          onCanPlay={() => videoRef.current?.play()}
+          onError={(e) => console.log("Video load error:", e)}
           style={{
             transform: `translateY(${offsetY}px)`,    // PARALLAX EFFECT
             transition: "transform 0.1s linear",
           }}
         >
-          <source src="/videos/hero.mp4" type="video/mp4" />
+          <source src="/assets/hero_video.mp4" type="video/mp4" />
         </video>
 
         {/* Overlay */}
-        <div className="absolute inset-0 bg-black/50 md:bg-black/40 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-black/50 md:bg-black/50" />
       </div>
 
       {/* Content */}

@@ -5,15 +5,6 @@ import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Waves, Music, Utensils, Zap, Users, X, Maximize2 } from "lucide-react";
-import clubhouse1 from "@/assets/clubhouse-1.png";
-import clubhouse2 from "@/assets/clubhouse-2.png";
-import clubhouseExtDay from "@/assets/clubhouse-ext-day.png";
-import clubhouseExtTwilight from "@/assets/clubhouse-ext-twilight.png";
-import clubhouseReception from "@/assets/clubhouse-reception.png";
-import clubhouseRooms from "@/assets/clubhouse-rooms.png";
-import clubhouseBanquet from "@/assets/clubhouse-banquet.png";
-import clubhouseRestaurant from "@/assets/clubhouse-restaurant.png";
-import clubhouseFacilities from "@/assets/clubhouse-facilities.png";
 
 const CATEGORIES = [
   "All Photos",
@@ -41,32 +32,36 @@ const Clubhouse = () => {
 
   const galleryItems = [
     // Reception And Lobby
-    { src: clubhouseReception, alt: "Grand Entrance Lobby", category: "Reception And Lobby", span: "md:col-span-2 md:row-span-2" },
-    { src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=1000", alt: "Minimalist Reception", category: "Reception And Lobby", span: "col-span-1 row-span-1" },
-    { src: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&q=80&w=1000", alt: "Premium Lounge", category: "Reception And Lobby", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/reception-desk.webp", alt: "Grand Entrance Lobby", category: "Reception And Lobby", span: "md:col-span-2 md:row-span-2" },
+    { src: "/assets/club-house/lobby-balcony-view.webp", alt: "Lobby Balcony View", category: "Reception And Lobby", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/restaurant-entrance-1.webp", alt: "Reception Entrance", category: "Reception And Lobby", span: "col-span-1 row-span-1" },
 
     // Rooms
-    { src: clubhouseRooms, alt: "Luxury Clubhouse Suite", category: "Rooms", span: "md:col-span-1 md:row-span-2" },
-    { src: "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=1000", alt: "Modern Guest Room", category: "Rooms", span: "col-span-1 row-span-1" },
-    { src: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&q=80&w=1000", alt: "Suite Interior", category: "Rooms", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/room-deluxe-interior.webp", alt: "Deluxe Room Interior", category: "Rooms", span: "md:col-span-1 md:row-span-2" },
+    { src: "/assets/club-house/room-premium-double.webp", alt: "Premium Double Room", category: "Rooms", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/room-suite-bedroom.webp", alt: "Suite Bedroom", category: "Rooms", span: "col-span-1 row-span-1" },
 
     // Banquet
-    { src: clubhouseBanquet, alt: "Grand Banquet Hall", category: "Banquet", span: "md:col-span-2 md:row-span-1" },
-    { src: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=1000", alt: "Event Space", category: "Banquet", span: "col-span-1 row-span-1" },
-    { src: "https://images.unsplash.com/photo-1543157145-f78c636d023d?auto=format&fit=crop&q=80&w=1000", alt: "Ceiling Details", category: "Banquet", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/banquet-boardroom.webp", alt: "Boardroom Banquet", category: "Banquet", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/banquet-conference-hall.webp", alt: "Conference Hall", category: "Banquet", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/banquet-exterior-view.webp", alt: "Banquet Exterior View", category: "Banquet", span: "md:col-span-2 md:row-span-1" },
+    { src: "/assets/club-house/banquet-poolside-lounge.webp", alt: "Poolside Banquet Lounge", category: "Banquet", span: "col-span-1 row-span-1" },
 
     // Restaurant
-    { src: clubhouseRestaurant, alt: "Fine Dining Area", category: "Restaurant", span: "md:col-span-1 md:row-span-1" },
-    { src: "https://images.unsplash.com/photo-1550966842-28c4608c6978?auto=format&fit=crop&q=80&w=1000", alt: "Clubhouse Cafe", category: "Restaurant", span: "col-span-1 row-span-1" },
-    { src: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&q=80&w=1000", alt: "Bar & Drinks", category: "Restaurant", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/restaurant-fine-dining.webp", alt: "Fine Dining Area", category: "Restaurant", span: "md:col-span-1 md:row-span-1" },
+    { src: "/assets/club-house/restaurant-cafe-interior.webp", alt: "Cafe Interior", category: "Restaurant", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/restaurant-indoor-dining.webp", alt: "Indoor Dining", category: "Restaurant", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/restaurant-terrace-dining.webp", alt: "Terrace Dining", category: "Restaurant", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/restaurant-table-setup.webp", alt: "Table Setup", category: "Restaurant", span: "col-span-1 row-span-1" },
 
     // Facilities
-    { src: clubhouseFacilities, alt: "Luxury Spa", category: "Facilities", span: "md:col-span-1 md:row-span-1" },
-    { src: clubhouseExtDay, alt: "Infinity Pool View", category: "Facilities", span: "md:col-span-2 md:row-span-1" },
-    { src: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1000", alt: "Fitness Center", category: "Facilities", span: "col-span-1 row-span-1" },
-    { src: clubhouseExtTwilight, alt: "Night Architecture", category: "Facilities", span: "col-span-1 row-span-1" },
-    { src: clubhouse1, alt: "The Grand Clubhouse", category: "Facilities", span: "col-span-1 row-span-1" },
-    { src: clubhouse2, alt: "Interior Details", category: "Facilities", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/facility-landscape-view.webp", alt: "Landscape View", category: "Facilities", span: "md:col-span-1 md:row-span-1" },
+    { src: "/assets/club-house/facility-garden-pathway.webp", alt: "Garden Pathway", category: "Facilities", span: "md:col-span-2 md:row-span-1" },
+    { src: "/assets/club-house/facility-clubhouse-exterior.webp", alt: "Clubhouse Exterior", category: "Facilities", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/facility-clubhouse-night-view.webp", alt: "Night View", category: "Facilities", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/facility-kids-play-zone.webp", alt: "Kids Play Zone", category: "Facilities", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/facility-childrens-park.webp", alt: "Children's Park", category: "Facilities", span: "col-span-1 row-span-1" },
+    { src: "/assets/club-house/facility-billiards-room.webp", alt: "Billiards Room", category: "Facilities", span: "col-span-1 row-span-1" },
   ];
 
   const filteredItems = activeCategory === "All Photos"
@@ -92,14 +87,14 @@ const Clubhouse = () => {
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={clubhouseExtDay}
+            src="/assets/club-house/facility-clubhouse-exterior.webp"
             alt="Premium Clubhouse"
             className="w-full h-full object-cover transition-transform duration-1000 scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/80" />
         </div>
 
-        <div className="container relative z-10 text-center text-white mt-10">
+        <div className="container relative z-10 text-center text-white mt-20">
           <motion.div {...animations.fadeIn}>
             <span className="inline-block px-4 py-1.5 rounded-full bg-gold text-primary-foreground text-[10px] font-bold mb-6 uppercase tracking-[0.2em] shadow-xl">
               Architecture & Lifestyle
@@ -254,7 +249,7 @@ const Clubhouse = () => {
 
             <div className="relative">
               <img
-                src={clubhouse2}
+                src="/assets/club-house/banquet-poolside-lounge.webp"
                 className="rounded-[2.5rem] shadow-2xl relative z-10"
                 alt="Clubhouse Lounge"
               />
@@ -275,7 +270,7 @@ const Clubhouse = () => {
                   <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[15px] border-l-white border-b-[8px] border-b-transparent ml-1" />
                 </button>
               </div>
-              <img src={clubhouse1} className="w-full h-full object-cover opacity-60" alt="Video Placeholder" />
+              <img src="/assets/club-house/restaurant-lifestyle-shot.webp" className="w-full h-full object-cover opacity-60" alt="Video Placeholder" />
               <div className="absolute bottom-0 inset-x-0 p-8 bg-gradient-to-t from-black/80 to-transparent pt-16">
                 <p className="text-base font-medium">Watch the virtual tour of The Grand Clubhouse</p>
               </div>

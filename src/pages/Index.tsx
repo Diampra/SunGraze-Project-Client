@@ -2,6 +2,8 @@ import { Layout } from "@/components/layout/Layout";
 import { HeroSection } from "@/components/home/HeroSection";
 import { AboutPreview } from "@/components/home/AboutPreview";
 import { FeaturedProjects } from "@/components/home/FeaturedProjects";
+import { HeroClubhouseCard } from "@/components/home/HeroClubhouseCard";
+import { HeroFarmlandCard } from "@/components/home/HeroFarmlandCard";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { CTASection } from "@/components/home/CTASection";
 import { Helmet } from "react-helmet-async";
@@ -18,6 +20,8 @@ const Index = () => {
       </Helmet>
       
       <HeroSection />
+      <HeroClubhouseCard />
+      <HeroFarmlandCard />
       <AboutPreview />
       <FeaturedProjects />
       <WhyChooseUs />

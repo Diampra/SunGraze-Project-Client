@@ -24,7 +24,7 @@ export function AboutPreview() {
                   <img
                     src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80"
                     alt="Modern residential development"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                    className="w-full h-full object-cover transition-all duration-700"
                   />
                 </div>
               </div>
@@ -33,7 +33,7 @@ export function AboutPreview() {
                   <img
                     src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80"
                     alt="Lush farmland landscape"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                    className="w-full h-full object-cover transition-all duration-700"
                   />
                 </div>
               </div>
