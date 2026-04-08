@@ -297,7 +297,7 @@ const Projects = () => {
           <div className="bg-secondary/30 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden group border border-border">
             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-5xl font-heading font-bold mb-8 italic tracking-tighter leading-none">Ready to Build Your <span className="text-primary italic font-serif not-italic">Legacy</span>?</h2>
+              <h2 className="text-3xl md:text-5xl font-heading font-bold mb-8 italic tracking-tighter leading-none">Ready to Build Your <span className="text-primary font-serif not-italic">Legacy</span>?</h2>
               <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto font-light leading-relaxed text-balance">
                 Connecting you with verified investment opportunities. Connect with our advisors today or schedule a visit.
               </p>

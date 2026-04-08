@@ -3,8 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, MapPin } from "lucide-react";
 import { projects } from "@/data/projects";
-import projectResidential from "@/assets/project-residential.jpg";
-import projectFarmland from "@/assets/project-farmland.jpg";
 
 const statusColors = {
   completed: "bg-green-100 text-green-800 border-green-200",
@@ -17,12 +15,11 @@ const typeLabels = {
   farmland: "Farmland",
 };
 
-function getProjectImage(type: string) {
-  return type === "farmland" ? projectFarmland : projectResidential;
-}
-
 export function FeaturedProjects() {
-  const featuredProjects = projects.slice(0, 3);
+// Show 2 farmland + 2 residential (4 cards total)
+const farmlandProjects = projects.filter((p) => p.type === "farmland").slice(0, 2);
+const residentialProjects = projects.filter((p) => p.type === "residential").slice(0, 2);
+const featuredProjects = [...farmlandProjects, ...residentialProjects];
 
   return (
     <section className="py-32 bg-secondary/20 relative overflow-hidden">
@@ -38,8 +35,8 @@ export function FeaturedProjects() {
               Featured <span className="text-primary italic font-serif">Developments</span>
             </h2>
             <p className="text-muted-foreground mt-6 text-lg font-light leading-relaxed">
-              Explore our carefully curated selection of residential plots and farmland 
-              projects across Karnataka and Tamil Nadu.
+              Explore our premium selections: one exceptional farmland investment and one residential community 
+              from our best-performing projects across Karnataka and Tamil Nadu.
             </p>
           </div>
           <Button variant="outline" size="xl" className="rounded-full border-primary/20 text-primary hover:bg-primary/5 px-10" asChild>
@@ -51,17 +48,17 @@ export function FeaturedProjects() {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {featuredProjects.map((project) => (
             <Link
               key={project.id}
-              to={`/projects/${project.id}`}
+              to={`/projects/${project.slug}`}
               className="group bg-white rounded-[2.5rem] overflow-hidden shadow-elegant border border-border/50 hover:shadow-2xl transition-all duration-700 relative"
             >
               {/* Image Container */}
               <div className="relative aspect-[4/5] overflow-hidden">
                 <img
-                  src={getProjectImage(project.type)}
+                  src={project.image}
                   alt={project.name}
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />

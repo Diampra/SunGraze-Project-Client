@@ -23,115 +23,46 @@ const ProjectDetail = () => {
   const [activeTab, setActiveTab] = useState<string | null>(null);
   const detailsRef = useRef<HTMLDivElement | null>(null);
 
-  const farmlandSections = [
-    {
-      slug: "farm-land",
-      title: "Farm Land",
-      subtitle: "Sustainable Agriculture",
-      image: "/farmland.jpg",
-      tabs: [
-        {
-          key: "overview",
-          label: "Overview",
-          content:
-            "The Sungraze farmland is mainly built for land cultivation and producing variety of crops in one common place.",
-        },
-        {
-          key: "plantation",
-          label: "Plantation",
-          content:
-            "Mango, Coconut and mixed fruit plantations are cultivated using sustainable methods.",
-        },
-        {
-          key: "irrigation",
-          label: "Irrigation",
-          content:
-            "Advanced drip irrigation system ensures water efficiency and healthy crop growth.",
-        },
-      ],
-    },
-    {
-      slug: "club-house",
-      title: "Club House",
-      subtitle: "Leisure & Events",
-      image: "/clubhouse.jpg",
-      tabs: [
-        {
-          key: "overview",
-          label: "Overview",
-          content:
-            "The Club at SUNGRAZE Farms is spread over 6 acres and perfectly blended with nature.",
-        },
-        {
-          key: "events",
-          label: "Events",
-          content:
-            "Preferred venue for mega events, celebrations and social gatherings.",
-        },
-        {
-          key: "recreation",
-          label: "Recreation",
-          content:
-            "Indoor & outdoor leisure facilities for relaxation and recreation.",
-        },
-      ],
-    },
-    {
-      slug: "naturopathy",
-      title: "Naturopathy",
-      subtitle: "Holistic Wellness",
-      image: "/naturopathy.jpg",
-      tabs: [
-        {
-          key: "mud-bath",
-          label: "Mud Bath",
-          content:
-            "Mud therapy helps detoxify the body and relax the nervous system.",
-        },
-        {
-          key: "shiro-dhara",
-          label: "Shiro Dhara",
-          content: "Traditional Ayurvedic therapy to calm the mind and body.",
-        },
-        {
-          key: "massage",
-          label: "Herbal Massage",
-          content:
-            "Therapeutic herbal massage for rejuvenation and healing.",
-        },
-      ],
-    },
-    {
-      slug: "spiritual-retreat",
-      title: "Spiritual Retreat",
-      subtitle: "Mind & Soul",
-      image: "/spiritual.jpg",
-      tabs: [
-        {
-          key: "yoga",
-          label: "Yoga",
-          content:
-            "Daily yoga sessions to enhance physical and mental balance.",
-        },
-        {
-          key: "meditation",
-          label: "Meditation",
-          content: "Guided meditation to reconnect with inner peace.",
-        },
-        {
-          key: "retreat",
-          label: "Retreat",
-          content: "A peaceful getaway to leave daily stress behind.",
-        },
-      ],
-    },
-  ];
+  const farmlandPhase = slug === "sungraze-farms-phase-2" ? "farmland-phase-2" : "farmland-phase-1";
 
   if (!project) return <Navigate to="/projects" replace />;
 
   const relatedProjects = projects
     .filter((p) => p.type === project.type && p.slug !== project.slug)
     .slice(0, 3);
+
+  // Dynamically generate sections from related projects or featured developments
+  const featuredDevelopmentSections = relatedProjects.slice(0, 2).map((p, index) => ({
+    slug: p.slug,
+    title: p.name,
+    subtitle: p.tagline,
+    image: p.image,
+    tabs: [
+      {
+        key: "overview",
+        label: "Overview",
+        content: p.description.slice(0, 200) + "...",
+      },
+      {
+        key: "location",
+        label: "Location",
+        content: `Located at ${p.location} in ${p.region}. This project offers excellent connectivity and modern amenities for your needs.`,
+      },
+      {
+        key: "amenities",
+        label: "Amenities",
+        content: p.amenities.slice(0, 5).join(", ") + (p.amenities.length > 5 ? ", and more." : "."),
+      },
+    ],
+  }));
+
+  const farmlandSections = [
+    ...featuredDevelopmentSections,
+  ];
+
+  const residentialSections = [
+    ...featuredDevelopmentSections,
+  ];
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -269,68 +200,70 @@ const ProjectDetail = () => {
               </p>
             </div>
 
-            {/* Farmland Experience Section */}
-            {project.type === "farmland" && (
+            {/* Project Experience Section */}
+            {(project.type === "farmland" || project.type === "residential") && (
               <div className="space-y-12">
                 {/* Section Header */}
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <span className="w-8 h-px bg-primary" />
                     <span className="text-xs uppercase tracking-widest text-primary font-semibold">
-                      Experiences
+                      Featured
                     </span>
                   </div>
                   <h2 className="text-3xl md:text-4xl font-heading font-semibold">
-                    Sungraze Experiences
+                    Featured Developments
                   </h2>
                   <p className="text-muted-foreground text-[15px] max-w-xl">
-                    Discover holistic living, nature, wellness and recreation - all within one integrated community.
+                    Explore our other premium projects in {project.type === "farmland" ? "farmland and agriculture" : "residential communities"} that share the same commitment to quality and innovation.
                   </p>
                 </div>
 
                 {/* Experience Cards - editorial 2-col grid */}
                 <div className="grid md:grid-cols-2 gap-6">
-                  {farmlandSections.map((section, i) => (
-                    <div
-                      key={section.slug}
-                      className="group relative rounded-xl overflow-hidden cursor-pointer"
-                      style={{ aspectRatio: i === 0 ? "16/10" : "4/3" }}
-                    >
-                      <img
-                        src={section.image}
-                        alt={section.title}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      {/* Gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  {(project.type === "farmland" ? farmlandSections : residentialSections).map(
+                    (section, i) => (
+                      <div
+                        key={section.slug}
+                        className="group relative rounded-xl overflow-hidden cursor-pointer"
+                        style={{ aspectRatio: i === 0 ? "16/10" : "4/3" }}
+                      >
+                        <img
+                          src={section.image}
+                          alt={section.title}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        {/* Gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                      {/* Content */}
-                      <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                        <p className="text-xs uppercase tracking-widest text-white/60 mb-1 font-medium">
-                          {section.subtitle}
-                        </p>
-                        <h3 className="text-xl font-semibold text-white mb-4">
-                          {section.title}
-                        </h3>
-                        <button
-                          onClick={() => {
-                            setActiveSection(section.slug);
-                            setActiveTab(section.tabs[0].key);
-                            setTimeout(() => {
-                              detailsRef.current?.scrollIntoView({
-                                behavior: "smooth",
-                                block: "start",
-                              });
-                            }, 100);
-                          }}
-                          className="self-start flex items-center gap-2 text-sm text-white border border-white/40 hover:border-white hover:bg-white hover:text-black px-4 py-2 rounded-full transition-all duration-200"
-                        >
-                          Explore
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
+                        {/* Content */}
+                        <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                          <p className="text-xs uppercase tracking-widest text-white/60 mb-1 font-medium">
+                            {section.subtitle}
+                          </p>
+                          <h3 className="text-xl font-semibold text-white mb-4">
+                            {section.title}
+                          </h3>
+                          <button
+                            onClick={() => {
+                              setActiveSection(section.slug);
+                              setActiveTab(section.tabs[0].key);
+                              setTimeout(() => {
+                                detailsRef.current?.scrollIntoView({
+                                  behavior: "smooth",
+                                  block: "start",
+                                });
+                              }, 100);
+                            }}
+                            className="self-start flex items-center gap-2 text-sm text-white border border-white/40 hover:border-white hover:bg-white hover:text-black px-4 py-2 rounded-full transition-all duration-200"
+                          >
+                            Explore
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  )}
                 </div>
 
                 {/* Active Detail Panel */}
@@ -340,7 +273,7 @@ const ProjectDetail = () => {
                     className="scroll-mt-32 rounded-2xl overflow-hidden border bg-card shadow-lg"
                   >
                     {(() => {
-                      const section = farmlandSections.find(
+                      const section = (project.type === "farmland" ? farmlandSections : residentialSections).find(
                         (s) => s.slug === activeSection
                       );
                       if (!section) return null;
