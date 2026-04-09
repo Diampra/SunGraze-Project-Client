@@ -253,73 +253,151 @@ const About = () => {
         </div>
       </section>
 
-      {/* VALUES GRID */}
-      <section className="py-20 bg-secondary/10 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2" />
-        <div className="container">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <Badge text="Our DNA" />
-            <h2 className="text-2xl md:text-4xl font-heading font-bold text-foreground mt-4 leading-none tracking-tight italic">
-              Values That <span className="text-primary not-italic">Define Us</span>
-            </h2>
-          </div>
+      {/* VALUES GRID - OUR DNA */}
+      <section className="py-32 bg-gradient-to-br from-background via-secondary/5 to-primary/5 relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] translate-x-1/2 translate-y-1/2" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-gold/3 via-transparent to-transparent rounded-full" />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="container relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-center max-w-4xl mx-auto mb-20"
+          >
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-gold/10 to-primary/10 border border-gold/20 backdrop-blur-sm mb-8">
+              <Sparkles className="w-5 h-5 text-gold" />
+              <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold">Our DNA</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-heading font-bold text-foreground mb-6 leading-none tracking-tight">
+              Values That <span className="text-primary italic font-serif bg-gradient-to-r from-primary to-gold bg-clip-text text-transparent">Define Us</span>
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed max-w-2xl mx-auto">
+              Every decision, every project, every relationship is guided by these core principles that have shaped our decade-long journey.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, idx) => (
               <motion.div
                 key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                className="bg-white/50 backdrop-blur-md p-8 rounded-[2rem] border border-border group hover:bg-primary hover:text-white transition-all duration-500 cursor-default"
+                initial={{ opacity: 0, y: 40, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: idx * 0.15, duration: 0.6 }}
+                className="group relative"
               >
-                <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center mb-6 group-hover:bg-gold transition-colors duration-500 shadow-inner">
-                  <value.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-all duration-500" />
+                {/* Card background with gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/60 to-white/40 backdrop-blur-xl rounded-[2.5rem] border border-white/20 shadow-2xl group-hover:shadow-gold/20 transition-all duration-700" />
+
+                {/* Hover effect overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-primary/5 rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                {/* Content */}
+                <div className="relative p-8 h-full flex flex-col">
+                  {/* Icon with animated background */}
+                  <div className="relative mb-8">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gold/20 to-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                      <value.icon className="w-8 h-8 text-primary group-hover:text-gold transition-colors duration-500" />
+                    </div>
+                    {/* Floating accent */}
+                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-gold rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+
+                  <h3 className="text-2xl font-heading font-bold mb-4 tracking-tight group-hover:text-primary transition-colors duration-500">
+                    {value.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed flex-grow group-hover:text-foreground/80 transition-colors duration-500">
+                    {value.description}
+                  </p>
+
+                  {/* Bottom accent line */}
+                  <div className="mt-6 h-1 bg-gradient-to-r from-gold to-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
-                <h3 className="text-xl font-heading font-bold mb-3 tracking-tight">{value.title}</h3>
-                <p className="text-muted-foreground text-xs leading-relaxed group-hover:text-white/80 transition-colors">
-                  {value.description}
-                </p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CORE IDENTITY */}
-      <section className="py-24 bg-background">
-        <div className="container">
-          <div className="grid md:grid-cols-2 gap-8">
+      {/* CORE IDENTITY - MISSION & VISION */}
+      <section className="py-32 bg-gradient-to-b from-background to-secondary/10 relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute top-1/4 left-0 w-[300px] h-[300px] bg-gold/5 rounded-full blur-[80px]" />
+        <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px]" />
+
+        <div className="container relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-center max-w-3xl mx-auto mb-20"
+          >
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-primary/10 to-gold/10 border border-primary/20 backdrop-blur-sm mb-8">
+              <Target className="w-5 h-5 text-primary" />
+              <span className="text-sm font-bold uppercase tracking-[0.2em] text-primary">Core Identity</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-heading font-bold text-foreground mb-6 leading-none tracking-tight">
+              Our <span className="text-gold italic font-serif bg-gradient-to-r from-gold to-primary bg-clip-text text-transparent">Purpose</span> & Direction
+            </h2>
+            <p className="text-lg text-muted-foreground font-light leading-relaxed">
+              What drives us forward and where we're headed as a company.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
+            {/* Mission Card */}
             <motion.div
-              whileInView={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 40 }}
-              className="bg-primary p-12 md:p-16 rounded-[3rem] text-white relative overflow-hidden group border border-white/10"
+              initial={{ opacity: 0, x: -50, scale: 0.95 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              className="group relative"
             >
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-gold/10 rounded-full blur-[70px] pointer-events-none" />
-              <div className="relative z-10">
-                <Target className="w-10 h-10 text-gold mb-8 group-hover:scale-110 transition-transform" />
-                <h3 className="text-3xl font-heading font-bold mb-6 italic tracking-tighter">Our Mission</h3>
-                <p className="text-primary-foreground/80 text-lg leading-relaxed font-light">
-                  To democratize land ownership by providing transparent,
-                  legally-compliant, and high-quality solutions.
+              <div className="absolute inset-0 bg-gradient-to-br from-gold/20 via-gold/10 to-transparent rounded-[3rem] blur-xl group-hover:blur-2xl transition-all duration-700" />
+              <div className="relative bg-gradient-to-br from-gold/10 via-white/80 to-gold/5 backdrop-blur-xl p-12 lg:p-16 rounded-[3rem] border border-gold/20 shadow-2xl group-hover:shadow-gold/30 transition-all duration-700">
+                <div className="flex items-center gap-6 mb-8">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gold to-gold/80 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
+                    <Target className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-heading font-bold text-foreground tracking-tight">Our Mission</h3>
+                    <div className="w-12 h-1 bg-gold rounded-full mt-2" />
+                  </div>
+                </div>
+                <p className="text-muted-foreground text-lg leading-relaxed font-light">
+                  To democratize land ownership by providing transparent, legally-compliant, and high-quality solutions that empower families and investors to build their future with confidence and peace of mind.
                 </p>
+                <div className="mt-8 flex items-center gap-2 text-gold font-semibold">
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+                  <span className="text-sm uppercase tracking-[0.1em]">Guiding Every Step</span>
+                </div>
               </div>
             </motion.div>
 
+            {/* Vision Card */}
             <motion.div
-              whileInView={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 40 }}
-              transition={{ delay: 0.1 }}
-              className="bg-secondary/30 p-12 md:p-16 rounded-[3rem] border border-border relative overflow-hidden group"
+              initial={{ opacity: 0, x: 50, scale: 0.95 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="group relative"
             >
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] bg-primary/5 rounded-full blur-[70px] pointer-events-none" />
-              <div className="relative z-10">
-                <Eye className="w-10 h-10 text-primary mb-8 group-hover:scale-110 transition-transform" />
-                <h3 className="text-3xl font-heading font-bold mb-6 italic tracking-tighter">Our Vision</h3>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent rounded-[3rem] blur-xl group-hover:blur-2xl transition-all duration-700" />
+              <div className="relative bg-gradient-to-br from-primary/10 via-white/80 to-primary/5 backdrop-blur-xl p-12 lg:p-16 rounded-[3rem] border border-primary/20 shadow-2xl group-hover:shadow-primary/30 transition-all duration-700">
+                <div className="flex items-center gap-6 mb-8">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
+                    <Eye className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-heading font-bold text-foreground tracking-tight">Our Vision</h3>
+                    <div className="w-12 h-1 bg-primary rounded-full mt-2" />
+                  </div>
+                </div>
                 <p className="text-muted-foreground text-lg leading-relaxed font-light">
-                  To become the standard of trust in South India real estate,
-                  known for uncompromising integrity.
+                  To become the standard of trust in South India real estate, known for uncompromising integrity, innovative solutions, and creating lasting value for communities and investors alike.
                 </p>
+                <div className="mt-8 flex items-center gap-2 text-primary font-semibold">
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+                  <span className="text-sm uppercase tracking-[0.1em]">Leading the Future</span>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -340,66 +418,138 @@ const About = () => {
       </section> */}
 
       {/* REGIONAL FOOTPRINT */}
-      <section className="py-28 bg-background relative overflow-hidden">
-        <div className="container">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}>
-              <Badge text="Our Presence" color="primary" />
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-8 tracking-tight leading-none italic">
-                Strategically Serving <span className="text-primary not-italic">South India</span>
+      <section className="py-32 bg-gradient-to-br from-secondary/10 via-background to-primary/5 relative overflow-hidden">
+        {/* Background elements */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[100px] -translate-x-1/2 translate-y-1/2" />
+
+        <div className="container relative z-10">
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-primary/10 to-gold/10 border border-primary/20 backdrop-blur-sm mb-8">
+                <MapPin className="w-5 h-5 text-primary" />
+                <span className="text-sm font-bold uppercase tracking-[0.2em] text-primary">Our Presence</span>
+              </div>
+
+              <h2 className="text-4xl md:text-5xl font-heading font-bold mb-8 tracking-tight leading-none">
+                Strategically Serving <span className="text-gold italic font-serif bg-gradient-to-r from-gold to-primary bg-clip-text text-transparent">South India</span>
               </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed font-light mb-10">
-                We operate across Karnataka and Tamil Nadu, focusing on high-growth areas.
+
+              <p className="text-muted-foreground text-lg leading-relaxed font-light mb-12">
+                We operate across Karnataka and Tamil Nadu, focusing on high-growth areas with verified infrastructure and development potential.
               </p>
 
               <div className="space-y-8">
                 <FootprintItem
                   state="Karnataka"
-                  locations="Bangalore, Mysore, Tumkur"
+                  locations="Bangalore, Mysore, Tumkur, Davangere"
+                  projects="8+ Projects"
                 />
                 <FootprintItem
                   state="Tamil Nadu"
-                  locations="Hosur, Coimbatore, Chennai"
+                  locations="Hosur, Coimbatore, Chennai, Siruguppa"
+                  projects="7+ Projects"
                 />
               </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="bg-secondary/30 p-12 md:p-14 rounded-[3rem] border border-border relative overflow-hidden group"
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative"
             >
-              <div className="absolute top-0 right-0 p-8 opacity-5">
-                <MapPin className="w-32 h-32" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-gold/10 to-transparent rounded-[3rem] blur-xl" />
+              <div className="relative bg-gradient-to-br from-white/80 via-white/60 to-white/40 backdrop-blur-xl p-12 lg:p-14 rounded-[3rem] border border-white/20 shadow-2xl">
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-gold flex items-center justify-center">
+                    <Award className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-heading font-bold tracking-tight">Regional Advantages</h3>
+                </div>
+
+                <ul className="space-y-6">
+                  {[
+                    { title: "Near Global Tech Hubs", desc: "Proximity to Bangalore & Chennai tech corridors" },
+                    { title: "Verified Masterplan Compliance", desc: "All projects follow government guidelines" },
+                    { title: "Rich Soil Quality & Water Security", desc: "Prime agricultural land with assured irrigation" },
+                    { title: "High Appreciation Potential", desc: "Strategic locations with growth trajectory" },
+                  ].map((item, idx) => (
+                    <motion.li
+                      key={item.title}
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      className="flex items-start gap-4 group"
+                    >
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gold to-primary flex items-center justify-center flex-shrink-0 mt-1 group-hover:scale-110 transition-transform duration-300">
+                        <CheckCircle className="w-4 h-4 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">{item.title}</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                      </div>
+                    </motion.li>
+                  ))}
+                </ul>
               </div>
-              <h3 className="text-xl font-bold mb-8 tracking-tighter text-primary">Regional Advantages</h3>
-              <ul className="space-y-4">
-                {[
-                  "Near Global Tech Hubs",
-                  "Verified Masterplan Compliance",
-                  "Rich Soil Quality & Water Security",
-                  "High Appreciation Potential",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" />
-                    <span className="text-base text-muted-foreground font-light leading-snug">{item}</span>
-                  </li>
-                ))}
-              </ul>
             </motion.div>
           </div>
         </div>
       </section>
       {/* STATS SECTION */}
-      <section className="py-14 bg-primary text-white overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-80 h-80 bg-gold/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2" />
+      <section className="py-32 bg-gradient-to-r from-primary via-primary/95 to-primary/90 text-white relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-gold/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-gold/10 via-transparent to-transparent rounded-full" />
+
         <div className="container relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center group cursor-default">
-                <div className="text-4xl md:text-5xl font-heading font-bold text-gold mb-2 group-hover:scale-105 transition-transform duration-700 tracking-tighter drop-shadow-sm">{stat.value}</div>
-                <div className="text-[9px] uppercase tracking-[0.3em] text-primary-foreground font-bold opacity-70 leading-relaxed max-w-[100px] mx-auto">{stat.label}</div>
-              </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-center max-w-3xl mx-auto mb-20"
+          >
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8">
+              <Award className="w-5 h-5 text-gold" />
+              <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold">Our Impact</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-heading font-bold mb-6 leading-none tracking-tight">
+              Numbers That <span className="text-gold italic font-serif">Matter</span>
+            </h2>
+            <p className="text-lg text-white/80 font-light leading-relaxed">
+              A decade of consistent growth, trust, and excellence in numbers.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+            {stats.map((stat, idx) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 40, scale: 0.8 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: idx * 0.15, duration: 0.6 }}
+                className="text-center group cursor-default relative"
+              >
+                {/* Background glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-[2rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className="relative bg-white/10 backdrop-blur-sm border border-white/20 rounded-[2rem] p-8 group-hover:bg-white/15 transition-all duration-500 shadow-2xl group-hover:shadow-gold/20">
+                  <div className="text-5xl md:text-6xl font-heading font-bold text-gold mb-4 group-hover:scale-110 transition-transform duration-700 tracking-tighter drop-shadow-sm">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm uppercase tracking-[0.2em] text-white/80 font-bold leading-relaxed group-hover:text-white transition-colors duration-500">
+                    {stat.label}
+                  </div>
+
+                  {/* Animated accent line */}
+                  <div className="mt-6 mx-auto w-8 h-1 bg-gradient-to-r from-transparent via-gold to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -441,18 +591,25 @@ const Badge = ({ text, color = "gold" }: { text: string; color?: "gold" | "prima
   </span>
 );
 
-const FootprintItem = ({ state, locations }: { state: string; locations: string }) => (
-  <div className="group cursor-default">
-    <div className="flex items-center gap-3 mb-3">
-      <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-500">
-        <MapPin className="w-4 h-4" />
+const FootprintItem = ({ state, locations, projects }: { state: string; locations: string; projects: string }) => (
+  <motion.div
+    initial={{ opacity: 0, x: -20 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    className="group cursor-default"
+  >
+    <div className="flex items-center gap-4 mb-4">
+      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/20 to-gold/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg">
+        <MapPin className="w-6 h-6 text-primary group-hover:text-gold transition-colors duration-500" />
       </div>
-      <h4 className="text-xl font-heading font-bold">{state}</h4>
+      <div>
+        <h4 className="text-2xl font-heading font-bold text-foreground group-hover:text-primary transition-colors duration-500">{state}</h4>
+        <div className="text-sm font-semibold text-gold uppercase tracking-[0.1em]">{projects}</div>
+      </div>
     </div>
-    <p className="text-muted-foreground text-base leading-relaxed font-light pl-11">
+    <p className="text-muted-foreground text-base leading-relaxed font-light pl-16 group-hover:text-foreground/80 transition-colors duration-500">
       {locations}
     </p>
-  </div>
+  </motion.div>
 );
 
 export default About;

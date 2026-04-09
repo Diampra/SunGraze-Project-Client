@@ -7,12 +7,12 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Office Address",
-    details: ["123, Business District", "MG Road, Bangalore", "Karnataka 560001"],
+    details: ["#5, 4th Floor, Sharadha Arcade, Omkaranagar, Arekere Gate, Bannerughatta Road, Bangalore - 560076"],
   },
   {
     icon: Phone,
     title: "Phone Numbers",
-    details: ["+91 98765 43210", "+91 80 1234 5678"],
+    details: ["+91-9591155565", "+91-9916046565"],
     links: ["tel:+919876543210", "tel:+918012345678"],
   },
   {
@@ -115,7 +115,7 @@ const Contact = () => {
           </h2>
           <div className="aspect-[2/1] max-h-[400px] rounded-2xl overflow-hidden bg-muted">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.9854841147986!2d77.59368931531724!3d12.971598790855062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0x7c98c83c62e6b6a5!2sMG%20Road%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1635000000000!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d337.39966627077996!2d77.59768807576913!3d12.890033492522381!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1775715880159!5m2!1sen!2sin"
               width="100%"
               height="100%"
               style={{ border: 0 }}

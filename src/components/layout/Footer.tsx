@@ -25,9 +25,20 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-primary text-primary-foreground">
-      {/* Main Footer */}
-      <div className="container py-16">
+<footer
+  className="relative bg-primary text-primary-foreground overflow-hidden"
+  style={{
+    backgroundImage: "url('/assets/footer.jpg')",
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+  }}
+>
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/100 z-0" />
+
+  {/* Main Content */}
+  <div className="relative z-10 container py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand Column */}
           <div className="lg:col-span-1">
@@ -35,7 +46,7 @@ export function Footer() {
               <div className="w-10 h-10 rounded-lg bg-gold flex items-center justify-center">
                 <span className="text-charcoal font-heading font-bold text-xl">S</span>
               </div>
-              <span className="font-heading font-semibold text-xl">Sungraze</span>
+              <span className="font-heading font-semibold text-xl">Sungraze <br />Groups</span>
             </Link>
             <p className="text-primary-foreground/70 text-sm leading-relaxed mb-6">
               Building trust through transparency. Quality farmland and residential projects across Karnataka and Tamil Nadu.
@@ -95,14 +106,15 @@ export function Footer() {
               <li className="flex gap-3 text-sm">
                 <MapPin className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" />
                 <span className="text-primary-foreground/70">
-                  123, Business District,<br />
-                  Bangalore, Karnataka 560001
+                  #5, 4th Floor, Sharadha Arcade,<br />
+                  Omkaranagar, Arekere Gate,<br />
+                  Bannerughatta Road, Bangalore - 560076
                 </span>
               </li>
               <li className="flex gap-3 text-sm">
                 <Phone className="w-5 h-5 text-gold flex-shrink-0" />
-                <a href="tel:+919876543210" className="text-primary-foreground/70 hover:text-gold transition-colors">
-                  +91 98765 43210
+                <a href="tel:+91-9591155565" className="text-primary-foreground/70 hover:text-gold transition-colors">
+                  +91-9591155565, <br /> +91-9916046565
                 </a>
               </li>
               <li className="flex gap-3 text-sm">

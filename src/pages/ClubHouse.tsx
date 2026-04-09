@@ -121,7 +121,7 @@ const Clubhouse = () => {
       <section id="gallery" className="py-24 bg-background">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="text-2xl md:text-4xl font-heading font-bold mb-4 tracking-tight uppercase">Visual <span className="text-primary italic font-serif lowercase tracking-normal">Gallery</span></h2>
+            <h2 className="text-2xl md:text-4xl font-heading font-bold mb-4 tracking-tight uppercase">Visual <span className="text-primary italic font-serif tracking-normal">Gallery</span></h2>
             <div className="w-16 h-1 bg-gold mx-auto mb-6" />
             <p className="text-muted-foreground max-w-xl mx-auto text-sm md:text-base font-light leading-relaxed">
               Explore every corner of our architectural masterpiece. Witness the fusion of form and function.

@@ -49,7 +49,7 @@ export function Navbar() {
         <Link to="/" className="flex items-center gap-3">
           <img
             src="/assets/sungraze_logo.png"
-            alt="Sungraze Projects Logo"
+            alt="Sungraze Groups Logo"
             className="h-12 w-auto object-contain"
           />
 
@@ -57,7 +57,7 @@ export function Navbar() {
             className="text-xl font-semibold"
             style={{ color: BRAND_BLUE }}
           >
-            Sungraze Projects
+            Sungraze Groups
           </span> */}
         </Link>
 
@@ -99,7 +99,7 @@ export function Navbar() {
             className="flex items-center gap-2 font-medium text-[#003A8B]"
           >
             <Phone size={18} />
-            +91 98765 43210
+            +91 95911 55565
           </a>
 
           <Button
