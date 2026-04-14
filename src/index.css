@@ -129,6 +129,12 @@
 }
 
 @layer utilities {
+  .container {
+    max-width: 1300px !important; /* Forces layout boxes to constrain tightly against large monitors, counteracting style.css */
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
   .text-balance {
     text-wrap: balance;
   }

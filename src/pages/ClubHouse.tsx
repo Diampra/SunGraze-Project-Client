@@ -84,7 +84,7 @@ const Clubhouse = () => {
       </Helmet>
 
       {/* HERO SECTION */}
-      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[60vh] py-24 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
             src="/assets/club-house/facility-clubhouse-exterior.webp"

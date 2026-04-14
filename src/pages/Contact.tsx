@@ -37,16 +37,16 @@ const Contact = () => {
       </Helmet>
 
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-secondary/30">
+      <section className="pt-32 pb-16 bg-primary">
         <div className="container">
           <div className="max-w-3xl">
             <span className="text-gold font-medium text-sm uppercase tracking-wider">
               Get in Touch
             </span>
-            <h1 className="font-heading text-4xl md:text-5xl text-foreground mt-2 mb-6">
-              We'd Love to <span className="text-primary">Hear from You</span>
+            <h1 className="font-heading text-white text-4xl md:text-5xl mt-2 mb-6">
+              We'd Love to <span className="text-white/90">Hear from You</span>
             </h1>
-            <p className="text-muted-foreground text-lg leading-relaxed">
+            <p className="text-muted-foreground text-lg text-white leading-relaxed">
               Have questions about our projects? Want to schedule a site visit? 
               Our team is here to help you every step of the way.
             </p>

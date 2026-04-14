@@ -24,7 +24,7 @@ const Index = () => {
       <HeroFarmlandCard />
       <AboutPreview />
       <FeaturedProjects />
-      <WhyChooseUs />
+      {/* <WhyChooseUs /> */}
       <Testimonials />
       <CTASection />
     </Layout>

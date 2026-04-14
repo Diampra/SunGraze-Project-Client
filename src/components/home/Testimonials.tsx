@@ -1,5 +1,6 @@
-import { Quote, Star } from "lucide-react";
-import { motion } from "framer-motion";
+import { Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const testimonials = [
   {
@@ -10,7 +11,7 @@ const testimonials = [
       "I purchased a plot in Sungraze Greens and the entire process was seamless. The team was professional, documentation was crystal clear, and they delivered exactly what was promised. Highly recommend!",
     rating: 5,
     image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
   },
   {
     id: 2,
@@ -20,7 +21,7 @@ const testimonials = [
       "As an NRI, I was skeptical about investing in land from abroad. Sungraze Projects made it incredibly easy with regular updates, video calls for site visits, and complete transparency in all dealings.",
     rating: 5,
     image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80",
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
   },
   {
     id: 3,
@@ -30,145 +31,102 @@ const testimonials = [
       "Invested in Kaveri Farms for agricultural returns. The managed farmland concept is excellent - I own the land while they handle all farming operations. Great returns and peace of mind!",
     rating: 5,
     image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80",
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80",
   },
 ];
 
 export default function Testimonials() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+  };
+
+  const currentTestimonial = testimonials[currentIndex];
+
   return (
-    <section className="py-20 lg:py-28 bg-primary relative overflow-hidden">
-
-      {/* Modern Gradient Mesh Background */}
-      <div className="absolute inset-0 opacity-30">
-        <motion.div
-          animate={{ 
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
-          }}
-          transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-          className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-amber-500/20 to-transparent rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{ 
-            scale: [1, 1.3, 1],
-            rotate: [0, -90, 0],
-          }}
-          transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
-          className="absolute bottom-0 right-1/4 w-[32rem] h-[32rem] bg-gradient-to-tl from-amber-500/15 to-transparent rounded-full blur-3xl"
-        />
-      </div>
-
-      {/* Subtle Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
-
-      <div className="container mx-auto px-4 relative">
-
-        {/* Header with Modern Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center max-w-3xl mx-auto mb-20"
-        >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 rounded-full px-4 py-2 mb-6"
-          >
-            <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
-            <span className="text-amber-500 font-medium text-sm tracking-wide">
-              TRUSTED BY 500+ INVESTORS
-            </span>
-          </motion.div>
-          
-          <h2 className="font-bold text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-tight">
-            Real Stories,{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-500/60">
-              Real Results
-            </span>
-          </h2>
-          
-          <p className="text-primary-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-            Discover why discerning investors choose Sungraze Projects for their land investment journey
-          </p>
-        </motion.div>
-
-        {/* Modern Testimonials Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group relative"
-            >
-              {/* Card with Glassmorphism */}
-              <motion.div
-                whileHover={{ y: -8 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 shadow-2xl shadow-black/10 h-full overflow-hidden"
-              >
-                {/* Shine Effect on Hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-transparent" />
+    <div className="sm:py-22.5 py-10 relative overflow-hidden bg-white">
+        <div className="container">
+            {/* TITLE START*/}
+            <div className="text-center max-w-150 mx-auto xl:mb-15 mb-0">
+                <span className="inline-block px-5 py-2 rounded-full border border-gold bg-gold/10 text-gold text-xs font-bold uppercase tracking-[0.2em] mb-4 shadow-sm">
+                  Testimonials
+                </span>
+                <h2 className="xl:text-46 md:text-40 text-3xl mb-2.5">Real<span className="text-citrusyellow"> Stories!</span></h2>
+                <p className="text-base text-muted-foreground">Discover why discerning investors choose us for their land investment journey.</p>
+                <div className="-mt-7">
+                    <img src="/assets/images/background/Title-Separator.png" alt="Image" className="w-117.5 inline-block" width="470" height="70" loading="lazy" />
+                </div>
+            </div>
+            {/* TITLE END*/}
+            
+            <div>
+                <div className="text-center relative font-bold 2xl:text-[10rem] xl:text-[8rem] lg:text-[6rem] text-6xl tracking-[0.12em] uppercase bg-clip-text text-transparent bg-[linear-gradient(to_bottom,#066168_15%,rgba(255,170,13,0.3)_60%,#fff_85%)]">
+                    Feedback
                 </div>
 
-                {/* Floating Quote Icon */}
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-amber-500/20 to-amber-500/5 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-500" />
-                
-                <Quote className="w-12 h-12 text-amber-500/40 mb-6 relative z-10" strokeWidth={1.5} />
+                <div className="relative mt-10">
+                    <div className="md:flex items-center bg-white relative">
+                        <AnimatePresence mode="wait">
+                            <motion.div 
+                                key={currentTestimonial.id}
+                                initial={{ opacity: 0, x: 50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -50 }}
+                                transition={{ duration: 0.5 }}
+                                className="grid md:grid-cols-2 items-center w-full max-w-5xl mx-auto gap-10"
+                            >
+                                <div className="relative z-1 max-md:mx-auto max-md:mb-7.5 before:absolute before:w-96 before:h-96 before:rounded-full before:bg-citrusyellow before:opacity-10 before:-right-24 before:top-1/2 before:-translate-y-1/2 before:-z-1 after:absolute after:w-80 after:h-80 after:rounded-full after:bg-primary after:-right-10 after:top-1/2 after:-translate-y-1/2 after:-z-1 max-lg:after:hidden max-lg:before:hidden">
+                                    <div className="relative w-full max-w-sm mx-auto aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl">
+                                        <img src={currentTestimonial.image} alt="Image" className="w-full h-full object-cover" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="flex items-center justify-between mb-6.25 max-sm:flex-col max-sm:text-center sm:items-start">
+                                        <div>
+                                            <h4 className="!font-display lg:!text-36 !text-28 !font-normal text-primary mb-0">{currentTestimonial.name}</h4>
+                                            <span className="font-title text-xl font-medium text-citrusyellow inline-block">{currentTestimonial.role}</span>
+                                        </div>
+                                        <div className="max-sm:mt-4">
+                                            <img src="/assets/images/trv-icon/Quote.png" alt="Quote" className="lg:max-w-17.5 max-w-11 max-h-14.5 w-full opacity-20" width="70" height="58" loading="lazy" />
+                                        </div>
+                                    </div>
+                                    <p className="font-title lg:text-2xl text-lg text-primary mb-5 max-lg:pr-7.5 max-md:pr-0 italic">
+                                        "{currentTestimonial.content}"
+                                    </p>
+                                    <div className="md:float-right text-citrusyellow text-base mr-0.75 flex flex-wrap max-md:justify-center">
+                                        {[...Array(currentTestimonial.rating)].map((_, i) => (
+                                          <Star key={i} className="w-5 h-5 fill-current" />
+                                        ))}
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
 
-                {/* Dynamic Rating */}
-                <div className="flex gap-1 mb-6">
-                  {Array.from({ length: testimonial.rating }).map((_, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ scale: 0, rotate: -180 }}
-                      whileInView={{ scale: 1, rotate: 0 }}
-                      transition={{ delay: index * 0.1 + i * 0.1, type: "spring" }}
-                      viewport={{ once: true }}
-                    >
-                      <Star className="w-5 h-5 fill-amber-500 text-amber-500 drop-shadow-lg" />
-                    </motion.div>
-                  ))}
+                    <div className="flex justify-center mt-12 gap-4">
+                      <button 
+                        onClick={handlePrev} 
+                        className="w-12 h-12 rounded-full border-2 border-primary text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                        aria-label="Previous Testimonial"
+                      >
+                        <ChevronLeft className="w-6 h-6" />
+                      </button>
+                      <button 
+                        onClick={handleNext} 
+                        className="w-12 h-12 rounded-full border-2 border-primary text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                        aria-label="Next Testimonial"
+                      >
+                        <ChevronRight className="w-6 h-6" />
+                      </button>
+                    </div>
                 </div>
-
-                {/* Content with Better Typography */}
-                <p className="text-gray-200 leading-relaxed mb-8 text-base relative z-10">
-                  "{testimonial.content}"
-                </p>
-
-                {/* Modern Author Section */}
-                <div className="flex items-center gap-4 relative z-10">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-amber-500/30 to-amber-500/10 rounded-full blur-md" />
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="relative w-14 h-14 rounded-full object-cover border-2 border-white/20"
-                    />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-white text-lg">
-                      {testimonial.name}
-                    </p>
-                    <p className="text-gray-400 text-sm font-medium">
-                      {testimonial.role}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Subtle Bottom Accent */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </motion.div>
-            </motion.div>
-          ))}
+            </div>
         </div>
-      </div>
-    </section>
+    </div>
   );
 }

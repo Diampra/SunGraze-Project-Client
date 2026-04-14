@@ -24,7 +24,7 @@ export function CTASection() {
             <span className="inline-block px-5 py-2 rounded-full border border-white/20 bg-white/5 text-white text-[10px] font-bold uppercase tracking-[0.3em] mb-8">
               Start Your Journey
             </span>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-10 tracking-tight leading-none italic"> Ready to Build Your <span className="text-gold not-italic font-serif">Legacy</span>?</h2>
+            <h2 className="text-4xl md:text-5xl font-heading text-white font-bold mb-10 tracking-tight leading-none italic"> Ready to Build Your <span className="text-gold not-italic font-serif">Legacy</span>?</h2>
             <p className="text-lg md:text-xl text-primary-foreground/80 mb-16 max-w-3xl mx-auto font-light leading-relaxed text-balance">
               Join over 500 happy families who have secured their future with Sungraze Projects. 
               Let's find the perfect land for your dreams.

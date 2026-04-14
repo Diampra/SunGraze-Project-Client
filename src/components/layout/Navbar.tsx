@@ -1,15 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Menu, X, Phone, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Logo from "@/assets/logo.png"; // your PNG logo
-
-// Brand Colors
-const BRAND_BLUE = "#003A8B";
-const BRAND_GREEN = "#2A7035";
-const BRAND_ORANGE = "#E37222";
-const BRAND_YELLOW = "#F4B61F";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -17,7 +9,6 @@ const navLinks = [
   { name: "Projects", path: "/projects" },
   { name: "Club House", path: "/club-house" },
   { name: "Farmland", path: "/farmland" },
-  // { name: "Services", path: "/services" },
   { name: "Contact", path: "/contact" },
 ];
 
@@ -27,7 +18,7 @@ export function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 10);
+    const onScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -37,137 +28,119 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "z-[999] transition-all duration-500 w-full",
         isScrolled
-          ? "bg-white/95 backdrop-blur shadow-md py-3"
-          : "bg-white py-4"
+          ? "fixed top-0 left-0 right-0 bg-primary rounded-b-3xl shadow-xl animate-in slide-in-from-top-full"
+          : "absolute lg:left-8 lg:right-8 lg:top-8 left-0 right-0 top-0 bg-transparent lg:w-auto"
       )}
     >
-      <div className="container flex items-center justify-between">
+      <div className="main-bar-wraper">
+        <div className="w-full lg:min-h-[120px] min-h-[80px] lg:pl-[35px] px-4 lg:pr-[55px] duration-500 flex items-center justify-between">
+          
+          {/* Logo Section */}
+          <div className="flex relative items-center z-[9] h-20 lg:w-44 w-32">
+            <Link to="/" className="table-cell align-middle">
+              <img
+                src="/assets/sungraze_logo_2.png"
+                alt="Sungraze Groups Logo"
+                className="object-contain duration-500 h-10 lg:h-12"
+              />
+            </Link>
+          </div>
 
-        {/* Logo Section */}
-        <Link to="/" className="flex items-center gap-3">
-          <img
-            src="/assets/sungraze_logo.png"
-            alt="Sungraze Groups Logo"
-            className="h-12 w-auto object-contain"
-          />
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex lg:justify-center lg:grow font-base">
+            <ul className="flex flex-wrap items-center">
+              {navLinks.map((link) => {
+                const active = location.pathname === link.path;
+                return (
+                  <li key={link.path} className="relative group inline-block">
+                    <Link
+                      to={link.path}
+                      className={cn(
+                        "py-7 xl:px-5 px-3 relative inline-block text-[15px] font-medium transition-colors",
+                        active || isScrolled
+                          ? "text-white"
+                          : "text-white/90 hover:text-white",
+                        active && "text-gold"
+                      )}
+                    >
+                      <span className={cn("inline-block relative after:absolute after:-bottom-1 after:left-0 after:content-[''] after:h-[2px] after:bg-gold after:transition-all after:duration-300", active ? "after:w-full" : "after:w-0 group-hover:after:w-full")}>
+                        {link.name}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
 
-          {/* <span
-            className="text-xl font-semibold"
-            style={{ color: BRAND_BLUE }}
-          >
-            Sungraze Groups
-          </span> */}
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-10">
-          {navLinks.map((link) => {
-            const active = location.pathname === link.path;
-
-            return (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={cn(
-                  "relative text-[15px] font-medium transition-colors pb-1",
-                  active
-                    ? "text-primary"
-                    : "text-[#003A8B] opacity-80 hover:opacity-100"
-                )}
-                style={{ color: active ? BRAND_BLUE : BRAND_BLUE }}
+          {/* Desktop Right Side (Search & Contact) */}
+          <div className="hidden lg:flex items-center justify-end z-[9] h-20 xl:pl-8">
+            <div className="flex items-center gap-4">
+              <a
+                href="tel:+919591155565"
+                className="flex items-center justify-center h-11 px-6 rounded-full bg-gold text-charcoal font-bold text-sm tracking-wide hover:bg-white hover:text-primary transition-colors hover:shadow-lg"
               >
-                {link.name}
+                Get In Touch
+              </a>
+              <button 
+                className="flex items-center justify-center w-11 h-11 rounded-full bg-white/10 text-white hover:bg-gold hover:text-charcoal transition-colors cursor-pointer hover:shadow-lg"
+                aria-label="Search"
+              >
+                <Search size={18} />
+              </button>
+            </div>
+          </div>
 
-                {/* Underline Animation */}
-                <span
-                  className={cn(
-                    "absolute left-0 -bottom-0.5 h-[2px] transition-all bg-[#003A8B]",
-                    active ? "w-full" : "w-0 group-hover:w-full"
-                  )}
-                />
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* Desktop CTA */}
-        <div className="hidden lg:flex items-center gap-6">
-          <a
-            href="tel:+919876543210"
-            className="flex items-center gap-2 font-medium text-[#003A8B]"
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden ml-auto w-11 h-11 bg-white/10 rounded-lg relative cursor-pointer z-[99] flex items-center justify-center hover:bg-white/20 transition-colors"
           >
-            <Phone size={18} />
-            +91 95911 55565
-          </a>
-
-          <Button
-            style={{
-              backgroundColor: BRAND_ORANGE,
-              color: "white",
-            }}
-            className="px-5 font-medium"
-            asChild
-          >
-            <Link to="/contact">Get in Touch</Link>
-          </Button>
+            {isOpen ? <X className="text-white" size={24} /> : <Menu className="text-white" size={24} />}
+          </button>
         </div>
-
-        {/* Mobile Menu Toggle */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden p-2 text-[#003A8B]"
-        >
-          {isOpen ? <X size={26} /> : <Menu size={26} />}
-        </button>
       </div>
 
       {/* Mobile Navigation */}
       <div
         className={cn(
-          "lg:hidden bg-white shadow-md overflow-hidden transition-all duration-300",
-          isOpen ? "max-h-[350px] opacity-100" : "max-h-0 opacity-0"
+          "lg:hidden fixed left-0 right-0 top-[80px] bg-white shadow-xl transition-all duration-300 overflow-hidden",
+          isOpen ? "max-h-screen border-t border-gray-100 opacity-100" : "max-h-0 opacity-0"
         )}
       >
-        <nav className="container flex flex-col py-4 gap-3">
+        <div className="container py-6 flex flex-col gap-2">
           {navLinks.map((link) => {
             const active = location.pathname === link.path;
-
             return (
               <Link
                 key={link.path}
                 to={link.path}
                 className={cn(
-                  "text-base font-medium py-2",
-                  active ? "text-[#003A8B]" : "text-gray-600"
+                  "block py-3 px-4 rounded-lg text-base font-semibold transition-colors",
+                  active ? "bg-primary/5 text-primary" : "text-gray-800 hover:bg-gray-50 hover:text-primary"
                 )}
               >
                 {link.name}
               </Link>
             );
           })}
-
-          <hr className="my-2" />
-
-          <a
-            href="tel:+919876543210"
-            className="flex items-center gap-2 text-[#003A8B] font-medium"
-          >
-            <Phone size={18} /> +91 98765 43210
-          </a>
-
-          <Button
-            style={{
-              backgroundColor: BRAND_ORANGE,
-              color: "white",
-            }}
-            className="mt-3"
-            asChild
-          >
-            <Link to="/contact">Get in Touch</Link>
-          </Button>
-        </nav>
+          
+          <hr className="my-4 border-gray-100" />
+          
+          <div className="px-4">
+             <a
+                href="tel:+919591155565"
+                className="flex items-center gap-3 text-primary font-bold text-lg mb-4"
+              >
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Phone size={18} className="text-gold" />
+                </div>
+                +91 95911 55565
+              </a>
+          </div>
+        </div>
       </div>
     </header>
   );

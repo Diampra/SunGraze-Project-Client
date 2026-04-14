@@ -16,7 +16,7 @@ const stats = [
 const heroSlides = [
   {
     id: "farmhouse",
-    title: "Premium Farmland Projects",
+    title: "Premium Farmlands",
     subtitle: "Farmhouse Living",
     description:
       "Discover transparent, legally-compliant farmland plotting opportunities across Karnataka and Tamil Nadu.",
@@ -26,7 +26,7 @@ const heroSlides = [
   },
   {
     id: "clubhouse",
-    title: "Luxury Clubhouse Residences",
+    title: "Luxury Residences",
     subtitle: "Clubhouse Lifestyle",
     description:
       "Find premium residential living with clubhouse amenities and trusted, fully approved project delivery.",
@@ -36,7 +36,7 @@ const heroSlides = [
   },
   {
     id: "residential",
-    title: "Trusted Residential Estates",
+    title: "Trusted Estates",
     subtitle: "Residential Plots",
     description:
       "Build your future with secure residential developments designed for modern families and long-term value.",
@@ -46,15 +46,9 @@ const heroSlides = [
   },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0 },
-};
-
 export function HeroSection() {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Auto-advance
   useEffect(() => {
     const interval = window.setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % heroSlides.length);
@@ -65,8 +59,12 @@ export function HeroSection() {
   const activeSlide = heroSlides[activeIndex];
 
   return (
-    <section className="relative isolate min-h-svh overflow-hidden">
-      {/* ── Background images: stack with absolute, crossfade via AnimatePresence ── */}
+    <section className="3xl:h-[100vh] 2xl:h-[100vh] sm:h-192 h-170 overflow-hidden relative trv-banner-1-wrap bg-primary">
+      <div className="trv-banner-1-rain-effect">
+        <div className="absolute left-0 size-full z-2 rain front-row"></div>
+        <div className="absolute left-0 size-full z-2 rain back-row"></div>
+      </div>
+
       <AnimatePresence initial={false}>
         <motion.div
           key={activeSlide.id}
@@ -81,126 +79,96 @@ export function HeroSection() {
             alt={activeSlide.title}
             className="h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/55" />
         </motion.div>
       </AnimatePresence>
 
-      {/* ── Content ── */}
-      <div className="relative z-10 flex min-h-svh flex-col justify-end px-4 pb-10 pt-24 sm:justify-center sm:px-6 sm:pb-20 lg:px-8">
-        <motion.div
-          initial="hidden"
-          animate="show"
-          transition={{ staggerChildren: 0.12 }}
-          className="w-full max-w-xl space-y-5 rounded-2xl bg-black/30 p-5 backdrop-blur-sm sm:p-7 lg:max-w-2xl lg:rounded-3xl lg:p-10"
-        >
-          {/* Badge */}
-          <motion.div variants={fadeUp}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-md">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-gold" />
-              <span className="text-[10px] font-bold uppercase tracking-widest text-white/90 sm:text-xs">
-                Projects Across Karnataka &amp; Tamil Nadu
-              </span>
-            </span>
-          </motion.div>
+      <div className="relative z-2 3xl:h-[95vh] 2xl:h-[95vh] lg:h-[90vh] h-195 lg:m-8.75 lg:rounded-3xl bg-black/60">
+        <div className="xl:pt-32 md:pt-28 pt-24 md:pl-14 max-md:px-5 max-w-4xl">
 
           {/* Subtitle */}
-          <motion.p
-            variants={fadeUp}
-            className="text-[10px] font-semibold uppercase tracking-[0.18em] text-gold sm:text-xs"
-          >
+          <span className="2xl:text-4xl text-2xl text-blue-200 font-display block mb-2">
             {activeSlide.subtitle}
-          </motion.p>
+          </span>
 
           {/* Title */}
-          <motion.h1
-            variants={fadeUp}
-            className="font-heading text-2xl leading-tight text-white drop-shadow-xl sm:text-3xl md:text-4xl lg:text-5xl"
-          >
-            {activeSlide.title}
-          </motion.h1>
+          <div className="relative mb-4">
+            <h1 className="!font-display 2xl:!text-8xl xl:!text-7xl md:!text-6xl !text-5xl !text-white relative inline-block animate-slide-left leading-tight">
+              {activeSlide.title}
+            </h1>
+            <h1 className="!font-display 2xl:!text-8xl xl:!text-7xl md:!text-6xl !text-5xl !text-transparent absolute left-0 top-0 z-1 [-webkit-text-stroke:2px_#fff] animate-slide-left leading-tight">
+              {activeSlide.title}
+            </h1>
+          </div>
 
           {/* Description */}
-          <motion.p
-            variants={fadeUp}
-            className="text-sm font-light leading-relaxed text-white/80 sm:text-base"
-          >
+          <div className="text-base leading-7 text-white mb-7 max-w-sm">
             {activeSlide.description}
-          </motion.p>
+          </div>
 
-          {/* CTAs */}
-          <motion.div
-            variants={fadeUp}
-            className="flex flex-col gap-3 sm:flex-row sm:items-center"
-          >
-            <Button size="lg" className="w-full shadow-lg shadow-black/20 sm:w-auto" asChild>
-              <Link to={activeSlide.link}>
-                {activeSlide.cta}
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+          {/* CTA + Dots */}
+          <div className="relative z-[4] flex gap-4 items-center flex-wrap bg-black/50 px-5 py-1 rounded-full max-w-max">
+            <Link to={activeSlide.link} className="site-button text-white butn-bg-shape">
+              {activeSlide.cta}
+            </Link>
 
-            <Button
-              variant="outline"
-              size="lg"
-              className="w-full border-white/40 bg-white/10 text-white backdrop-blur-md hover:bg-white/20 sm:w-auto"
-              asChild
-            >
-              <Link to="/contact">Get in Touch</Link>
-            </Button>
-          </motion.div>
+            <div className="flex gap-2.5 ml-4">
+              {heroSlides.map((slide, index) => (
+                <button
+                  key={slide.id}
+                  type="button"
+                  aria-label={`Show slide`}
+                  onClick={() => setActiveIndex(index)}
+                  className={`h-3 w-3 rounded-full transition-all duration-200 ${index === activeIndex
+                      ? "bg-white ring-2 ring-white/70"
+                      : "bg-white/40 hover:bg-white/70 cursor-pointer"
+                    }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
 
-          {/* Slide dots */}
-          <motion.div variants={fadeUp} className="flex items-center gap-2.5">
-            {heroSlides.map((slide, index) => (
-              <button
-                key={slide.id}
-                type="button"
-                aria-label={`Show ${slide.subtitle} slide`}
-                onClick={() => setActiveIndex(index)}
-                className={`h-2.5 w-2.5 rounded-full transition-all duration-200 ${
-                  index === activeIndex
-                    ? "bg-gold ring-2 ring-white/70"
-                    : "bg-white/40 hover:bg-white/70"
-                }`}
-              />
-            ))}
-          </motion.div>
+        {/* Social links */}
+        <div className="text-white absolute bottom-7.5 3xl:right-112.5 2xl:right-64.5 sm:right-10 right-5 flex items-center z-4">
+          <span className="pr-26.25 text-xs leading-4.5 tracking-[0.2em] uppercase relative inline-block after:content-[''] after:absolute after:w-16 after:h-px after:bg-white after:right-5 after:top-1/2 after:-translate-y-1/2 max-sm:hidden">
+            Follow Us
+          </span>
+          <ul className="flex">
+            <li><a href="#" className="text-white text-xl ml-5 duration-500 block hover:text-green-400 hover:-translate-y-1.25"><i className="fa-brands fa-facebook-f"></i></a></li>
+            <li><a href="#" className="text-white text-xl ml-5 duration-500 block hover:text-green-400 hover:-translate-y-1.25"><i className="fa-brands fa-instagram"></i></a></li>
+          </ul>
+        </div>
 
-          {/* Stats */}
-          <motion.div
-            variants={fadeUp}
-            className="grid grid-cols-3 gap-3 border-t border-white/10 pt-5"
-          >
-            {stats.map((s) => (
-              <div key={s.label} className="flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/10 backdrop-blur-md sm:h-11 sm:w-11">
-                  <s.icon className="h-4 w-4 text-gold sm:h-5 sm:w-5" />
-                </div>
-                <div className="text-center sm:text-left">
-                  <p className="font-heading text-lg font-bold text-white sm:text-2xl">{s.value}</p>
-                  <p className="text-[10px] text-white/60 sm:text-xs">{s.label}</p>
-                </div>
-              </div>
-            ))}
-          </motion.div>
-        </motion.div>
+        {/* Decorative rings */}
+        <div className="absolute inset-0 z-[3] overflow-hidden max-lg:hidden pointer-events-none">
+          <div className="absolute top-1/2 -translate-y-1/2 size-175 right-0">
+            <div className="-right-4/5 absolute z-2 rotate-center animate-rotate-center"><span className="size-175 rounded-full border border-white/30 block relative after:size-3.5 after:bg-white after:rounded-full after:absolute after:right-8.75 after:top-1/4 after:z-10"></span></div>
+          </div>
+          <div className="absolute top-1/2 -translate-y-1/2 size-225 right-0">
+            <div className="right-[-70%] absolute z-2 animate-rotate-center"><span className="size-225 rounded-full border border-white/30 block relative after:size-3.5 after:bg-blue-300 after:rounded-full after:absolute after:right-18.75 after:bottom-1/5 after:z-10"></span></div>
+          </div>
+          <div className="absolute top-1/2 -translate-y-1/2 size-275 right-0">
+            <div className="-right-3/5 absolute z-2 animate-rotate-center"><span className="size-275 rounded-full border border-white/30 block relative after:size-3.5 after:bg-green-400 after:rounded-full after:absolute after:left-0.75 after:top-2/5 after:z-10"></span></div>
+          </div>
+        </div>
       </div>
 
-      {/* ── Scroll indicator (desktop only) ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-5 left-1/2 z-10 hidden -translate-x-1/2 lg:block"
-      >
-        <div className="flex h-10 w-6 items-start justify-center rounded-full border-2 border-white/30 p-2">
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-            className="h-3 w-1.5 rounded-full bg-gold"
-          />
+      {/* Clouds & airplane */}
+      <div className="absolute top-37.5 w-full pointer-events-none">
+        <div className="inline-block whitespace-nowrap animate-moveCloud">
+          <img src="/assets/images/cloud-1.png" alt="Cloud" className="w-auto" width="400" height="332" />
         </div>
-      </motion.div>
+      </div>
+      <div className="absolute top-0 w-full pointer-events-none z-[4]">
+        <div className="inline-block whitespace-nowrap animate-moveCloud">
+          <img src="/assets/images/cloud-2.png" alt="Cloud" className="w-auto" width="297" height="225" />
+        </div>
+      </div>
+      {/* <div className="absolute top-10 md:top-20 right-10 md:right-32 pointer-events-none z-[5]">
+        <div className="inline-block animate-moveCloud" style={{ animationDuration: '60s' }}>
+          <img src="/assets/images/airplane-takeoff1.png" alt="Airplane" width="493" height="116" className="w-48 md:w-80 opacity-90" />
+        </div>
+      </div> */}
     </section>
   );
 }

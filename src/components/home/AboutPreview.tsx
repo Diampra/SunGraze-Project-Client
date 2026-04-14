@@ -11,83 +11,96 @@ const highlights = [
 
 export function AboutPreview() {
   return (
-    <section className="py-32 bg-background relative overflow-hidden">
-      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2" />
-      <div className="container">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
-          {/* Image Grid */}
-          <div className="relative group">
-            <div className="absolute -inset-4 border-2 border-primary/20 rounded-[2rem] md:rounded-[3rem] translate-x-2 translate-y-2 md:translate-x-4 md:translate-y-4" />
-            <div className="grid grid-cols-2 gap-4 md:gap-6 relative z-10">
-              <div className="space-y-4 md:space-y-6">
-                <div className="aspect-[4/5] rounded-[1.5rem] md:rounded-[2rem] bg-secondary overflow-hidden shadow-elegant-lg rotate-[-2deg] group-hover:rotate-0 transition-transform duration-700">
-                  <img
-                    src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80"
-                    alt="Modern residential development"
-                    className="w-full h-full object-cover transition-all duration-700"
-                  />
+    <div className="bg-blue-50/50 lg:pt-30 pt-16 pb-16">
+        <div className="container">
+            <div className="grid grid-cols-12">
+                <div className="xl:col-span-5 lg:col-span-7 col-span-12 px-3.75 max-lg:mb-40">
+                    <div className="2xl:mb-30 mb-10 relative">
+                        {/* TITLE START*/}
+                        <div className="text-left 2xl:mb-15 mb-10">
+                            <span className="inline-block px-5 py-2 rounded-full border border-gold bg-gold/10 text-gold text-xs font-bold uppercase tracking-[0.2em] mb-4 shadow-sm">
+                              Our Legacy
+                            </span>
+                            <h2 className="xl:text-46 md:text-40 text-3xl mb-2.5">
+                              Building <span className="text-citrusyellow italic font-serif">Futures</span> Through Ethical Excellence
+                            </h2>
+                            <div className="2xl:mb-12.5 mb-7 sm:pr-8.75 text-base text-muted-foreground mt-4 space-y-4 font-light">
+                              <p>
+                                Sungraze Projects is a trusted name in real estate development across Karnataka 
+                                and Tamil Nadu. We specialize in delivering legally compliant residential plots 
+                                and managed farmland.
+                              </p>
+                              <p>
+                                Our commitment to transparency, quality, and customer satisfaction has made us 
+                                a preferred choice for over 500 happy families.
+                              </p>
+                            </div>
+                        </div>
+                        {/* TITLE END*/}
+                        
+                        <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-y-4">
+                            {highlights.map((item, idx) => (
+                                <div key={idx} className="flex items-center gap-3">
+                                  <div className="bg-primary/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">
+                                    <CheckCircle className="text-primary w-5 h-5" />
+                                  </div>
+                                  <h4 className="font-medium text-sm text-foreground">{item}</h4>
+                                </div>
+                            ))}
+                        </div>
+                        
+                        <div className="sm:flex items-center">
+                            <div className="mr-3">
+                                <Link to="/about" className="site-button butn-bg-shape">Our Story</Link>
+                            </div>
+                            <div className="flex max-sm:pt-2.5 ml-4">
+                                <div className="flex items-center mr-5">
+                                    <span className="size-9 inline-flex rounded-full overflow-hidden border-2 border-white ml-0">
+                                        <img src="/assets/images/hpy-cus/pic1.jpg" alt="img" width="34" height="34" loading="lazy" />
+                                    </span>
+                                    <span className="size-9 inline-flex rounded-full overflow-hidden border-2 border-white -ml-2.5">
+                                        <img src="/assets/images/hpy-cus/pic2.jpg" alt="img" width="34" height="34" loading="lazy" />
+                                    </span>
+                                    <span className="size-9 inline-flex rounded-full overflow-hidden border-2 border-white -ml-2.5">
+                                        <img src="/assets/images/hpy-cus/pic3.jpg" alt="img" width="34" height="34" loading="lazy" />
+                                    </span>
+                                </div>
+                                <div>
+                                    <span className="block font-black text-22 text-primary">500+</span>
+                                    <p className="mb-0 uppercase font-medium text-xs">Happy Families</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div className="space-y-4 md:space-y-6 pt-8 md:pt-12">
-                <div className="aspect-[4/5] rounded-[1.5rem] md:rounded-[2rem] bg-secondary overflow-hidden shadow-elegant-lg rotate-[2deg] group-hover:rotate-0 transition-transform duration-700">
-                  <img
-                    src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80"
-                    alt="Lush farmland landscape"
-                    className="w-full h-full object-cover transition-all duration-700"
-                  />
+                
+                <div className="xl:col-span-7 lg:col-span-5 col-span-12 relative px-3.75">
+                    <div className="absolute z-1 lg:top-7.5 -top-40.5 3xl:-right-36.25 lg:-right-0.25 -right-6.25 animate-slide-top max-md:hidden">
+                        <div className="bg-white rounded-xl py-4 lg:pl-10 pl-6 pr-6 xl:pr-10 inline-flex items-center shadow-xl border border-black/5">
+                            <h2 className="!font-display !font-black lg:!text-83 !text-6xl leading-none !text-secondary !mb-0 !text-shadow-[0px_4px_0px_var(--primary)] !mr-6.75">10<span className="text-4xl align-top">+</span></h2>
+                            <span className="font-black lg:text-2xl text-xl leading-[1.2] text-primary">Years of<br/>Ethical<br/>Excellence</span>
+                        </div>
+                    </div>
+                    
+                    <div className="mt-3 xl:size-50 sm:size-90 size-70 border-[15px] border-white rounded-full shadow-[0px_27px_35.9px_rgba(41,137,145,0.2)] max-xl:relative max-xl:-bottom-41.25 max-lg:bottom-1/2 max-lg:translate-x-1/2 max-md:translate-x-0 relative overflow-hidden group">
+                        <img 
+                          src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80" 
+                          alt="Modern residential development" 
+                          className="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-700" 
+                        />
+                    </div>
+                    
+                    <div className="absolute 3xl:-right-10 right-0 max-lg:w-[60%] lg:-bottom-0 md:-bottom-10 bottom-0 rounded-2xl overflow-hidden shadow-2xl border-8 border-white group">
+                        <img 
+                          src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80" 
+                          alt="Lush farmland landscape" 
+                          className="w-[280px] h-[280px] object-cover group-hover:scale-110 transition-transform duration-700" 
+                          loading="lazy" 
+                        />
+                    </div>
                 </div>
-              </div>
             </div>
-            {/* Experience Badge */}
-            <div className="absolute -bottom-4 -right-4 md:-bottom-10 md:-right-10 bg-white/40 backdrop-blur-3xl border border-white/20 shadow-2xl rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-10 z-20 group-hover:scale-105 transition-transform duration-500 max-w-[140px] md:max-w-none text-center md:text-left">
-              <p className="text-3xl md:text-5xl font-heading font-bold text-primary tracking-tighter leading-none italic">10+</p>
-              <p className="text-charcoal/70 text-[8px] md:text-xs font-bold uppercase tracking-[0.2em] mt-2 md:mt-3">Years of Ethical Excellence</p>
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="relative z-10 text-center lg:text-left">
-            <span className="inline-block px-6 py-2 rounded-full border border-gold bg-gold/10 text-gold text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mb-6 shadow-sm mx-auto lg:mx-0">
-              Our Legacy
-            </span>
-            <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-8 leading-tight tracking-tight text-balance">
-              Building <span className="text-primary italic font-serif">Futures</span> Through Ethical Excellence
-            </h2>
-            <div className="space-y-4 md:space-y-6 text-muted-foreground text-base md:text-lg font-light leading-relaxed mb-10 text-pretty">
-              <p>
-                Sungraze Projects is a trusted name in real estate development across Karnataka 
-                and Tamil Nadu. We specialize in delivering legally compliant residential plots 
-                and managed farmland.
-              </p>
-              <p>
-                Our commitment to transparency, quality, and customer satisfaction has made us 
-                a preferred choice for over 500 happy families.
-              </p>
-            </div>
-
-            {/* Highlights */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 mb-12 text-left max-w-sm mx-auto lg:max-w-none lg:mx-0">
-              {highlights.map((item) => (
-                <div key={item} className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0">
-                    <CheckCircle className="w-4 h-4 text-gold" />
-                  </div>
-                  <span className="text-foreground text-sm font-medium">{item}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex justify-center lg:justify-start">
-              <Button variant="default" size="xl" className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-2xl px-10 h-14" asChild>
-                <Link to="/about">
-                  Our Story
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Link>
-              </Button>
-            </div>
-          </div>
         </div>
-      </div>
-    </section>
+    </div>
   );
 }

@@ -1,144 +1,352 @@
-import { Shield, FileCheck, MapPin, Users, TrendingUp, Headphones, Sparkles, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { Shield, FileCheck, MapPin, Users, TrendingUp, Headphones } from "lucide-react";
 
 const features = [
   {
     icon: Shield,
     title: "Legal Compliance",
     description: "All our projects come with clear titles, proper approvals (BMRDA/DTCP), and complete documentation.",
-    highlight: "100% Legal Assurance",
+    highlight: "100%",
   },
   {
     icon: FileCheck,
     title: "Transparent Process",
     description: "From site visit to registration, we maintain complete transparency at every step of your journey.",
-    highlight: "Zero Hidden Costs",
+    highlight: "Zero",
   },
   {
     icon: MapPin,
     title: "Prime Locations",
     description: "Strategically located projects near highways, airports, IT hubs, and growing corridors.",
-    highlight: "Strategic Positioning",
+    highlight: "10+",
   },
   {
     icon: Users,
-    title: "Trusted by 500+",
+    title: "Happy Families",
     description: "Over 500 happy families and investors have trusted Sungraze for their real estate needs.",
-    highlight: "Proven Track Record",
+    highlight: "500+",
   },
   {
     icon: TrendingUp,
     title: "Growth Potential",
     description: "Our projects are positioned in high-appreciation zones ensuring excellent returns.",
-    highlight: "High ROI Potential",
+    highlight: "High ROI",
   },
   {
     icon: Headphones,
-    title: "End-to-End Support",
+    title: "Lifetime Support",
     description: "Dedicated relationship managers to guide you from enquiry to possession and beyond.",
-    highlight: "Lifetime Support",
+    highlight: "24/7",
   },
 ];
 
 export function WhyChooseUs() {
   return (
-    <section className="py-32 bg-gradient-to-br from-background via-secondary/5 to-primary/5 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] translate-x-1/2 translate-y-1/2" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-gold/3 via-transparent to-transparent rounded-full" />
+    <>
+      {/* Google Fonts */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-      <div className="container relative z-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="text-center max-w-4xl mx-auto mb-20"
-        >
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-gold/10 to-primary/10 border border-gold/20 backdrop-blur-sm mb-8">
-            <Sparkles className="w-5 h-5 text-gold" />
-            <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold">Why Choose Us</span>
-          </div>
-          <h2 className="font-heading text-4xl md:text-6xl text-foreground mb-6 leading-none tracking-tight">
-            The Sungraze <span className="text-primary italic font-serif bg-gradient-to-r from-primary to-gold bg-clip-text">Advantage</span>
-          </h2>
-          <p className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed max-w-2xl mx-auto">
-            We believe in building lasting relationships through trust, transparency, and delivering exceptional value to our customers at every touchpoint.
-          </p>
-        </motion.div>
+        .sg-advantage-wrap * {
+          box-sizing: border-box;
+        }
 
-        {/* Features Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 40, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay: index * 0.15, duration: 0.6 }}
-              className="group relative"
-            >
-              {/* Card background with gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/60 to-white/40 backdrop-blur-xl rounded-[2.5rem] border border-white/20 shadow-2xl group-hover:shadow-gold/20 transition-all duration-700" />
+        .sg-advantage-wrap {
+          font-family: 'DM Sans', sans-serif;
+        }
 
-              {/* Hover effect overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-primary/5 rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        /* Hero background layers */
+        .sg-hero-bg {
+          background: linear-gradient(135deg, #071510 0%, #0b1f12 45%, #112819 100%);
+        }
+        .sg-grid-texture {
+          background-image:
+            linear-gradient(rgba(212,175,55,0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(212,175,55,0.04) 1px, transparent 1px);
+          background-size: 48px 48px;
+        }
 
-              {/* Content */}
-              <div className="relative p-8 h-full flex flex-col">
-                {/* Icon with animated background */}
-                <div className="relative mb-6">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gold/20 to-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg">
-                    <feature.icon className="w-8 h-8 text-primary group-hover:text-gold transition-colors duration-500" />
-                  </div>
-                  {/* Floating accent */}
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-gold rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        /* Decorative border frame */
+        .sg-inner-frame {
+          position: absolute;
+          inset: 20px;
+          border: 1px solid rgba(212,175,55,0.2);
+          border-radius: 1.5rem;
+          pointer-events: none;
+          z-index: 2;
+        }
+        .sg-inner-frame::before {
+          content: '';
+          position: absolute;
+          top: -1px; left: 15%; right: 15%;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(212,175,55,0.6), transparent);
+        }
+        .sg-inner-frame::after {
+          content: '';
+          position: absolute;
+          bottom: -1px; left: 15%; right: 15%;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(212,175,55,0.6), transparent);
+        }
+
+        /* Play button pulse ring */
+        .sg-play-ring {
+          position: absolute;
+          inset: -10px;
+          border-radius: 50%;
+          border: 1px solid rgba(212,175,55,0.25);
+          animation: sg-pulse 2.5s ease-out infinite;
+          pointer-events: none;
+        }
+        @keyframes sg-pulse {
+          0%   { opacity: 0.7; transform: scale(1); }
+          100% { opacity: 0;   transform: scale(1.5); }
+        }
+
+        /* Play button hover */
+        .sg-play-btn {
+          transition: background 0.25s, border-color 0.25s, transform 0.25s;
+        }
+        .sg-play-btn:hover {
+          background: rgba(212,175,55,0.2) !important;
+          border-color: rgba(212,175,55,0.9) !important;
+          transform: scale(1.1);
+        }
+
+        /* Stat item hover */
+        .sg-stat-item {
+          transition: background 0.2s;
+          border-radius: 0.75rem;
+        }
+        .sg-stat-item:hover {
+          background: rgba(212,175,55,0.05);
+        }
+
+        /* Eyebrow lines */
+        .sg-eyebrow::before,
+        .sg-eyebrow::after {
+          content: '';
+          display: block;
+          width: 36px;
+          height: 1px;
+          background: rgba(212,175,55,0.45);
+          flex-shrink: 0;
+        }
+
+        /* Stats top divider glow */
+        .sg-stats-section::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 8%; right: 8%;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(212,175,55,0.4), transparent);
+        }
+
+        /* Vertical dividers between stat columns */
+        .sg-stat-divider {
+          position: absolute;
+          right: 0; top: 15%; bottom: 15%;
+          width: 1px;
+          background: linear-gradient(180deg, transparent, rgba(212,175,55,0.2), transparent);
+        }
+
+        /* Italic display font */
+        .sg-font-display-italic {
+          font-family: 'Playfair Display', serif;
+          font-style: italic;
+        }
+        .sg-font-display {
+          font-family: 'Playfair Display', serif;
+          font-style: normal;
+        }
+      `}</style>
+
+      <section className="sg-advantage-wrap lg:py-24 py-16 bg-blue-50/50">
+        <div className="w-full xl:max-w-[1400px] mx-auto px-0 sm:px-6">
+          <div className="relative sm:rounded-[3rem] overflow-hidden shadow-2xl">
+
+            {/* ── HERO AREA ── */}
+            <div className="sg-hero-bg relative overflow-hidden" style={{ minHeight: 420 }}>
+
+              {/* Subtle grid texture */}
+              <div className="sg-grid-texture absolute inset-0 z-[1]" />
+
+              {/* Radial gold glows */}
+              <div
+                className="absolute inset-0 z-[1]"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at 25% 60%, rgba(212,175,55,0.07) 0%, transparent 55%), radial-gradient(ellipse at 75% 20%, rgba(212,175,55,0.05) 0%, transparent 50%)",
+                }}
+              />
+
+              {/* Decorative inner frame */}
+              <div className="sg-inner-frame" />
+
+              {/* Background image overlay */}
+              <div
+                className="absolute inset-0 z-[2] opacity-25"
+                style={{
+                  backgroundImage: "url('/assets/images/project-residential.jpg')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center top",
+                  mixBlendMode: "luminosity",
+                }}
+              />
+              <div
+                className="absolute inset-0 z-[3]"
+                style={{ background: "linear-gradient(to bottom, rgba(7,21,16,0.4) 0%, rgba(7,21,16,0.85) 100%)" }}
+              />
+
+              {/* Title block */}
+              <div
+                className="relative z-[4] flex flex-col items-center justify-center text-center py-20 px-6"
+                style={{ minHeight: 420 }}
+              >
+                {/* Eyebrow */}
+                <div
+                  className="sg-eyebrow flex items-center gap-3 mb-5"
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 500,
+                    fontSize: "clamp(10px, 2vw, 14px)",
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                    color: "rgba(212,175,55,0.7)",
+                  }}
+                >
+                  Why Trust Us
                 </div>
 
-                {/* Highlight badge */}
-                <div className="mb-4">
-                  <span className="inline-block px-3 py-1 bg-gradient-to-r from-gold/10 to-primary/10 border border-gold/20 rounded-full text-xs font-bold text-gold uppercase tracking-[0.1em]">
-                    {feature.highlight}
-                  </span>
+                {/* "The Sungraze" */}
+                <div
+                  style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 300,
+                    fontSize: "clamp(24px, 4vw, 40px)",
+                    color: "rgba(255,255,255,0.55)",
+                    letterSpacing: "0.08em",
+                    marginBottom: 2,
+                  }}
+                >
+                  The Sungraze
                 </div>
 
-                <h3 className="font-heading font-bold text-2xl mb-4 tracking-tight group-hover:text-primary transition-colors duration-500">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed flex-grow group-hover:text-foreground/80 transition-colors duration-500">
-                  {feature.description}
-                </p>
-
-                {/* Bottom accent line */}
-                <div className="mt-6 h-1 bg-gradient-to-r from-gold to-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                {/* Arrow indicator */}
-                <div className="flex justify-end mt-4">
-                  <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-primary border border-white/30 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-4 group-hover:translate-x-0">
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
+                {/* "Advantage" — fully contained, no clipping */}
+                <div
+                  className="sg-font-display-italic"
+                  style={{
+                    fontSize: "clamp(60px, 12vw, 120px)",
+                    lineHeight: 0.92,
+                    color: "#D4AF37",
+                    textShadow: "0 0 80px rgba(212,175,55,0.18)",
+                    letterSpacing: "-0.01em",
+                    wordBreak: "keep-all",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Advantage
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="text-center mt-16"
-        >
-          <div className="inline-flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-primary/10 to-gold/10 border border-primary/20 rounded-full backdrop-blur-sm">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-gold flex items-center justify-center">
-              <Shield className="w-5 h-5 text-white" />
+              {/* Play button — centred in hero */}
+              <a
+                href="#"
+                className="sg-play-btn absolute left-1/2 top-1/2 z-[5] flex items-center justify-center rounded-full"
+                style={{
+                  width: 76,
+                  height: 76,
+                  transform: "translate(-50%, -50%)",
+                  background: "rgba(212,175,55,0.12)",
+                  border: "1.5px solid rgba(212,175,55,0.55)",
+                  backdropFilter: "blur(8px)",
+                  WebkitBackdropFilter: "blur(8px)",
+                }}
+                aria-label="Watch video"
+              >
+                {/* Pulse ring */}
+                <span className="sg-play-ring" />
+                {/* Triangle */}
+                <span
+                  style={{
+                    display: "block",
+                    width: 0,
+                    height: 0,
+                    borderTop: "9px solid transparent",
+                    borderBottom: "9px solid transparent",
+                    borderLeft: "16px solid #D4AF37",
+                    marginLeft: 5,
+                    filter: "drop-shadow(0 0 6px rgba(212,175,55,0.55))",
+                  }}
+                />
+              </a>
             </div>
-            <span className="text-sm font-semibold text-foreground">
-              Trusted by 500+ families across Karnataka & Tamil Nadu
-            </span>
+
+            {/* ── STATS BAR ── */}
+            <div
+              className="sg-stats-section relative"
+              style={{ background: "#0b1f10", borderTop: "1px solid rgba(212,175,55,0.12)", padding: "2.5rem 1.5rem" }}
+            >
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-y-6 sm:gap-y-0 gap-x-2">
+                {features.map((feature, idx) => {
+                  const isLastInMobileRow = idx % 2 === 1;
+                  const isLastInDesktopRow = idx === 2 || idx === 5;
+
+                  return (
+                    <div
+                      key={idx}
+                      className="sg-stat-item relative flex items-start gap-2.5 sm:gap-4 p-2 sm:p-4"
+                    >
+                      {/* Vertical divider (desktop) */}
+                      <span className={`sg-stat-divider hidden md:block ${isLastInDesktopRow ? 'md:hidden' : ''}`} />
+
+                      {/* Vertical divider (mobile) */}
+                      <span className={`sg-stat-divider md:hidden ${isLastInMobileRow ? 'hidden' : 'block'}`} />
+
+                      {/* Icon */}
+                      <div
+                        className="shrink-0 mt-0.5"
+                        style={{ color: "#D4AF37", opacity: 0.85, width: 26, height: 26 }}
+                      >
+                        <feature.icon className="w-full h-full stroke-[1.5px] sm:stroke-[2px]" />
+                      </div>
+
+                      {/* Text */}
+                      <div>
+                        <div
+                          style={{
+                            fontFamily: "'DM Sans', sans-serif",
+                            fontWeight: 500,
+                            letterSpacing: "0.08em",
+                            textTransform: "uppercase",
+                            color: "rgba(255,255,255,0.4)",
+                            marginBottom: 4,
+                          }}
+                          className="text-[10px] sm:text-[12px] md:text-[14px]"
+                        >
+                          {feature.title}
+                        </div>
+                        <div
+                          className="sg-font-display"
+                          style={{
+                            fontSize: "clamp(24px, 3.5vw, 40px)",
+                            fontWeight: 700,
+                            color: "#ffffff",
+                            lineHeight: 1,
+                          }}
+                        >
+                          {feature.highlight}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
           </div>
-        </motion.div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }
