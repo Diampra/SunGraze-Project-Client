@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin, Shield, TrendingUp } from "lucide-react";
+import { cn } from "@/lib/utils";
 import clubhouseImage from "@/assets/clubhouse-1.png";
 import farmlandImage from "@/assets/farmland-1.png";
 import residentialImage from "@/assets/project-residential.jpg";
@@ -23,6 +24,9 @@ const heroSlides = [
     image: farmlandImage,
     cta: "Explore Farmlands",
     link: "/projects#farmland",
+    decoAsset: "/assets/images/butterfly.gif",
+    decoClass: "animate-smooth-up-down",
+    decoPos: "bottom-[5%] right-[5%] w-24 lg:w-32",
   },
   {
     id: "clubhouse",
@@ -33,6 +37,9 @@ const heroSlides = [
     image: clubhouseImage,
     cta: "Explore Clubhouses",
     link: "/projects#clubhouse",
+    decoAsset: "/assets/images/hotballon-right.png",
+    decoClass: "animate-slide-top",
+    decoPos: "top-[15%] right-[10%] w-24 lg:w-32 opacity-80",
   },
   {
     id: "residential",
@@ -43,6 +50,9 @@ const heroSlides = [
     image: residentialImage,
     cta: "Explore Residentials",
     link: "/projects#residential",
+    decoAsset: "/assets/images/birds.gif",
+    decoClass: "animate-slide-left",
+    decoPos: "top-[10%] right-0 w-[200px] lg:w-[300px] opacity-20 mix-blend-screen scale-x-[-1]",
   },
 ];
 
@@ -59,7 +69,7 @@ export function HeroSection() {
   const activeSlide = heroSlides[activeIndex];
 
   return (
-    <section className="3xl:h-[100vh] 2xl:h-[100vh] sm:h-192 h-170 overflow-hidden relative trv-banner-1-wrap bg-primary">
+    <section className="3xl:h-[100vh] 2xl:h-[100vh] sm:h-192 h-195 overflow-hidden relative trv-banner-1-wrap bg-primary">
       <div className="trv-banner-1-rain-effect">
         <div className="absolute left-0 size-full z-2 rain front-row"></div>
         <div className="absolute left-0 size-full z-2 rain back-row"></div>
@@ -83,10 +93,10 @@ export function HeroSection() {
       </AnimatePresence>
 
       <div className="relative z-2 3xl:h-[95vh] 2xl:h-[95vh] lg:h-[90vh] h-195 lg:m-8.75 lg:rounded-3xl bg-black/60">
-        <div className="xl:pt-32 md:pt-28 pt-24 md:pl-14 max-md:px-5 max-w-4xl">
+        <div className="xl:pt-32 md:pt-28 pt-24 md:pl-14 max-md:px-5 max-w-6xl">
 
           {/* Subtitle */}
-          <span className="2xl:text-4xl text-2xl text-blue-200 font-display block mb-2">
+          <span className="2xl:text-4xl text-2xl text-accent font-display block mb-2 pt-8">
             {activeSlide.subtitle}
           </span>
 
@@ -101,30 +111,54 @@ export function HeroSection() {
           </div>
 
           {/* Description */}
-          <div className="text-base leading-7 text-white mb-7 max-w-sm">
+          <div className="text-lg md:text-xl leading-relaxed text-white/90 mb-10 max-w-2xl font-light">
             {activeSlide.description}
           </div>
 
-          {/* CTA + Dots */}
-          <div className="relative z-[4] flex gap-4 items-center flex-wrap bg-black/50 px-5 py-1 rounded-full max-w-max">
-            <Link to={activeSlide.link} className="site-button text-white butn-bg-shape">
+          {/* Stats Bar */}
+          <div className="flex flex-wrap gap-8 md:gap-12 mb-12 py-6 border-y border-white/10 max-w-3xl">
+            {stats.map((stat, idx) => (
+              <div key={idx} className="flex items-center gap-4 group">
+                <div className="p-3 rounded-2xl bg-accent/10 border border-accent/20 group-hover:bg-accent group-hover:text-primary transition-all duration-500">
+                  <stat.icon size={22} className="text-accent group-hover:text-primary transition-colors" />
+                </div>
+                <div>
+                  <div className="text-2xl md:text-3xl font-heading font-bold text-white tracking-tight">
+                    {stat.value}
+                  </div>
+                  <div className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-accent/80 font-bold">
+                    {stat.label}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA + Dots Pill - Stacked Layout to match screenshot */}
+          <div className="relative z-[4] flex flex-col items-center gap-5 md:gap-7 bg-black/30 backdrop-blur-xl px-8 md:px-12 py-5 md:py-7 rounded-2xl max-w-max border border-white/8 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+
+            <Link
+              to={activeSlide.link}
+              className="text-white/90 hover:text-white font-display text-xs md:text-base tracking-widest uppercase transition-colors duration-300 text-center"
+            >
               {activeSlide.cta}
             </Link>
 
-            <div className="flex gap-2.5 ml-4">
+            <div className="flex items-center gap-2">
               {heroSlides.map((slide, index) => (
                 <button
                   key={slide.id}
                   type="button"
-                  aria-label={`Show slide`}
+                  aria-label={`Show slide ${index + 1}`}
                   onClick={() => setActiveIndex(index)}
-                  className={`h-3 w-3 rounded-full transition-all duration-200 ${index === activeIndex
-                      ? "bg-white ring-2 ring-white/70"
-                      : "bg-white/40 hover:bg-white/70 cursor-pointer"
+                  className={`rounded-full transition-all duration-500 ease-out ${index === activeIndex
+                      ? "w-5 md:w-6 h-1.5 md:h-2 bg-white"
+                      : "w-1.5 md:w-2 h-1.5 md:h-2 bg-white/25 hover:bg-white/50 cursor-pointer"
                     }`}
                 />
               ))}
             </div>
+
           </div>
         </div>
 
@@ -134,8 +168,8 @@ export function HeroSection() {
             Follow Us
           </span>
           <ul className="flex">
-            <li><a href="#" className="text-white text-xl ml-5 duration-500 block hover:text-green-400 hover:-translate-y-1.25"><i className="fa-brands fa-facebook-f"></i></a></li>
-            <li><a href="#" className="text-white text-xl ml-5 duration-500 block hover:text-green-400 hover:-translate-y-1.25"><i className="fa-brands fa-instagram"></i></a></li>
+            <li><a href="#" className="text-white text-xl ml-5 duration-500 block hover:text-accent hover:-translate-y-1.25"><i className="fa-brands fa-facebook-f"></i></a></li>
+            <li><a href="#" className="text-white text-xl ml-5 duration-500 block hover:text-accent hover:-translate-y-1.25"><i className="fa-brands fa-instagram"></i></a></li>
           </ul>
         </div>
 
@@ -153,22 +187,28 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Clouds & airplane */}
-      <div className="absolute top-37.5 w-full pointer-events-none">
-        <div className="inline-block whitespace-nowrap animate-moveCloud">
-          <img src="/assets/images/cloud-1.png" alt="Cloud" className="w-auto" width="400" height="332" />
-        </div>
-      </div>
-      <div className="absolute top-0 w-full pointer-events-none z-[4]">
-        <div className="inline-block whitespace-nowrap animate-moveCloud">
-          <img src="/assets/images/cloud-2.png" alt="Cloud" className="w-auto" width="297" height="225" />
-        </div>
-      </div>
-      {/* <div className="absolute top-10 md:top-20 right-10 md:right-32 pointer-events-none z-[5]">
-        <div className="inline-block animate-moveCloud" style={{ animationDuration: '60s' }}>
-          <img src="/assets/images/airplane-takeoff1.png" alt="Airplane" width="493" height="116" className="w-48 md:w-80 opacity-90" />
-        </div>
-      </div> */}
+      {/* Dynamic Slide Decorations */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`${activeSlide.id}-deco`}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.8 }}
+          className={cn(
+            "absolute z-10 pointer-events-none hidden md:block",
+            activeSlide.decoPos
+          )}
+        >
+          <div className={activeSlide.decoClass}>
+            <img
+              src={activeSlide.decoAsset}
+              alt="Decoration"
+              className="w-full h-auto"
+            />
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </section>
   );
 }

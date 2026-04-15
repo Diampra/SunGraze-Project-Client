@@ -37,7 +37,7 @@ const Contact = () => {
       </Helmet>
 
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-primary">
+      <section className="pt-48 pb-16 bg-primary">
         <div className="container">
           <div className="max-w-3xl">
             <span className="text-gold font-medium text-sm uppercase tracking-wider">
@@ -47,7 +47,7 @@ const Contact = () => {
               We'd Love to <span className="text-white/90">Hear from You</span>
             </h1>
             <p className="text-muted-foreground text-lg text-white leading-relaxed">
-              Have questions about our projects? Want to schedule a site visit? 
+              Have questions about our projects? Want to schedule a site visit?
               Our team is here to help you every step of the way.
             </p>
           </div>

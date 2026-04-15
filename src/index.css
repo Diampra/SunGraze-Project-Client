@@ -6,13 +6,13 @@
 
 @layer base {
   :root {
-    /* Forest Green - Primary brand color evoking growth, land, trust */
-    --primary: 152 45% 25%;
-    --primary-foreground: 45 30% 96%;
+    /* Emerald Blue - Primary brand color from template (#066168) */
+    --primary: 184 89% 21%;
+    --primary-foreground: 0 0% 100%;
     
-    /* Warm Gold - Accent for premium feel */
-    --accent: 38 70% 50%;
-    --accent-foreground: 152 45% 15%;
+    /* Citrus Yellow - Accent for premium feel (#FFAA0D) */
+    --accent: 39 100% 52%;
+    --accent-foreground: 184 89% 10%;
     
     /* Backgrounds */
     --background: 45 30% 98%;
@@ -40,14 +40,14 @@
     /* Borders & Inputs */
     --border: 150 15% 88%;
     --input: 150 15% 88%;
-    --ring: 152 45% 25%;
+    --ring: 184 89% 21%;
     
     --radius: 0.75rem;
     
     /* Custom additions */
     --cream: 45 30% 96%;
     --charcoal: 220 20% 15%;
-    --gold: 38 70% 50%;
+    --gold: 39 100% 52%;
     --gold-light: 40 60% 70%;
     --forest: 152 45% 25%;
     --forest-light: 150 30% 40%;
@@ -232,5 +232,18 @@
 
   .btn-shine:hover::after {
     transform: rotate(30deg) translateX(100%);
+  }
+
+  .animate-move-birds-reverse {
+    animation: moveCloudReverse 25s linear infinite;
+  }
+
+  @keyframes moveCloudReverse {
+    from {
+      transform: translateX(100vw);
+    }
+    to {
+      transform: translateX(-100%);
+    }
   }
 }

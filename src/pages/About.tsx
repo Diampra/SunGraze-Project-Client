@@ -156,7 +156,7 @@ const About = () => {
       </Helmet>
 
       {/* HERO SECTION */}
-      <section className="relative min-h-[60vh] flex items-center justify-center pt-44 overflow-hidden">
+      <section className="relative min-h-[60vh] flex items-center justify-center pt-48 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1500"

@@ -84,7 +84,7 @@ const Clubhouse = () => {
       </Helmet>
 
       {/* HERO SECTION */}
-      <section className="relative min-h-[60vh] py-24 flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[60vh] py-28 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
             src="/assets/club-house/facility-clubhouse-exterior.webp"
@@ -99,8 +99,8 @@ const Clubhouse = () => {
             <span className="inline-block px-4 py-1.5 rounded-full bg-gold text-primary-foreground text-[10px] font-bold mb-6 uppercase tracking-[0.2em] shadow-xl">
               Architecture & Lifestyle
             </span>
-            <h1 className="text-3xl md:text-5xl font-heading font-bold mb-8 tracking-tighter italic">
-              Symphony of <span className="text-gold not-italic">Luxury</span>
+            <h1 className="text-3xl md:text-5xl font-heading font-bold mb-8 tracking-tighter text-white italic font-serif">
+              Symphony of <span className="text-gold not-italic mx-2"> Luxury</span>
             </h1>
             <p className="text-sm md:text-base text-white/90 max-w-xl mx-auto mb-10 font-light leading-relaxed">
               Inspired by modern tropical design, our clubhouse is an experience curated for the elite.

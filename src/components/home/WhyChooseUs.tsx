@@ -56,12 +56,12 @@ export function WhyChooseUs() {
 
         /* Hero background layers */
         .sg-hero-bg {
-          background: linear-gradient(135deg, #071510 0%, #0b1f12 45%, #112819 100%);
+          background: linear-gradient(135deg, #04100d 0%, #052a2d 45%, #066168 100%);
         }
         .sg-grid-texture {
           background-image:
-            linear-gradient(rgba(212,175,55,0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(212,175,55,0.04) 1px, transparent 1px);
+            linear-gradient(rgba(255,170,13,0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,170,13,0.04) 1px, transparent 1px);
           background-size: 48px 48px;
         }
 
@@ -69,7 +69,7 @@ export function WhyChooseUs() {
         .sg-inner-frame {
           position: absolute;
           inset: 20px;
-          border: 1px solid rgba(212,175,55,0.2);
+          border: 1px solid rgba(255,170,13,0.2);
           border-radius: 1.5rem;
           pointer-events: none;
           z-index: 2;
@@ -79,14 +79,14 @@ export function WhyChooseUs() {
           position: absolute;
           top: -1px; left: 15%; right: 15%;
           height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(212,175,55,0.6), transparent);
+          background: linear-gradient(90deg, transparent, rgba(255,170,13,0.6), transparent);
         }
         .sg-inner-frame::after {
           content: '';
           position: absolute;
           bottom: -1px; left: 15%; right: 15%;
           height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(212,175,55,0.6), transparent);
+          background: linear-gradient(90deg, transparent, rgba(255,170,13,0.6), transparent);
         }
 
         /* Play button pulse ring */
@@ -94,7 +94,7 @@ export function WhyChooseUs() {
           position: absolute;
           inset: -10px;
           border-radius: 50%;
-          border: 1px solid rgba(212,175,55,0.25);
+          border: 1px solid rgba(255,170,13,0.25);
           animation: sg-pulse 2.5s ease-out infinite;
           pointer-events: none;
         }
@@ -108,8 +108,8 @@ export function WhyChooseUs() {
           transition: background 0.25s, border-color 0.25s, transform 0.25s;
         }
         .sg-play-btn:hover {
-          background: rgba(212,175,55,0.2) !important;
-          border-color: rgba(212,175,55,0.9) !important;
+          background: rgba(255,170,13,0.2) !important;
+          border-color: rgba(255,170,13,0.9) !important;
           transform: scale(1.1);
         }
 
@@ -119,7 +119,7 @@ export function WhyChooseUs() {
           border-radius: 0.75rem;
         }
         .sg-stat-item:hover {
-          background: rgba(212,175,55,0.05);
+          background: rgba(255,170,13,0.05);
         }
 
         /* Eyebrow lines */
@@ -129,7 +129,7 @@ export function WhyChooseUs() {
           display: block;
           width: 36px;
           height: 1px;
-          background: rgba(212,175,55,0.45);
+          background: rgba(255,170,13,0.45);
           flex-shrink: 0;
         }
 
@@ -139,7 +139,7 @@ export function WhyChooseUs() {
           position: absolute;
           top: 0; left: 8%; right: 8%;
           height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(212,175,55,0.4), transparent);
+          background: linear-gradient(90deg, transparent, rgba(255,170,13,0.4), transparent);
         }
 
         /* Vertical dividers between stat columns */
@@ -147,7 +147,7 @@ export function WhyChooseUs() {
           position: absolute;
           right: 0; top: 15%; bottom: 15%;
           width: 1px;
-          background: linear-gradient(180deg, transparent, rgba(212,175,55,0.2), transparent);
+          background: linear-gradient(180deg, transparent, rgba(255,170,13,0.2), transparent);
         }
 
         /* Italic display font */
@@ -238,8 +238,8 @@ export function WhyChooseUs() {
                   style={{
                     fontSize: "clamp(60px, 12vw, 120px)",
                     lineHeight: 0.92,
-                    color: "#D4AF37",
-                    textShadow: "0 0 80px rgba(212,175,55,0.18)",
+                    color: "#FFAA0D",
+                    textShadow: "0 0 80px rgba(255,170,13,0.18)",
                     letterSpacing: "-0.01em",
                     wordBreak: "keep-all",
                     whiteSpace: "nowrap",
@@ -257,8 +257,8 @@ export function WhyChooseUs() {
                   width: 76,
                   height: 76,
                   transform: "translate(-50%, -50%)",
-                  background: "rgba(212,175,55,0.12)",
-                  border: "1.5px solid rgba(212,175,55,0.55)",
+                  background: "rgba(255,170,13,0.12)",
+                  border: "1.5px solid rgba(255,170,13,0.55)",
                   backdropFilter: "blur(8px)",
                   WebkitBackdropFilter: "blur(8px)",
                 }}
@@ -274,9 +274,9 @@ export function WhyChooseUs() {
                     height: 0,
                     borderTop: "9px solid transparent",
                     borderBottom: "9px solid transparent",
-                    borderLeft: "16px solid #D4AF37",
+                    borderLeft: "16px solid #FFAA0D",
                     marginLeft: 5,
-                    filter: "drop-shadow(0 0 6px rgba(212,175,55,0.55))",
+                    filter: "drop-shadow(0 0 6px rgba(255,170,13,0.55))",
                   }}
                 />
               </a>
@@ -285,7 +285,7 @@ export function WhyChooseUs() {
             {/* ── STATS BAR ── */}
             <div
               className="sg-stats-section relative"
-              style={{ background: "#0b1f10", borderTop: "1px solid rgba(212,175,55,0.12)", padding: "2.5rem 1.5rem" }}
+              style={{ background: "#04100d", borderTop: "1px solid rgba(255,170,13,0.12)", padding: "2.5rem 1.5rem" }}
             >
               <div className="grid grid-cols-2 md:grid-cols-3 gap-y-6 sm:gap-y-0 gap-x-2">
                 {features.map((feature, idx) => {
@@ -306,7 +306,7 @@ export function WhyChooseUs() {
                       {/* Icon */}
                       <div
                         className="shrink-0 mt-0.5"
-                        style={{ color: "#D4AF37", opacity: 0.85, width: 26, height: 26 }}
+                        style={{ color: "#FFAA0D", opacity: 0.85, width: 26, height: 26 }}
                       >
                         <feature.icon className="w-full h-full stroke-[1.5px] sm:stroke-[2px]" />
                       </div>

@@ -93,7 +93,7 @@ const Farmland = () => {
       </Helmet>
 
       {/* HERO SECTION */}
-      <section className="relative min-h-[60vh] flex items-center justify-center pt-30 overflow-hidden">
+      <section className="relative min-h-[60vh] flex items-center justify-center pt-40 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src={farmlandAerial}
@@ -140,7 +140,7 @@ const Farmland = () => {
       </section>
 
       {/* GALLERY SECTION - Categorized Grid */}
-      <section id="gallery" className="py-24 bg-background">
+      <section id="gallery" className="py-24 bg-[url('/assets/images/background/dark-dott-pattern.png')] bg-repeat bg-[#FFF9F0]">
         <div className="container">
           <div className="text-center mb-16 px-4">
             <h2 className="text-2xl md:text-4xl font-heading font-bold mb-4 tracking-tight uppercase">Visual <span className="text-primary italic font-serif lowercase tracking-normal">Journey</span></h2>
@@ -302,25 +302,71 @@ const Farmland = () => {
         </div>
       </section>
 
-      {/* WHY CHOOSE US */}
-      <section className="py-24 bg-primary text-white overflow-hidden relative">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] opacity-5" />
+      {/* SUSTAINABLE PROSPERITY - REDESIGN */}
+      <section className="py-32 bg-primary relative overflow-hidden">
+        {/* Decorative Background Elements */}
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] opacity-5 mix-blend-overlay" />
+        <div className="absolute -top-24 -left-24 size-96 bg-accent/20 rounded-full blur-[120px]" />
+        <div className="absolute -bottom-24 -right-24 size-96 bg-accent/10 rounded-full blur-[120px]" />
+
         <div className="container relative z-10 px-4">
           <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6 italic tracking-tighter">Sustainable Prosperity</h2>
-            <p className="text-white/70 max-w-xl mx-auto text-base font-light">
-              We build ecosystems that thrive for generations.
-            </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <span className="inline-block px-5 py-2 rounded-full border border-accent/30 bg-accent/10 text-accent text-xs font-bold uppercase tracking-[0.2em] mb-6 shadow-sm">
+                Our Commitment
+              </span>
+              <h2 className="text-4xl md:text-6xl text-white font-heading font-bold mb-8 tracking-tighter leading-tight">
+                Sustainable <span className="text-accent italic font-serif">Prosperity</span>
+              </h2>
+              <div className="h-1 w-24 bg-gradient-to-r from-transparent via-accent to-transparent mx-auto mb-8" />
+              <p className="text-white/80 max-w-2xl mx-auto text-lg md:text-xl font-light leading-relaxed">
+                We don't just sell land; we build self-sustaining ecosystems that thrive for generations, ensuring your legacy grows with nature.
+              </p>
+            </motion.div>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+
+          <div className="grid md:grid-cols-3 gap-12">
             {features.map((f, idx) => (
-              <div key={idx} className="bg-white/5 backdrop-blur-xl rounded-[2.5rem] p-10 border border-white/10 hover:bg-white/10 transition-all duration-500 group relative overflow-hidden">
-                <div className="w-14 h-14 rounded-2xl bg-gold/20 flex items-center justify-center mb-8 group-hover:bg-gold transition-all duration-500">
-                  <f.icon className="w-7 h-7 text-gold group-hover:text-primary-foreground" />
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.2 }}
+                viewport={{ once: true }}
+                className="group relative"
+              >
+                {/* Background Number */}
+                <div className="absolute -top-10 -right-4 text-9xl font-black text-white/5 pointer-events-none select-none italic">
+                  0{idx + 1}
                 </div>
-                <h3 className="text-xl font-heading font-bold mb-4 tracking-tight">{f.title}</h3>
-                <p className="text-white/60 text-base leading-relaxed font-light">{f.desc}</p>
-              </div>
+
+                <div className="h-full bg-white/5 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/10 hover:border-accent/40 hover:bg-white/10 transition-all duration-700 relative z-10 shadow-2xl overflow-hidden">
+                  {/* Hover Glow */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+                  <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center mb-10 group-hover:bg-accent group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-inner">
+                    <f.icon className="w-8 h-8 text-accent group-hover:text-primary transition-colors duration-500" />
+                  </div>
+
+                  <h3 className="text-2xl font-heading font-bold mb-6 text-white tracking-tight group-hover:text-accent transition-colors">
+                    {f.title}
+                  </h3>
+
+                  <p className="text-white/60 text-base leading-relaxed font-light group-hover:text-white/80 transition-colors">
+                    {f.desc}
+                  </p>
+
+                  <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
+                    <span className="text-accent text-[10px] font-bold uppercase tracking-widest">Learn More</span>
+                    <ArrowRight className="w-4 h-4 text-accent" />
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>

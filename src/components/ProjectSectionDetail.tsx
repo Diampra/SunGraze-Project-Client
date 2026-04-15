@@ -10,10 +10,10 @@ const farmlandSections = {
     content:
       "The Sungraze farmland is mainly built for land cultivation and producing variety of crops in one common place. Sungraze implements innovative strategies to promote conscious food choices.",
   },
-  "club-house": {
-    title: "Club House",
+  "resort": {
+    title: "Resort",
     content:
-      "The Club at SUNGRAZE Farms is spread over 6 acres and perfectly blended with nature. It becomes a preferred spot for mega events and leisure.",
+      "The Resort at SUNGRAZE Farms is spread over 6 acres and perfectly blended with nature. It is a preferred spot for mega events and leisure activities.",
   },
   "naturopathy": {
     title: "Naturopathy",

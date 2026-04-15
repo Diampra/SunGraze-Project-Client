@@ -14,10 +14,10 @@ export default function FarmlandSections({ projectSlug }: Props) {
       image: "/farmland.jpg",
     },
     {
-      slug: "club-house",
-      title: "CLUB HOUSE",
+      slug: "resort",
+      title: "RESORT",
       description:
-        "The Club at SUNGRAZE Farms is spread over 6 acres and perfectly blended with nature. It is a preferred spot for mega events and leisure activities.",
+        "The Resort at SUNGRAZE Farms is spread over 6 acres and perfectly blended with nature. It is a preferred spot for mega events and leisure activities.",
       image: "/clubhouse.jpg",
     },
     {
