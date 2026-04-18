@@ -518,7 +518,7 @@ const About = () => {
               <Award className="w-5 h-5 text-gold" />
               <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold">Our Impact</span>
             </div>
-            <h2 className="text-4xl md:text-6xl font-heading font-bold mb-6 leading-none tracking-tight">
+            <h2 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6 leading-none tracking-tight">
               Numbers That <span className="text-gold italic font-serif">Matter</span>
             </h2>
             <p className="text-lg text-white/80 font-light leading-relaxed">
@@ -562,7 +562,7 @@ const About = () => {
             <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-white/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
 
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-5xl font-heading font-bold mb-8 italic tracking-tighter leading-none">Ready to Build Your <span className="text-gold">Legacy</span>?</h2>
+              <h2 className="text-3xl md:text-5xl font-heading font-bold mb-8 italic tracking-tighter text-white leading-none">Ready to Build Your <span className="text-gold">Legacy</span>?</h2>
               <p className="text-base md:text-lg text-primary-foreground/80 mb-12 max-w-2xl mx-auto font-light leading-relaxed text-balance">
                 Our legacy is built on the trust of over 500 happy families.
               </p>

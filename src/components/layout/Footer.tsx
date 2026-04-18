@@ -32,8 +32,8 @@ export function Footer() {
           <div className="pr-5 max-lg:w-1/2 max-md:w-full">
             <div className="text-primary font-display lg:text-[70px] sm:text-[46px] text-[28px] font-bold leading-[1.1] sm:text-shadow-[2px_3px_0px_rgba(255,255,255,0.72)] pb-2"><span className="text-white inline-block">Subscribe</span> Now!</div>
             <div className="text-primary text-lg font-medium font-title max-md:mb-5">
-              Sign up to our weekly newsletter to get the latest updates. 
-            </div>  
+              Sign up to our weekly newsletter to get the latest updates.
+            </div>
           </div>
           <div className="max-w-[420px] flex-1 h-14 md:h-16">
             <form className="h-full">
@@ -125,7 +125,7 @@ export function Footer() {
                       <Phone className="w-[18px] h-[18px] text-gold transition-transform group-hover:scale-110" />
                     </div>
                     <a href="tel:+919591155565" className="block text-white/70 font-medium text-[15px] hover:text-gold transition-colors">
-                      +91-9591155565 <br/> +91-9916046565
+                      +91-9591155565 <br /> +91-9916046565
                     </a>
                   </li>
                   <li className="relative flex items-center gap-4 group">
@@ -145,7 +145,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="py-8 text-white relative flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-center text-sm font-medium text-white/60">
-            © {new Date().getFullYear()} <span className="inline-block text-gold uppercase font-bold tracking-wider mx-1">Sungraze Projects</span> All Rights Reserved.
+            © {new Date().getFullYear()} <span className="inline-block text-gold uppercase font-bold tracking-wider mx-1">Sungraze Projects</span> All Rights Reserved. | Designed & Developed by <a href="https://macrossys.com/" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-white transition-colors">Macrossys</a> in collaboration with <a href="https://wishingindia.com/" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-white transition-colors">Wishingindia</a>
           </p>
           <div className="flex gap-8">
             <Link to="/privacy" className="text-white/50 hover:text-gold text-sm transition-colors font-medium">Privacy Policy</Link>
