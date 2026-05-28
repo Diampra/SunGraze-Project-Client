@@ -1,30 +1,159 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Helmet } from "react-helmet-async";
 import {
   MapPin,
   ArrowRight,
   CheckCircle,
   Phone,
-  ChevronRight,
-  X,
+  ChevronLeft,
   Sparkles,
-  Award
+  Award,
+  Shield,
+  Home,
+  Layers,
+  TreePine,
+  Wifi,
+  Car,
+  Dumbbell,
+  Users,
+  Zap,
+  Droplets,
+  Lock,
 } from "lucide-react";
 
 import { ContactForm } from "@/components/contact/ContactForm";
 import { getProjectBySlug, projects } from "@/data/projects";
-import { motion, AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
+/* ─── Utility: status badge colour ─────────────────────────── */
+const statusConfig: Record<string, { label: string; color: string }> = {
+  completed: { label: "Completed", color: "bg-emerald-900/80 text-emerald-100 border-emerald-700/50" },
+  ongoing: { label: "Ongoing", color: "bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/40" },
+  upcoming: { label: "Upcoming", color: "bg-white/10 text-white/80 border-white/20" },
+};
+
+/* ─── Amenity icon map ──────────────────────────────────────── */
+const amenityIconMap: Record<string, React.ElementType> = {
+  "Club House": Sparkles,
+  "Club House (Upcoming)": Sparkles,
+  "Naturopathy Center": TreePine,
+  "Spiritual Retreat Center": Sparkles,
+  "Managed Assets": Award,
+  "Water & Electricity": Droplets,
+  "Security": Lock,
+  "Water": Droplets,
+  "Electricity": Zap,
+  "Gated Community": Shield,
+  "Street Lights": Zap,
+  "Children's Play Area": Users,
+  "Children Play Area": Users,
+  "Green Trees": TreePine,
+  "Fitness Center with Equipment": Dumbbell,
+  "LIFT with Power Backup": Layers,
+  "Ample Car Parking": Car,
+  "24Hr Water Supply": Droplets,
+  "24Hr Security": Shield,
+  "Gymnasium": Dumbbell,
+  "INTERCOM": Wifi,
+  "LIFT": Layers,
+  "24Hr Backup Electricity": Zap,
+  "Indoor Games": Sparkles,
+  "Outdoor Games Play Area": Users,
+  "Landscape": TreePine,
+  "Landscaped Gardens": TreePine,
+  "Premium Villa Design": Home,
+  "Premium Plot Design": Home,
+  "CCTV Cameras & Security": Shield,
+};
+
+/* ─── Fade-up animation wrapper ────────────────────────────── */
+const FadeUp = ({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 24 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-60px" }}
+    transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+    className={className}
+  >
+    {children}
+  </motion.div>
+);
+
+/* ─── Section label component ──────────────────────────────── */
+const SectionLabel = ({ children }: { children: React.ReactNode }) => (
+  <span className="inline-block text-[10px] font-semibold uppercase tracking-[0.22em] text-[#D4AF37] mb-3">
+    {children}
+  </span>
+);
+
+/* ─── Elegant divider ──────────────────────────────────────── */
+const Divider = () => (
+  <div className="flex items-center gap-4 my-2">
+    <div className="h-px flex-1 bg-[#E8E5DF]" />
+    <div className="w-1 h-1 rounded-full bg-[#D4AF37]/60" />
+    <div className="h-px w-8 bg-[#E8E5DF]" />
+  </div>
+);
+
+/* ─── Amenity chip ──────────────────────────────────────────── */
+const AmenityChip = ({ label }: { label: string }) => {
+  const Icon = amenityIconMap[label] || Sparkles;
+  return (
+    <div className="group flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-[#E8E5DF] bg-white hover:border-[#0F3D2E]/20 hover:bg-[#F8F6F2] transition-all duration-200 cursor-default">
+      <Icon className="w-3.5 h-3.5 text-[#0F3D2E]/50 flex-shrink-0" />
+      <span className="text-[13px] font-medium text-[#374151] leading-tight">{label}</span>
+    </div>
+  );
+};
+
+/* ─── Feature row item ──────────────────────────────────────── */
+const FeatureItem = ({ text, delay = 0 }: { text: string; delay?: number }) => (
+  <FadeUp delay={delay}>
+    <div className="group flex items-start gap-4 p-5 rounded-2xl bg-white border border-[#E8E5DF] hover:border-[#0F3D2E]/20 hover:shadow-sm transition-all duration-200">
+      <div className="mt-0.5 w-7 h-7 rounded-lg bg-[#0F3D2E]/6 border border-[#0F3D2E]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#0F3D2E] transition-colors duration-300">
+        <CheckCircle className="w-3.5 h-3.5 text-[#0F3D2E] group-hover:text-white transition-colors duration-300" />
+      </div>
+      <span className="text-[14px] leading-snug text-[#374151] font-medium pt-0.5">{text}</span>
+    </div>
+  </FadeUp>
+);
+
+/* ─── Stat card ─────────────────────────────────────────────── */
+const StatCard = ({
+  label,
+  value,
+  highlight = false,
+}: {
+  label: string;
+  value: string | number;
+  highlight?: boolean;
+}) => (
+  <div className="flex flex-col gap-1 px-6 py-5 border-r border-[#E8E5DF] last:border-r-0 first:pl-0">
+    <span className="text-[10px] uppercase tracking-[0.18em] text-[#6B7280] font-semibold">{label}</span>
+    <span className={`text-base font-semibold leading-snug ${highlight ? "text-[#D4AF37]" : "text-[#0F3D2E]"}`}>
+      {value}
+    </span>
+  </div>
+);
+
+/* ═══════════════════════════════════════════════════════════
+   MAIN COMPONENT
+═══════════════════════════════════════════════════════════ */
 const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const project = slug ? getProjectBySlug(slug) : undefined;
-  const [activeSection, setActiveSection] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<string | null>(null);
-  const detailsRef = useRef<HTMLDivElement | null>(null);
+  const [activeGalleryIdx, setActiveGalleryIdx] = useState<number | null>(null);
 
   if (!project) return <Navigate to="/projects" replace />;
 
@@ -32,33 +161,7 @@ const ProjectDetail = () => {
     .filter((p) => p.type === project.type && p.slug !== project.slug)
     .slice(0, 3);
 
-  // Dynamically generate sections from related projects or featured developments
-  const featuredDevelopmentSections = relatedProjects.slice(0, 2).map((p) => ({
-    slug: p.slug,
-    title: p.name,
-    subtitle: p.tagline,
-    image: p.image,
-    tabs: [
-      {
-        key: "overview",
-        label: "Overview",
-        content: p.description.slice(0, 200) + "...",
-      },
-      {
-        key: "location",
-        label: "Location",
-        content: `Located at ${p.location} in ${p.region}. This project offers excellent connectivity and modern amenities for your needs.`,
-      },
-      {
-        key: "amenities",
-        label: "Amenities",
-        content: p.amenities.slice(0, 5).join(", ") + (p.amenities.length > 5 ? ", and more." : "."),
-      },
-    ],
-  }));
-
-  const farmlandSections = [...featuredDevelopmentSections];
-  const residentialSections = [...featuredDevelopmentSections];
+  const status = statusConfig[project.status] ?? statusConfig.ongoing;
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -91,473 +194,485 @@ const ProjectDetail = () => {
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
 
-      {/* ── HERO ────────────────────────────────────────────── */}
-      <section className="relative h-[75vh] md:h-[85vh] overflow-hidden trv-banner-1-wrap bg-primary">
-        <div className="trv-banner-1-rain-effect">
-          <div className="absolute left-0 size-full z-2 rain front-row"></div>
-          <div className="absolute left-0 size-full z-2 rain back-row"></div>
-        </div>
-
+      {/* ── HERO ──────────────────────────────────────────────── */}
+      <section className="relative h-[80vh] min-h-[560px] max-h-[860px] overflow-hidden bg-[#0F3D2E]">
+        {/* Cinematic image */}
         <motion.div
-          initial={{ scale: 1.1, opacity: 0 }}
+          initial={{ scale: 1.08, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.5 }}
+          transition={{ duration: 1.6, ease: "easeOut" }}
           className="absolute inset-0 z-0"
         >
-          <img src={project.image} alt={project.name} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-black/50" />
+          <img
+            src={project.image}
+            alt={project.name}
+            className="w-full h-full object-cover"
+          />
+          {/* Dark cinematic overlay — bottom-weighted */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/10" />
         </motion.div>
 
-        <div className="absolute inset-0 flex items-center pt-24">
-          <div className="container relative z-10 w-full">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="max-w-4xl"
+        {/* Back breadcrumb */}
+        <div className="absolute top-24 left-0 right-0 z-20">
+          <div className="container px-6 md:px-8">
+            <Link
+              to="/projects"
+              className="inline-flex items-center gap-2 text-white/60 hover:text-white text-xs tracking-wider uppercase font-medium transition-colors duration-200"
             >
-              <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-accent/20 backdrop-blur-md border border-accent/30 mb-6 font-display text-accent">
-                <MapPin size={16} />
-                <span className="text-sm uppercase tracking-widest font-bold">{project.region}</span>
+              <ChevronLeft className="w-3.5 h-3.5" />
+              All Projects
+            </Link>
+          </div>
+        </div>
+
+        {/* Hero content — bottom aligned */}
+        <div className="absolute inset-0 flex items-end z-10">
+          <div className="container px-6 md:px-8 pb-12 md:pb-16 w-full">
+            <motion.div
+              initial={{ opacity: 0, y: 32 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-3xl"
+            >
+              {/* Status badge */}
+              <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-[11px] font-semibold tracking-wider uppercase mb-5 backdrop-blur-sm ${status.color}`}>
+                <span className="w-1.5 h-1.5 rounded-full bg-current opacity-70" />
+                {status.label}
               </div>
-              <h1 className="text-5xl md:text-7xl font-display text-white leading-[1.1] mb-6 tracking-tight">
+
+              {/* Title */}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif text-white leading-[1.08] tracking-tight mb-4">
                 {project.name}
               </h1>
-              <p className="text-xl md:text-2xl text-white/70 font-light max-w-2xl leading-relaxed">
-                {project.tagline}
-              </p>
+
+              {/* Location row */}
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-white/65">
+                <span className="flex items-center gap-1.5 text-sm font-medium">
+                  <MapPin className="w-4 h-4 text-[#D4AF37]" />
+                  {project.location}
+                </span>
+                <span className="w-px h-3.5 bg-white/25" />
+                <span className="text-sm">{project.region}</span>
+                {project.approvalType && (
+                  <>
+                    <span className="w-px h-3.5 bg-white/25" />
+                    <span className="flex items-center gap-1.5 text-sm">
+                      <Shield className="w-3.5 h-3.5 text-[#D4AF37]/80" />
+                      {project.approvalType} Approved
+                    </span>
+                  </>
+                )}
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ── STATS STRIP ─────────────────────────────────────── */}
-      <div className="relative z-20 -mt-16 md:-mt-20">
-        <div className="container">
+      {/* ── STATS STRIP ───────────────────────────────────────── */}
+      <div className="bg-white border-b border-[#E8E5DF]">
+        <div className="container px-6 md:px-8">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.8 }}
-            className="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[2rem] md:rounded-[4rem] p-6 md:p-10 shadow-2xl"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+            className="flex flex-wrap items-stretch divide-x divide-[#E8E5DF]"
           >
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-x divide-white/10">
-              {[
-                { label: "Location", value: project.location },
-                { label: "Total Plots", value: project.totalPlots },
-                { label: "Approval", value: project.approvalType },
-                { label: "Starting Price", value: project.priceRange, highlight: true },
-              ].map((stat) => (
-                <div key={stat.label} className="md:px-8 text-center first:pl-0 border-none lg:border-solid">
-                  <p className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-white/50 mb-3 font-bold">
-                    {stat.label}
-                  </p>
-                  <p className={`text-base md:text-xl font-heading font-bold ${stat.highlight ? "text-accent" : "text-white"}`}>
-                    {stat.value}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <StatCard label="Location" value={project.location} />
+            <StatCard label="Total Plots" value={project.totalPlots} />
+            <StatCard label="Plot Sizes" value={project.plotSizes} />
+            <StatCard label="Approval" value={project.approvalType} />
+            <StatCard label="Starting Price" value={project.priceRange} highlight />
           </motion.div>
         </div>
       </div>
 
-      {/* ── MAIN CONTENT ────────────────────────────────────── */}
-      <section className="pt-16 pb-24 bg-[#FFF9F0] text-primary relative overflow-hidden">
-        {/* Background Textures & Doodles */}
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('/assets/images/background/dark-dott-pattern.png')] opacity-[0.03] pointer-events-none" />
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('/assets/images/background/patern.png')] opacity-[0.02] pointer-events-none" />
-        
-        {/* Decorative Nature Assets */}
-        <div className="absolute -top-10 left-0 w-96 opacity-[0.03] pointer-events-none rotate-12">
-          <img src="/assets/images/background/Righttreepic.png" alt="" className="w-full" />
-        </div>
-        <div className="absolute top-1/2 -right-40 w-[600px] opacity-[0.02] pointer-events-none -translate-y-1/2">
-          <img src="/assets/images/background/Cloud-bg.png" alt="" className="w-full invert" />
-        </div>
+      {/* ── MAIN BODY ─────────────────────────────────────────── */}
+      <section className="bg-[#F8F6F2] py-16 md:py-24">
+        <div className="container px-6 md:px-8 grid lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_400px] gap-12 xl:gap-16 items-start">
 
-        {/* Floating Farmland Doodles */}
-        <motion.div 
-          animate={{ y: [0, -20, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-20 right-10 w-48 opacity-[0.05] pointer-events-none z-0"
-        >
-          <img src="/assets/images/farmland-doodles.png" alt="" className="w-full" />
-        </motion.div>
-        <motion.div 
-          animate={{ y: [0, 20, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-40 left-10 w-64 opacity-[0.05] pointer-events-none z-0 rotate-12"
-        >
-          <img src="/assets/images/farmland-doodles.png" alt="" className="w-full" />
-        </motion.div>
+          {/* ── LEFT COLUMN ───────────────────────────────────── */}
+          <div className="space-y-16 md:space-y-20 min-w-0">
 
-        {/* Multi-layered Orbs */}
-        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-        <div className="absolute top-1/3 right-1/4 w-[600px] h-[600px] bg-gold/10 rounded-full blur-[130px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px] translate-x-1/2 pointer-events-none" />
+            {/* ─ About ─ */}
+            <FadeUp>
+              <div className="space-y-5">
+                <SectionLabel>About the Project</SectionLabel>
+                <h2 className="text-3xl md:text-4xl font-serif text-[#0F3D2E] leading-snug">
+                  {project.tagline}
+                </h2>
+                <Divider />
+                <p className="text-[#6B7280] leading-relaxed text-[15px] max-w-2xl whitespace-pre-line">
+                  {project.description}
+                </p>
 
-        <div className="container grid lg:grid-cols-3 gap-16 relative z-10">
-          <div className="lg:col-span-2 space-y-20">
-            {/* About */}
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} className="space-y-6">
-              <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/5 border border-primary/10">
-                <Sparkles className="w-4 h-4 text-accent" />
-                <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold">About the Project</span>
-              </div>
-              <h2 className="text-4xl md:text-5xl font-heading text-primary font-bold leading-tight">
-                Numbers That <span className="text-accent italic font-serif">Transform</span>
-              </h2>
-              <div className="mb-4">
-                <img src="/assets/images/background/Title-Separator.png" alt="" className="w-48 opacity-40 ml-0 invert" />
-              </div>
-              <p className="text-primary/70 leading-relaxed text-lg font-light max-w-3xl">{project.description}</p>
-            </motion.div>
-
-            {/* Experience Cards */}
-            {(project.type === "farmland" || project.type === "residential") && (
-              <div className="space-y-12">
-                <div className="space-y-4">
-                  <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/5 border border-primary/10">
-                    <Award className="w-4 h-4 text-accent" />
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold">Curated Selection</span>
-                  </div>
-                  <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary">
-                    Featured <span className="text-accent italic font-serif">Developments</span>
-                  </h2>
-                  <div className="mt-2">
-                    <img src="/assets/images/background/Title-Separator.png" alt="" className="w-48 opacity-40 invert" />
-                  </div>
-                </div>
-                <div className="grid md:grid-cols-2 gap-8">
-                  {(project.type === "farmland" ? farmlandSections : residentialSections).map((section, i) => (
-                    <motion.div
-                      key={section.slug}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className="group relative rounded-3xl overflow-hidden cursor-pointer bg-white border border-primary/10 shadow-md"
-                      style={{ aspectRatio: "4/3" }}
-                    >
-                      <img src={section.image} alt={section.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-transparent" />
-                      <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                        <p className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-2">{section.subtitle}</p>
-                        <h3 className="text-2xl font-bold text-white mb-6">{section.title}</h3>
-                        <button
-                          onClick={() => {
-                            setActiveSection(section.slug);
-                            setActiveTab(section.tabs[0].key);
-                            setTimeout(() => detailsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
-                          }}
-                          className="self-start group/btn flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-white border border-white/20 hover:border-accent hover:bg-accent hover:text-primary px-6 py-3 rounded-full transition-all duration-300"
-                        >
-                          Explore <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-                        </button>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* EXPANDABLE DETAILS & VISUAL JOURNEY RIGHT BELOW */}
-                <AnimatePresence>
-                  {activeSection && (() => {
-                    const activeProject = projects.find(p => p.slug === activeSection);
-                    if (!activeProject) return null;
-
-                    return (
-                      <motion.div
-                        ref={detailsRef}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 20 }}
-                        transition={{ duration: 0.4 }}
-                        className="p-8 md:p-12 rounded-[2.5rem] bg-white border border-primary/10 shadow-xl space-y-8 overflow-hidden"
+                {/* Highlights row */}
+                {project.highlights.length > 0 && (
+                  <div className="flex flex-wrap gap-3 pt-2">
+                    {project.highlights.map((h) => (
+                      <span
+                        key={h}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0F3D2E]/5 border border-[#0F3D2E]/10 text-[12px] font-medium text-[#0F3D2E]"
                       >
-                        <div className="flex justify-between items-start gap-4">
-                          <div>
-                            <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold">
-                              {activeProject.type === "farmland" ? "Managed Farmland" : "Residential Layout"}
-                            </span>
-                            <h3 className="text-3xl font-bold text-primary font-heading mt-1">
-                              {activeProject.name}
-                            </h3>
-                            <p className="text-sm text-primary/60 mt-1 font-light italic">
-                              {activeProject.tagline}
-                            </p>
-                          </div>
-                          <button
-                            onClick={() => setActiveSection(null)}
-                            className="p-2 bg-primary/5 hover:bg-primary/10 rounded-full text-primary transition-colors"
-                          >
-                            <X className="w-5 h-5" />
-                          </button>
-                        </div>
-
-                        {/* Tabs Navigation */}
-                        <div className="flex gap-4 border-b border-primary/5 pb-2">
-                          {["overview", "location", "amenities"].map((tabKey) => (
-                            <button
-                              key={tabKey}
-                              onClick={() => setActiveTab(tabKey)}
-                              className={`px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all relative ${
-                                activeTab === tabKey ? "text-primary" : "text-primary/40 hover:text-primary/70"
-                              }`}
-                            >
-                              {tabKey}
-                              {activeTab === tabKey && (
-                                <motion.div
-                                  layoutId="activeTabUnderline"
-                                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"
-                                />
-                              )}
-                            </button>
-                          ))}
-                        </div>
-
-                        {/* Tab Content */}
-                        <div className="text-primary/75 text-base leading-relaxed font-light min-h-[80px]">
-                          {activeTab === "overview" && activeProject.description}
-                          {activeTab === "location" && (
-                            <div>
-                              <p>Located at <span className="font-semibold">{activeProject.location}</span> in {activeProject.region}.</p>
-                              <p className="mt-2">This premium development offers excellent connectivity, highly fertile soil, and a perfect setting for your private villa or farm getaway.</p>
-                            </div>
-                          )}
-                          {activeTab === "amenities" && (
-                            <div className="flex flex-wrap gap-2 pt-2">
-                              {activeProject.amenities.map((a) => (
-                                <span key={a} className="px-3 py-1 bg-primary/5 border border-primary/10 rounded-full text-xs font-medium text-primary">
-                                  {a}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Visual Journey (Gallery) of active project */}
-                        {activeProject.gallery && activeProject.gallery.length > 0 && (
-                          <div className="space-y-6 pt-4 border-t border-primary/5">
-                            <h4 className="text-lg font-bold text-primary font-heading flex items-center gap-2">
-                              <Sparkles className="w-4 h-4 text-accent" />
-                              Visual Journey
-                            </h4>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                              {activeProject.gallery.map((img, idx) => (
-                                <motion.div
-                                  key={img + idx}
-                                  whileHover={{ scale: 1.03 }}
-                                  className="overflow-hidden rounded-2xl border border-primary/5 aspect-square relative group"
-                                >
-                                  <img src={img} alt="" className="w-full h-full object-cover" />
-                                  <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors" />
-                                </motion.div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </motion.div>
-                    );
-                  })()}
-                </AnimatePresence>
+                        <span className="w-1 h-1 rounded-full bg-[#D4AF37]" />
+                        {h}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
+            </FadeUp>
 
-            {/* Features & Amenities */}
-            <div className="space-y-12">
-              <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/5 border border-primary/10">
-                <CheckCircle className="w-4 h-4 text-accent" />
-                <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold">Exclusive Benefits</span>
-              </div>
-              <h3 className="text-3xl md:text-4xl font-heading font-bold text-primary">
-                Lifestyle <span className="text-accent italic font-serif">Advantages</span>
-              </h3>
-              <div className="mt-2 mb-8">
-                <img src="/assets/images/background/Title-Separator.png" alt="" className="w-48 opacity-40 invert" />
-              </div>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {project.features.map((feature, idx) => (
-                  <motion.div
-                    key={feature}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.05 }}
-                    className="flex items-center gap-5 p-6 rounded-2xl bg-white border border-primary/10 hover:bg-white/80 shadow-sm transition-colors group"
-                  >
-                    <div className="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500">
-                      <CheckCircle size={18} />
-                    </div>
-                    <span className="text-lg font-light text-primary/80">{feature}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {project.amenities.length > 0 && (
-              <div className="space-y-12">
-                <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/5 border border-primary/10">
-                  <MapPin className="w-4 h-4 text-accent" />
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold">Lifestyle Amenities</span>
-                </div>
-                <h3 className="text-3xl md:text-4xl font-heading font-bold text-primary">
-                  World-Class <span className="text-accent italic font-serif">Infrastructure</span>
-                </h3>
-                 <div className="mt-2 mb-8">
-                  <img src="/assets/images/background/Title-Separator.png" alt="" className="w-48 opacity-40 invert" />
-                </div>
-                <div className="flex flex-wrap gap-4">
-                  {project.amenities.map((a, idx) => (
-                    <motion.div
-                      key={a}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: idx * 0.05 }}
-                      className="px-8 py-3 rounded-full bg-white border border-primary/10 text-primary/80 hover:bg-accent hover:text-white hover:border-accent shadow-sm transition-all duration-300 font-bold text-xs uppercase tracking-widest cursor-default"
-                    >
-                      {a}
-                    </motion.div>
+            {/* ─ Features ─ */}
+            {project.features.length > 0 && (
+              <div className="space-y-6">
+                <FadeUp>
+                  <SectionLabel>Lifestyle Advantages</SectionLabel>
+                  <h2 className="text-2xl md:text-3xl font-serif text-[#0F3D2E]">
+                    Property Features
+                  </h2>
+                  <Divider />
+                </FadeUp>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {project.features.map((f, i) => (
+                    <FeatureItem key={f} text={f} delay={i * 0.04} />
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Gallery */}
+            {/* ─ Amenities ─ */}
+            {project.amenities.length > 0 && (
+              <div className="space-y-6">
+                <FadeUp>
+                  <SectionLabel>Exclusive Amenities</SectionLabel>
+                  <h2 className="text-2xl md:text-3xl font-serif text-[#0F3D2E]">
+                    World-Class Infrastructure
+                  </h2>
+                  <Divider />
+                </FadeUp>
+                <FadeUp delay={0.1}>
+                  <div className="flex flex-wrap gap-2.5">
+                    {project.amenities.map((a) => (
+                      <AmenityChip key={a} label={a} />
+                    ))}
+                  </div>
+                </FadeUp>
+              </div>
+            )}
+
+            {/* ─ Gallery ─ */}
             {project.gallery.length > 0 && (
-              <div className="space-y-12">
-                <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/5 border border-primary/10">
-                  <Sparkles className="w-4 h-4 text-accent" />
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold">Project Gallery</span>
-                </div>
-                <h3 className="text-3xl md:text-4xl font-heading font-bold text-primary">
-                  Visual <span className="text-accent italic font-serif">Journey</span>
-                </h3>
-                <div className="mt-2 mb-8">
-                  <img src="/assets/images/background/Title-Separator.png" alt="" className="w-48 opacity-40 invert" />
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+              <div className="space-y-6">
+                <FadeUp>
+                  <SectionLabel>Project Gallery</SectionLabel>
+                  <h2 className="text-2xl md:text-3xl font-serif text-[#0F3D2E]">
+                    Visual Journey
+                  </h2>
+                  <Divider />
+                </FadeUp>
+
+                {/* Editorial masonry-inspired grid */}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {project.gallery.map((img, i) => (
                     <motion.div
-                      key={img}
-                      initial={{ opacity: 0, scale: 0.9 }}
+                      key={img + i}
+                      initial={{ opacity: 0, scale: 0.97 }}
                       whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: i * 0.1 }}
-                      className={`group overflow-hidden rounded-3xl border border-primary/10 relative ${i === 0 ? "col-span-2 row-span-2" : ""}`}
-                      style={{ aspectRatio: i === 0 ? "16/10" : "4/3" }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.07, duration: 0.5 }}
+                      className={`group relative overflow-hidden rounded-2xl cursor-pointer bg-[#E8E5DF] ${
+                        i === 0 ? "col-span-2 aspect-[16/9]" : "aspect-[4/3]"
+                      }`}
+                      onClick={() => setActiveGalleryIdx(i)}
                     >
-                      <img src={img} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                      <img
+                        src={img}
+                        alt={`${project.name} gallery ${i + 1}`}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/12 transition-colors duration-300" />
                     </motion.div>
                   ))}
                 </div>
               </div>
             )}
+
+            {/* ─ Related Developments ─ */}
+            {(project.type === "farmland" || project.type === "residential") &&
+              relatedProjects.length > 0 && (
+                <div className="space-y-6">
+                  <FadeUp>
+                    <SectionLabel>Portfolio</SectionLabel>
+                    <h2 className="text-2xl md:text-3xl font-serif text-[#0F3D2E]">
+                      Similar Developments
+                    </h2>
+                    <Divider />
+                  </FadeUp>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {relatedProjects.slice(0, 2).map((p, i) => (
+                      <FadeUp key={p.slug} delay={i * 0.1}>
+                        <Link
+                          to={`/projects/${p.slug}`}
+                          className="group relative flex flex-col overflow-hidden rounded-[24px] bg-white border border-[#E8E5DF] hover:border-[#0F3D2E]/20 hover:shadow-md transition-all duration-300"
+                          style={{ aspectRatio: "4/3" }}
+                        >
+                          <img
+                            src={p.image}
+                            alt={p.name}
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                          <div className="absolute bottom-0 left-0 right-0 p-6">
+                            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#D4AF37] mb-1">
+                              {p.type}
+                            </p>
+                            <h3 className="text-lg font-serif text-white leading-snug mb-2">
+                              {p.name}
+                            </h3>
+                            <div className="flex items-center gap-1.5 text-white/60 text-xs">
+                              <MapPin className="w-3 h-3" />
+                              {p.location}
+                            </div>
+                          </div>
+                          <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <ArrowRight className="w-3.5 h-3.5 text-white" />
+                          </div>
+                        </Link>
+                      </FadeUp>
+                    ))}
+                  </div>
+
+                  <FadeUp delay={0.2}>
+                    <Link
+                      to="/projects"
+                      className="inline-flex items-center gap-2 text-[13px] font-semibold text-[#0F3D2E] hover:text-[#D4AF37] transition-colors duration-200"
+                    >
+                      View all projects
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </FadeUp>
+                </div>
+              )}
           </div>
 
-          {/* Sidebar */}
-          <div>
-            <div className="sticky top-32 space-y-8">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="bg-white border border-primary/10 rounded-[2.5rem] overflow-hidden shadow-xl">
-                <div className="bg-primary/5 border-b border-primary/10 px-8 py-8">
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold mb-2">Exclusive Access</p>
-                  <h3 className="text-2xl font-bold text-primary leading-tight">Enquire About <span className="text-accent italic font-serif">Ownership</span></h3>
+          {/* ── SIDEBAR ───────────────────────────────────────── */}
+          <div className="lg:sticky lg:top-28 space-y-5">
+
+            {/* Inquiry card */}
+            <FadeUp>
+              <div className="bg-white rounded-[24px] border border-[#E8E5DF] overflow-hidden shadow-[0_4px_24px_-6px_rgba(15,61,46,0.08)]">
+                <div className="px-7 py-6 border-b border-[#E8E5DF]">
+                  <SectionLabel>Exclusive Access</SectionLabel>
+                  <h3 className="text-xl font-serif text-[#0F3D2E] leading-snug">
+                    Enquire About{" "}
+                    <span className="italic text-[#D4AF37]">Ownership</span>
+                  </h3>
                 </div>
-                <div className="p-8"><ContactForm projectName={project.name} compact /></div>
-              </motion.div>
-              <Button size="xl" className="w-full gap-3 bg-accent text-white font-bold hover:bg-primary rounded-full h-16 shadow-2xl shadow-accent/20 transition-all duration-300" asChild>
-                <a href="tel:+919591155565"><Phone className="w-5 h-5 fill-current" />Speak with Advisors</a>
-              </Button>
-              <div className="bg-white border border-primary/10 rounded-[2.5rem] p-10 space-y-6 shadow-lg">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-primary/50 font-bold mb-4">Quick Details</p>
-                {[
-                  { label: "Location", value: project.location },
-                  { label: "Development", value: project.type },
-                  { label: "Certification", value: project.approvalType },
-                  { label: "Valuation", value: project.priceRange },
-                ].map((row) => (
-                  <div key={row.label} className="flex justify-between items-center py-4 border-b border-primary/5 last:border-0">
-                    <span className="text-xs uppercase tracking-widest text-primary/50">{row.label}</span>
-                    <span className="text-sm font-bold text-primary text-right ml-4">{row.value}</span>
-                  </div>
-                ))}
+                <div className="px-7 py-6">
+                  <ContactForm projectName={project.name} compact />
+                </div>
               </div>
-            </div>
+            </FadeUp>
+
+            {/* Call CTA */}
+            <FadeUp delay={0.1}>
+              <a
+                href="tel:+919591155565"
+                className="group flex items-center justify-center gap-3 w-full py-4 rounded-[16px] bg-[#0F3D2E] text-white text-[14px] font-semibold hover:bg-[#0a2e20] transition-all duration-200 shadow-[0_4px_20px_-4px_rgba(15,61,46,0.35)]"
+              >
+                <Phone className="w-4 h-4 fill-current" />
+                Speak with an Advisor
+              </a>
+            </FadeUp>
+
+            {/* Quick details */}
+            <FadeUp delay={0.15}>
+              <div className="bg-white rounded-[24px] border border-[#E8E5DF] px-7 py-6 shadow-[0_2px_12px_-4px_rgba(15,61,46,0.06)]">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-[#6B7280] font-semibold mb-5">
+                  Quick Details
+                </p>
+                <div className="space-y-0">
+                  {[
+                    { label: "Location", value: project.location },
+                    { label: "Type", value: project.type === "farmland" ? "Managed Farmland" : "Residential" },
+                    { label: "Approval", value: project.approvalType },
+                    { label: "Clear Title", value: project.clearTitle ? "Yes" : "No" },
+                    { label: "Loan", value: project.loanAvailable ? "Available" : "Not Available" },
+                    { label: "Valuation", value: project.priceRange },
+                  ].map((row, i, arr) => (
+                    <div
+                      key={row.label}
+                      className={`flex justify-between items-start py-3.5 ${
+                        i < arr.length - 1 ? "border-b border-[#E8E5DF]" : ""
+                      }`}
+                    >
+                      <span className="text-[11px] uppercase tracking-[0.14em] text-[#6B7280] font-medium">
+                        {row.label}
+                      </span>
+                      <span className="text-[13px] font-semibold text-[#0F3D2E] text-right ml-4 max-w-[55%]">
+                        {row.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </FadeUp>
           </div>
         </div>
       </section>
 
-      {/* ── RELATED PROJECTS ────────────────────────────────── */}
-      {relatedProjects.length > 0 && (
-        <section className="py-20 bg-[#FFF9F0] border-t border-primary/10 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-          <div className="container relative z-10">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-              <div className="space-y-4">
-                <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/5 border border-primary/10">
-                  <Sparkles className="w-4 h-4 text-accent" /><span className="text-[10px] uppercase tracking-[0.2em] text-accent font-bold">Portfolio</span>
+      {/* ── CTA SECTION ───────────────────────────────────────── */}
+      <section className="bg-[#F8F6F2] pb-20 md:pb-28">
+        <div className="container px-6 md:px-8">
+          <FadeUp>
+            <div className="relative rounded-[32px] bg-[#0F3D2E] overflow-hidden px-8 py-14 md:px-16 md:py-20 text-center">
+              {/* Subtle texture overlay */}
+              <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(ellipse_at_top_right,_white_0%,_transparent_60%)]" />
+              
+              {/* Gold accent line */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent" />
+
+              <div className="relative z-10 max-w-xl mx-auto space-y-6">
+                <SectionLabel>Start Your Journey</SectionLabel>
+                <h2 className="text-3xl md:text-4xl font-serif text-white leading-snug">
+                  Ready to Build Your{" "}
+                  <span className="text-[#D4AF37] italic">Legacy?</span>
+                </h2>
+                <p className="text-white/55 text-[14px] leading-relaxed">
+                  Our legacy is built on the trust of over 500 happy families.
+                  Your journey towards the perfect property starts with a conversation.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+                  <Button
+                    className="px-8 h-12 rounded-[14px] bg-[#D4AF37] hover:bg-[#c09d2f] text-[#0F3D2E] text-[13px] font-bold tracking-wide transition-all duration-200 shadow-lg shadow-[#D4AF37]/20"
+                    asChild
+                  >
+                    <Link to="/contact">Book a Site Visit</Link>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="px-8 h-12 rounded-[14px] border-white/20 text-white hover:bg-white/8 hover:border-white/30 bg-transparent text-[13px] font-medium transition-all duration-200"
+                    asChild
+                  >
+                    <Link to="/projects">Explore Portfolio</Link>
+                  </Button>
                 </div>
-                <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary">Discover <span className="text-accent italic font-serif">Similar</span> Estates</h2>
               </div>
-              <Button variant="outline" className="rounded-full border-primary/20 text-primary hover:bg-primary hover:text-white gap-2" asChild>
-                <Link to="/projects">View All Portfolio <ArrowRight className="w-4 h-4" /></Link>
-              </Button>
             </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              {relatedProjects.map((p, idx) => (
-                <motion.div key={p.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }}>
-                  <Link to={`/projects/${p.slug}`} className="group flex flex-col h-full bg-white rounded-[2.5rem] overflow-hidden border border-primary/10 hover:border-accent/50 transition-all duration-500 shadow-lg hover:shadow-xl">
-                    <div className="overflow-hidden h-64 relative">
-                      <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" />
-                      <div className="absolute top-6 left-6"><BadgeItem text={p.type} /></div>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ── RELATED PROJECTS STRIP ────────────────────────────── */}
+      {relatedProjects.length > 0 && (
+        <section className="bg-white border-t border-[#E8E5DF] py-16 md:py-20">
+          <div className="container px-6 md:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-10">
+              <div>
+                <SectionLabel>Portfolio</SectionLabel>
+                <h2 className="text-2xl md:text-3xl font-serif text-[#0F3D2E]">
+                  Discover Similar Estates
+                </h2>
+              </div>
+              <Link
+                to="/projects"
+                className="inline-flex items-center gap-2 text-[13px] font-semibold text-[#0F3D2E] hover:text-[#D4AF37] transition-colors duration-200 shrink-0"
+              >
+                View All
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-5">
+              {relatedProjects.map((p, i) => (
+                <FadeUp key={p.id} delay={i * 0.1}>
+                  <Link
+                    to={`/projects/${p.slug}`}
+                    className="group flex flex-col bg-[#F8F6F2] rounded-[24px] overflow-hidden border border-[#E8E5DF] hover:border-[#0F3D2E]/20 hover:shadow-md transition-all duration-300"
+                  >
+                    <div className="relative overflow-hidden h-52">
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                      <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-[10px] font-semibold uppercase tracking-wider text-white">
+                        {p.type}
+                      </span>
                     </div>
-                    <div className="p-8 flex flex-col flex-1">
-                      <div className="flex items-center gap-2 text-primary/60 text-[10px] uppercase tracking-[0.2em] font-bold mb-3">
-                        <MapPin className="w-3.5 h-3.5 text-accent" />{p.location}
+                    <div className="p-6 flex flex-col flex-1">
+                      <div className="flex items-center gap-1.5 text-[#6B7280] text-[11px] mb-2.5">
+                        <MapPin className="w-3 h-3 text-[#D4AF37]" />
+                        {p.location}
                       </div>
-                      <h3 className="text-2xl font-bold text-primary mb-4 group-hover:text-accent transition-colors">{p.name}</h3>
-                      <div className="mt-auto pt-6 border-t border-primary/5 flex items-center justify-between">
-                        <span className="text-accent font-heading font-bold">{p.priceRange}</span>
-                        <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center text-primary group-hover:bg-accent group-hover:text-white transition-all"><ArrowRight size={18} /></div>
+                      <h3 className="text-base font-serif text-[#0F3D2E] mb-1 group-hover:text-[#0F3D2E]/80 transition-colors">
+                        {p.name}
+                      </h3>
+                      <p className="text-[13px] text-[#6B7280] line-clamp-2 flex-1">
+                        {p.tagline}
+                      </p>
+                      <div className="mt-4 pt-4 border-t border-[#E8E5DF] flex items-center justify-between">
+                        <span className="text-[#D4AF37] text-sm font-semibold">{p.priceRange}</span>
+                        <div className="w-8 h-8 rounded-full bg-[#0F3D2E]/5 flex items-center justify-center text-[#0F3D2E] group-hover:bg-[#0F3D2E] group-hover:text-white transition-all duration-200">
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </div>
                       </div>
                     </div>
                   </Link>
-                </motion.div>
+                </FadeUp>
               ))}
             </div>
           </div>
         </section>
       )}
 
-      {/* ── FINAL CTA ───────────────────────────────────────── */}
-      <section className="py-20 bg-[#FFF9F0]">
-        <div className="container">
-          <div className="bg-gradient-to-br from-secondary/40 via-[#FFF9F0] to-secondary/30 rounded-[4rem] p-12 md:p-24 text-center text-primary relative overflow-hidden group border border-primary/5 shadow-3xl">
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
-            <div className="relative z-10">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="space-y-8">
-                <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 italic tracking-tighter text-primary leading-tight">Ready to Build Your <span className="text-accent">Legacy</span>?</h2>
-                <p className="text-lg md:text-xl text-primary/60 mb-12 max-w-2xl mx-auto font-light leading-relaxed text-balance">Our legacy is built on the trust of over 500 happy families. Your journey towards the perfect property starts with a conversation.</p>
-                <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                  <Button size="xl" className="px-12 rounded-full h-16 shadow-2xl bg-accent text-white hover:bg-primary text-base font-bold" asChild>
-                    <Link to="/contact">Book Private Sight Visit</Link>
-                  </Button>
-                  <Button variant="outline" size="xl" className="px-12 rounded-full h-16 border-primary/30 text-primary bg-white/50 backdrop-blur-md hover:bg-primary hover:text-white" asChild>
-                    <Link to="/projects">Return to Portfolio</Link>
-                  </Button>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ── LIGHTBOX ──────────────────────────────────────────── */}
+      {activeGalleryIdx !== null && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[200] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setActiveGalleryIdx(null)}
+        >
+          <motion.img
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            src={project.gallery[activeGalleryIdx]}
+            alt={`${project.name} gallery`}
+            className="max-w-full max-h-[90vh] rounded-2xl object-contain shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            onClick={() => setActiveGalleryIdx(null)}
+            className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+          >
+            ✕
+          </button>
+          {/* Nav arrows */}
+          {activeGalleryIdx > 0 && (
+            <button
+              onClick={(e) => { e.stopPropagation(); setActiveGalleryIdx(activeGalleryIdx - 1); }}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+          )}
+          {activeGalleryIdx < project.gallery.length - 1 && (
+            <button
+              onClick={(e) => { e.stopPropagation(); setActiveGalleryIdx(activeGalleryIdx + 1); }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+            >
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          )}
+        </motion.div>
+      )}
     </Layout>
   );
 };
-
-const BadgeItem = ({ text }: { text: string }) => (
-  <span className="inline-block px-4 py-1.5 rounded-full bg-accent text-primary text-[10px] font-bold uppercase tracking-[0.2em]">
-    {text}
-  </span>
-);
 
 export default ProjectDetail;

@@ -2,7 +2,6 @@ import { useState, useMemo } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { Badge as UIBadge } from "@/components/ui/badge";
 import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -11,10 +10,16 @@ import {
   Filter,
   CheckCircle,
   SlidersHorizontal,
-  Maximize2,
   Phone,
   Grid,
   Layers,
+  Sprout,
+  Droplet,
+  ShieldCheck,
+  Home,
+  Sparkles,
+  Zap,
+  Award,
 } from "lucide-react";
 import { projects, ProjectType, ProjectStatus } from "@/data/projects";
 
@@ -27,6 +32,114 @@ const statusColors = {
 const typeLabels = {
   residential: "Residential",
   farmland: "Farmland",
+};
+
+const velocityBadgeCopy: Record<ProjectStatus, string> = {
+  completed: "Phase 1 Fully Allocated",
+  ongoing: "14 Site Visits Scheduled This Week",
+  upcoming: "Priority Launch Interest",
+};
+
+const amenityMeta = [
+  {
+    test: /club house/i,
+    icon: Home,
+    label: "Club House",
+    hint: "Private lifestyle spaces managed to keep your community and events effortless, while daily operations stay in expert hands.",
+  },
+  {
+    test: /naturopathy/i,
+    icon: Sparkles,
+    label: "Naturopathy Center",
+    hint: "Automated care systems and specialist wellness staff keep the retreat refreshed so you never inherit maintenance headaches.",
+  },
+  {
+    test: /managed assets|managed farmland|organic/i,
+    icon: Sprout,
+    label: "Managed Assets",
+    hint: "Our on-site agronomy team handles irrigation, soil health and harvest cycles for worry-free rural investment.",
+  },
+  {
+    test: /water|electricity/i,
+    icon: Droplet,
+    label: "Water & Electricity",
+    hint: "Reliable utilities plus automated irrigation mean your asset is protected from seasonal uncertainty.",
+  },
+  {
+    test: /security|gated/i,
+    icon: ShieldCheck,
+    label: "Security",
+    hint: "Gated communities with expert monitoring keep your property safe and your investment legacy intact.",
+  },
+  {
+    test: /approved|dtcp|bmrd/i,
+    icon: Award,
+    label: "Verified Approval",
+    hint: "Clear approvals and legal oversight reduce transaction friction and reinforce trust at every step.",
+  },
+  {
+    test: /spa|spiritual|retreat/i,
+    icon: Sparkles,
+    label: "Wellness Retreat",
+    hint: "Lifestyle amenities are crafted to make the property feel restorative without adding upkeep stress.",
+  },
+  {
+    test: /gym|fitness/i,
+    icon: Zap,
+    label: "Fitness",
+    hint: "Active amenities are maintained for you, so health and lifestyle upgrades feel seamless.",
+  },
+];
+
+const getAmenityMeta = (amenity: string) => {
+  const entry = amenityMeta.find((item) => item.test.test(amenity));
+  return entry ?? {
+    icon: Sparkles,
+    label: amenity,
+    hint: "Expert property management removes the typical upkeep concerns tied to your investment.",
+  };
+};
+
+const AmenitySwatch = ({
+  amenity,
+  meta,
+}: {
+  amenity: string;
+  meta: { icon: any; label: string; hint: string };
+}) => {
+  const [hovered, setHovered] = useState(false);
+  const Icon = meta.icon;
+
+  return (
+    <div className="relative">
+      <motion.button
+        type="button"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        whileHover={{ y: -1 }}
+        className="group flex w-full items-center gap-2 rounded-full border border-[#d8e2dd] bg-[#fbfcfb] px-2.5 py-2 text-[9px] font-bold uppercase tracking-[0.18em] text-[#1f2c24] transition duration-300 hover:-translate-y-0.5 hover:border-[#afc1ba] hover:bg-white"
+      >
+        <span className="grid h-7 w-7 place-items-center rounded-full bg-[#071c13] text-[#f4dd9d] ring-1 ring-white/10 transition duration-300 group-hover:bg-[#062214]">
+          <Icon className="h-3.5 w-3.5" />
+        </span>
+        <span className="truncate">{meta.label}</span>
+      </motion.button>
+
+      <AnimatePresence>
+        {hovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 6 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            className="absolute left-0 top-full z-[99] mt-2 w-64 rounded-2xl border border-[#0b2a1a]/20 bg-[#02140d]/95 p-3 text-[11px] leading-snug text-white font-medium shadow-2xl shadow-emerald-950/30 backdrop-blur-xl"
+          >
+            {meta.hint}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
 };
 
 type SortOption = "latest" | "price_low" | "price_high";
@@ -210,87 +323,121 @@ const Projects = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project, idx) => (
-                <motion.div
+                <motion.article
                   key={project.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4, delay: idx % 6 * 0.1 }}
-                  className="bg-white rounded-[2rem] overflow-hidden border border-border group hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 relative"
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 24 }}
+                  transition={{ duration: 0.45, delay: idx * 0.06 }}
+                  className="group relative flex h-full flex-col overflow-visible rounded-[30px] border border-[#dfe6e2] bg-[#fffdfa] shadow-[0_26px_80px_-36px_rgba(4,26,18,0.56)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_34px_90px_-30px_rgba(4,26,18,0.62)]"
                 >
-                  <Link to={`/projects/${project.slug}`} className="block relative h-64 overflow-hidden">
-                    <img
-                      src={project.image}
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                      alt={project.name}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                      <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center scale-75 group-hover:scale-100 transition-transform">
-                        <Maximize2 className="text-primary w-5 h-5" />
-                      </div>
-                    </div>
-                    <div className="absolute top-5 left-5 flex flex-col gap-2">
-                      <UIBadge className={`px-3 py-1 rounded-full text-[9px] font-bold tracking-[0.1em] uppercase ${statusColors[project.status]}`}>
-                        {project.status}
-                      </UIBadge>
-                      <UIBadge className="px-3 py-1 rounded-full text-[9px] font-bold tracking-[0.1em] uppercase bg-black/40 backdrop-blur-md text-white border-none">
-                        {typeLabels[project.type]}
-                      </UIBadge>
-                    </div>
-                  </Link>
+                  <div className="px-3 pt-3">
+                    <div className="relative overflow-hidden rounded-[26px] border border-[#e6ece8] bg-[#f7faf8]">
+                      <Link to={`/projects/${project.slug}`} className="block aspect-[4/3] overflow-hidden">
+                        <img
+                          src={project.image}
+                          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                          alt={project.name}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#02160f]/88 via-[#031b11]/20 to-transparent" />
 
-                    <div className="bg-primary/90 text-white flex items-center justify-between px-5 py-3">
-                      <div className="flex items-center gap-6 text-sm font-medium">
-                        <div className="flex items-center gap-2 opacity-95">
-                          <Layers className="w-4 h-4 opacity-90" />
-                          <span className="text-[13px]">{project.plotSizes}</span>
+                        <div className="absolute inset-x-3 top-3 flex items-start justify-between gap-3">
+                          <div className="flex items-center gap-2">
+                            <span className={`rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.18em] ${statusColors[project.status]} backdrop-blur-md`}>
+                              {project.status}
+                            </span>
+                            <span className="rounded-full bg-slate-950/60 px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md">
+                              {typeLabels[project.type]}
+                            </span>
+                          </div>
+
+                          <div className="rounded-full border border-white/20 bg-white/12 px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md">
+                            {project.isFeatured ? "Featured" : velocityBadgeCopy[project.status]}
+                          </div>
                         </div>
 
-                        <div className="flex items-center gap-2 opacity-95">
-                          <Grid className="w-4 h-4 opacity-90" />
-                          <span className="text-[13px]">{project.totalPlots} plots</span>
+                        <div className="absolute inset-x-3 bottom-3 flex items-end justify-between gap-3">
+                          <div className="rounded-2xl border border-white/15 bg-white/12 px-3 py-2 backdrop-blur-md">
+                            <p className="text-[9px] uppercase tracking-[0.24em] text-white/70">Investment</p>
+                            <p className="mt-1 text-sm font-semibold text-white">{project.plotSizes}</p>
+                          </div>
+
+                          <div className="rounded-full bg-white px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-[#092317]">
+                            Discover
+                          </div>
                         </div>
-                      </div>
-
-                      <div>
-                        <span className={`text-[14px] font-bold ${project.status === 'completed' ? 'text-green-600' : project.status === 'ongoing' ? 'text-amber-600' : 'text-blue-600'}`}>{project.status}</span>
-                      </div>
-                    </div>
-
-                    <div className="p-7">
-                    <h3 className="text-xl font-heading font-bold mb-2 tracking-tight group-hover:text-primary transition-colors">
-                      {project.name}
-                    </h3>
-                    <div className="flex items-center gap-2 text-muted-foreground mb-5 text-xs font-medium">
-                      <MapPin className="w-3 h-3 text-primary" />
-                      {project.location}
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.amenities.slice(0, 3).map((a: string) => (
-                        <span key={a} className="px-3 py-0.5 bg-secondary/30 rounded-full text-[9px] font-bold text-muted-foreground tracking-wider uppercase">
-                          {a}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex justify-between items-center pt-5 border-t border-border/60">
-                      <div>
-                        <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground mb-1">Starting From</p>
-                        <span className="text-xl font-bold font-heading text-primary">
-                          {project.priceRange}
-                        </span>
-                      </div>
-                      <Link
-                        to={`/projects/${project.slug}`}
-                        className="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300 transform group-hover:translate-x-1"
-                      >
-                        <ArrowRight className="w-4 h-4" />
                       </Link>
                     </div>
                   </div>
-                </motion.div>
+
+                  <div className="flex flex-1 flex-col px-5 pb-5 pt-4">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between gap-3">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.26em] text-[#6b746f]">Premium portfolio</p>
+                        <span className="rounded-full bg-[#f1f5f3] px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.2em] text-[#26513d]">
+                          {project.region}
+                        </span>
+                      </div>
+
+                      <div className="space-y-1">
+                        <h3 className="text-[1.35rem] font-semibold tracking-[-0.03em] text-[#07160f]">
+                          {project.name}
+                        </h3>
+                        <p className="flex items-center gap-2 text-[12px] text-[#66706c]">
+                          <MapPin className="h-3.5 w-3.5 text-[#0f5b40]" />
+                          {project.location}
+                        </p>
+                      </div>
+
+                      <p className="text-sm leading-6 text-[#55615d]">
+                        {project.description.length > 120 ? `${project.description.slice(0, 120)}...` : project.description}
+                      </p>
+                    </div>
+
+                    <div className="mt-4 flex flex-wrap items-center gap-2">
+                      <div className="inline-flex items-center gap-2 rounded-full bg-[#f2f5f4] px-2.5 py-1.5 text-[10px] font-semibold text-[#355145]">
+                        <Layers className="h-3.5 w-3.5 text-[#0d5d42]" />
+                        {project.plotSizes}
+                      </div>
+                      <div className="inline-flex items-center gap-2 rounded-full bg-[#f2f5f4] px-2.5 py-1.5 text-[10px] font-semibold text-[#355145]">
+                        <Grid className="h-3.5 w-3.5 text-[#0d5d42]" />
+                        {project.totalPlots} plots
+                      </div>
+                    </div>
+
+                    <div className="mt-4 grid grid-cols-2 gap-2">
+                      {project.amenities.slice(0, 4).map((a: string) => {
+                        const meta = getAmenityMeta(a);
+                        return <AmenitySwatch key={a} amenity={a} meta={meta} />;
+                      })}
+                    </div>
+
+                    <div className="mt-5 border-t border-[#e2e8e4] pt-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-[#6d766f]">
+                            Concierge access
+                          </p>
+                          <p className="mt-1 text-[11px] leading-5 text-[#5d655f]">
+                            Private tours, verified approvals, and guided investment support.
+                          </p>
+                        </div>
+                        <span className="rounded-full bg-[#0a241b] px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.2em] text-white">
+                          Ready
+                        </span>
+                      </div>
+
+                      <Link
+                        to={`/projects/${project.slug}`}
+                        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#071e15] px-4 py-3 text-sm font-bold text-white shadow-[0_16px_38px_-20px_rgba(4,15,11,0.95)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#032018]"
+                      >
+                        Secure Private Tour & Legal Kit
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </div>
+                  </div>
+                </motion.article>
               ))}
             </AnimatePresence>
           </div>
