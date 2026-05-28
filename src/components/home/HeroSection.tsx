@@ -50,7 +50,7 @@ const heroSlides = [
     image: residentialImage,
     cta: "Explore Residentials",
     link: "/projects#residential",
-    decoAsset: "/assets/images/birds.gif",
+    decoAsset: "/assets/images/birds_1.gif",
     decoClass: "animate-slide-left",
     decoPos: "top-[10%] right-0 w-[200px] lg:w-[300px] opacity-20 mix-blend-screen scale-x-[-1]",
   },

@@ -61,15 +61,27 @@ export function HeroClubhouseCard() {
                   alt={card.title}
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                <div className="absolute inset-x-0 bottom-0 p-8">
-                  <h4 className="text-white text-2xl font-heading font-bold tracking-tight mb-2 group-hover:text-gold transition-colors">
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent opacity-100 transition-colors" />
+                <div className="absolute inset-x-0 bottom-0 p-6 hover:opacity-0 transition-opacity duration-500">
+                  <h4 className="text-white text-2xl font-heading font-bold tracking-tight drop-shadow-[0_10px_30px_rgba(0,0,0,0.7)]">
                     {card.title}
                   </h4>
-                  <p className="text-white/80 text-sm leading-relaxed mb-4 font-light">{card.description}</p>
-                  <div className="flex justify-end">
-                    <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-                      <span className="text-xl">→</span>
+                </div>
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute inset-0 bg-primary/75" />
+                  <div className="absolute inset-x-0 bottom-0 p-6">
+                    <div className="rounded-[2rem] bg-primary/80 backdrop-blur-2xl p-5 shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
+                      <h4 className="text-white text-2xl font-heading font-bold tracking-tight mb-2">
+                        {card.title}
+                      </h4>
+                      <p className="text-white/85 text-sm leading-relaxed mb-4 font-light">
+                        {card.description}
+                      </p>
+                      <div className="flex justify-end">
+                        <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-primary/30 transition-all duration-300">
+                          <span className="text-xl">→</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

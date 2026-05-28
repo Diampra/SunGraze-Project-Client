@@ -13,6 +13,8 @@ import {
   SlidersHorizontal,
   Maximize2,
   Phone,
+  Grid,
+  Layers,
 } from "lucide-react";
 import { projects, ProjectType, ProjectStatus } from "@/data/projects";
 
@@ -137,70 +139,70 @@ const Projects = () => {
       {/* FILTERS & SHOWCASE */}
       <section id="results" className="py-20 bg-background">
         <div className="container">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-8">
-            <div className="flex-1">
+          <div className="flex flex-col gap-6 mb-16">
+            <div className="flex-1 min-w-0">
               <h2 className="text-2xl md:text-4xl font-heading font-bold tracking-tight mb-3 italic">Our <span className="text-primary not-italic font-serif lowercase tracking-normal">Projects</span></h2>
               <p className="text-muted-foreground font-light text-base">Showing {filteredProjects.length} curated opportunities.</p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2 bg-secondary/30 p-1.5 rounded-2xl backdrop-blur-sm border border-border">
-              <Filter className="w-4 h-4 text-muted-foreground mx-2" />
-              {(["all", "residential", "farmland"] as const).map((type) => (
-                <button
-                  key={type}
-                  onClick={() => setTypeFilter(type)}
-                  className={`px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest rounded-xl transition-all duration-300 relative ${typeFilter === type ? "text-white" : "text-muted-foreground hover:text-foreground"
-                    }`}
-                >
-                  {type === "all" ? "All" : typeLabels[type]}
-                  {typeFilter === type && (
-                    <motion.div layoutId="activeType" className="absolute inset-0 bg-primary rounded-xl -z-10 shadow-lg shadow-primary/20" />
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-4 mb-10 p-5 bg-secondary/10 rounded-[1.5rem] border border-border/50">
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-primary" />
-              <select
-                value={regionFilter}
-                onChange={(e) => setRegionFilter(e.target.value)}
-                className="bg-transparent border-none focus:ring-0 text-[10px] font-bold uppercase tracking-widest cursor-pointer"
-              >
-                <option value="all">Regions (All)</option>
-                {regions.map((region) => (
-                  <option key={region} value={region}>{region}</option>
+            <div className="flex flex-wrap items-center gap-4 p-5 bg-secondary/10 rounded-[1.5rem] border border-border/50">
+              <div className="flex flex-wrap items-center gap-2 bg-secondary/30 p-1.5 rounded-2xl backdrop-blur-sm border border-border">
+                <Filter className="w-4 h-4 text-muted-foreground mx-2" />
+                {(["all", "residential", "farmland"] as const).map((type) => (
+                  <button
+                    key={type}
+                    onClick={() => setTypeFilter(type)}
+                    className={`px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest rounded-xl transition-all duration-300 relative ${typeFilter === type ? "text-white" : "text-muted-foreground hover:text-foreground"
+                      }`}
+                  >
+                    {type === "all" ? "All" : typeLabels[type]}
+                    {typeFilter === type && (
+                      <motion.div layoutId="activeType" className="absolute inset-0 bg-primary rounded-xl -z-10 shadow-lg shadow-primary/20" />
+                    )}
+                  </button>
                 ))}
-              </select>
-            </div>
+              </div>
 
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-primary" />
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value as ProjectStatus | "all")}
-                className="bg-transparent border-none focus:ring-0 text-[10px] font-bold uppercase tracking-widest cursor-pointer"
-              >
-                <option value="all">Status (All)</option>
-                <option value="ongoing">Ongoing</option>
-                <option value="completed">Completed</option>
-                <option value="upcoming">Upcoming</option>
-              </select>
-            </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-primary" />
+                <select
+                  value={regionFilter}
+                  onChange={(e) => setRegionFilter(e.target.value)}
+                  className="bg-transparent border-none focus:ring-0 text-[10px] font-bold uppercase tracking-widest cursor-pointer"
+                >
+                  <option value="all">Regions (All)</option>
+                  {regions.map((region) => (
+                    <option key={region} value={region}>{region}</option>
+                  ))}
+                </select>
+              </div>
 
-            <div className="lg:ml-auto flex items-center gap-2">
-              <SlidersHorizontal className="w-4 h-4 text-primary" />
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as SortOption)}
-                className="bg-transparent border-none focus:ring-0 text-[10px] font-bold uppercase tracking-widest cursor-pointer"
-              >
-                <option value="latest">Sort: Latest</option>
-                <option value="price_low">Price: Low-High</option>
-                <option value="price_high">Price: High-Low</option>
-              </select>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-primary" />
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value as ProjectStatus | "all")}
+                  className="bg-transparent border-none focus:ring-0 text-[10px] font-bold uppercase tracking-widest cursor-pointer"
+                >
+                  <option value="all">Status (All)</option>
+                  <option value="ongoing">Ongoing</option>
+                  <option value="completed">Completed</option>
+                  <option value="upcoming">Upcoming</option>
+                </select>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <SlidersHorizontal className="w-4 h-4 text-primary" />
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as SortOption)}
+                  className="bg-transparent border-none focus:ring-0 text-[10px] font-bold uppercase tracking-widest cursor-pointer"
+                >
+                  <option value="latest">Sort: Latest</option>
+                  <option value="price_low">Price: Low-High</option>
+                  <option value="price_high">Price: High-Low</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -238,7 +240,25 @@ const Projects = () => {
                     </div>
                   </Link>
 
-                  <div className="p-7">
+                    <div className="bg-primary/90 text-white flex items-center justify-between px-5 py-3">
+                      <div className="flex items-center gap-6 text-sm font-medium">
+                        <div className="flex items-center gap-2 opacity-95">
+                          <Layers className="w-4 h-4 opacity-90" />
+                          <span className="text-[13px]">{project.plotSizes}</span>
+                        </div>
+
+                        <div className="flex items-center gap-2 opacity-95">
+                          <Grid className="w-4 h-4 opacity-90" />
+                          <span className="text-[13px]">{project.totalPlots} plots</span>
+                        </div>
+                      </div>
+
+                      <div>
+                        <span className={`text-[14px] font-bold ${project.status === 'completed' ? 'text-green-600' : project.status === 'ongoing' ? 'text-amber-600' : 'text-blue-600'}`}>{project.status}</span>
+                      </div>
+                    </div>
+
+                    <div className="p-7">
                     <h3 className="text-xl font-heading font-bold mb-2 tracking-tight group-hover:text-primary transition-colors">
                       {project.name}
                     </h3>

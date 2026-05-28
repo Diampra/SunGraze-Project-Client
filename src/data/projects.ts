@@ -60,7 +60,7 @@ export const projects: Project[] = [
     region: "Tamil Nadu",
 
     type: "farmland",
-    status: "ongoing",
+    status: "completed",
 
     description:
       "Sungraze Farms brings you close to the Nature a chance to own a farm Land where you can enjoy the luxury of reclining in the lap of Nature And Rejuvenate your life by Upcoming Club House with ample amenities. Sungraze is a preeminent place to invest for good returns.\n\n60 minutes drive from Silk Board. Located at Bangalore-Chennai High way, Near Shoolagiri,Tamil Nadu Fertile land for cultivation. Laden with teak, silver Oak, and fruit bearing Trees.with Drip irrigation facility. 30 feet Motor able roads all over the Project Construct your own farm villa Nature at its Best surrounded with vast Natural Landscapes.\n\nGood infrastructure with ample amenities, Water and Electricity, Club House, Naturopathy center, Spiritual Retreat Center, Gated community with unit sizes 9500 Sq.ft.10900 Sq.ft, ½- acre & 1-acre Good Returns for your investments.",
@@ -255,7 +255,7 @@ export const projects: Project[] = [
     region: "Karnataka",
 
     type: "residential",
-    status: "ongoing",
+    status: "completed",
 
     description:
       "Sri Krishna Nagar Phase-1 is a first premium villa project spread over 10 acres with 200 villas in Siruguppa, creating a landmark residential community. We understand the value of your hard-earned money and the importance of fulfilling your family's dreams. Sri Krishna Nagar Phase-1 offers a perfect balance of location, design, comfort and affordability with excellent customer satisfaction.",
@@ -387,7 +387,7 @@ export const projects: Project[] = [
     region: "Karnataka",
 
     type: "residential",
-    status: "ongoing",
+    status: "completed",
 
     description:
       "Embee City is a premium residential plots project at Davangere. Developed adjacent to Bangalore-Mumbai high way (NH4), our space stands parallel to Karnataka Housing Board Layout with well connectivity and easy access.",
@@ -453,7 +453,7 @@ export const projects: Project[] = [
     region: "Karnataka",
 
     type: "residential",
-    status: "ongoing",
+    status: "completed",
 
     description:
       "MetroPolis is an ultimate reflection of the urban chic lifestyle. The project hosts exclusively designed Residential Apartments, each being an epitome of elegance and simplicity. Located at Anjanapura Phase in Bangalore, MetroPolis is inspiring in design, stirring in luxury and enveloped by verdant surroundings. It is in troupe with many famous schools, hospitals, shopping destinations, tech parks and every civic amenity required, so that you spend less time on the road and more at home.",
@@ -524,7 +524,7 @@ export const projects: Project[] = [
     region: "Karnataka",
 
     type: "residential",
-    status: "ongoing",
+    status: "upcoming",
 
     description:
       "Krishna Mansion is designed as the perfect place of modern living. It is close to many well known locations, educational institutions, hospitals and shopping centers. Located at JP Nagar 8th Phase Bangalore, Krishna Mansion offers a pristine home experience with excellent planning and modern amenities.",
@@ -587,7 +587,7 @@ export const projects: Project[] = [
     region: "Karnataka",
 
     type: "residential",
-    status: "ongoing",
+    status: "upcoming",
 
     description:
       "SUNGRAZE Samruddi offers affordable luxury apartments at a great location in Siruguppa. Designed with modern living in mind, these residential apartments provide comfort, elegance, and value for money. Perfect for families and professionals seeking quality living with excellent amenities.",
@@ -647,55 +647,55 @@ export const projects: Project[] = [
   //   id: "2",
   //   slug: "kaveri-farms-nanjangud",
 
-  //   name: "Kaveri Farms",
-  //   tagline: "Managed Farmland Near Mysore",
+    // name: "Kaveri Farms",
+    // tagline: "Managed Farmland Near Mysore",
 
-  //   location: "Nanjangud, Mysore",
-  //   region: "Karnataka",
+    // location: "Nanjangud, Mysore",
+    // region: "Karnataka",
 
-  //   type: "farmland",
-  //   status: "completed",
+    // type: "farmland",
+    // status: "completed",
 
-  //   description:
-  //     "Kaveri Farms offers managed agricultural farmland with plantation support, fencing, irrigation, and long-term sustainable returns.",
+    // description:
+    //   "Kaveri Farms offers managed agricultural farmland with plantation support, fencing, irrigation, and long-term sustainable returns.",
 
-  //   features: [
-  //     "Agricultural Land Conversion",
-  //     "Borewell with Motor",
-  //     "Fencing & Compound",
-  //     "Mango & Coconut Plantation",
-  //     "Farm Management Support",
-  //     "Caretaker Facility",
-  //   ],
+    // features: [
+    //   "Agricultural Land Conversion",
+    //   "Borewell with Motor",
+    //   "Fencing & Compound",
+    //   "Mango & Coconut Plantation",
+    //   "Farm Management Support",
+    //   "Caretaker Facility",
+    // ],
 
-  //   amenities: [
-  //     "Farm House Option",
-  //     "Organic Farming Support",
-  //     "Storage Facility",
-  //     "Access Road",
-  //   ],
+    // amenities: [
+    //   "Farm House Option",
+    //   "Organic Farming Support",
+    //   "Storage Facility",
+    //   "Access Road",
+    // ],
 
-  //   highlights: [
-  //     "Fertile Red Soil",
-  //     "Water Abundant Area",
-  //     "50 km from Mysore City",
-  //   ],
+    // highlights: [
+    //   "Fertile Red Soil",
+    //   "Water Abundant Area",
+    //   "50 km from Mysore City",
+    // ],
 
-  //   plotSizes: "0.5 - 2 Acres",
-  //   totalPlots: 50,
+    // plotSizes: "0.5 - 2 Acres",
+    // totalPlots: 50,
 
-  //   priceRange: "₹18L - ₹65L per acre",
-  //   priceValue: 1800000,
+    // priceRange: "₹18L - ₹65L per acre",
+    // priceValue: 1800000,
 
-  //   createdAt: "2024-08-15",
-  //   isFeatured: true,
+    // createdAt: "2024-08-15",
+    // isFeatured: true,
 
-  //   approvalType: "Agricultural",
-  //   clearTitle: true,
-  //   loanAvailable: false,
+    // approvalType: "Agricultural",
+    // clearTitle: true,
+    // loanAvailable: false,
 
-  //   image: "/project-farmland.jpg",
-  //   gallery: [],
+    // image: "/project-farmland.jpg",
+    // gallery: [],
 
   //   coordinates: {
   //     lat: 12.117,
@@ -707,54 +707,54 @@ export const projects: Project[] = [
   //   id: "3",
   //   slug: "lakshmi-enclave-hosur",
 
-  //   name: "Lakshmi Enclave",
-  //   tagline: "Affordable Villa Plots in Hosur",
+    // name: "Lakshmi Enclave",
+    // tagline: "Affordable Villa Plots in Hosur",
 
-  //   location: "Hosur, Tamil Nadu",
-  //   region: "Tamil Nadu",
+    // location: "Hosur, Tamil Nadu",
+    // region: "Tamil Nadu",
 
-  //   type: "residential",
-  //   status: "completed",
+    // type: "residential",
+    // status: "completed",
 
-  //   description:
-  //     "Lakshmi Enclave offers DTCP-approved villa plots in the fast-growing industrial hub of Hosur with excellent connectivity to Bangalore.",
+    // description:
+    //   "Lakshmi Enclave offers DTCP-approved villa plots in the fast-growing industrial hub of Hosur with excellent connectivity to Bangalore.",
 
-  //   features: [
-  //     "DTCP Approved",
-  //     "Tar Roads with Street Lights",
-  //     "Underground Drainage",
-  //     "Electricity with Transformer",
-  //     "Water Supply",
-  //     "Park & Open Spaces",
-  //   ],
+    // features: [
+    //   "DTCP Approved",
+    //   "Tar Roads with Street Lights",
+    //   "Underground Drainage",
+    //   "Electricity with Transformer",
+    //   "Water Supply",
+    //   "Park & Open Spaces",
+    // ],
 
-  //   amenities: [
-  //     "Entrance Arch",
-  //     "Avenue Plantation",
-  //     "Children's Park",
-  //     "Walking Paths",
-  //   ],
+    // amenities: [
+    //   "Entrance Arch",
+    //   "Avenue Plantation",
+    //   "Children's Park",
+    //   "Walking Paths",
+    // ],
 
-  //   highlights: [
-  //     "15 mins from Hosur Town",
-  //     "Near Industrial Zone",
-  //     "High Appreciation Potential",
-  //   ],
+    // highlights: [
+    //   "15 mins from Hosur Town",
+    //   "Near Industrial Zone",
+    //   "High Appreciation Potential",
+    // ],
 
-  //   plotSizes: "600 - 1500 sq.ft",
-  //   totalPlots: 200,
+    // plotSizes: "600 - 1500 sq.ft",
+    // totalPlots: 200,
 
-  //   priceRange: "₹12L - ₹35L",
-  //   priceValue: 1200000,
+    // priceRange: "₹12L - ₹35L",
+    // priceValue: 1200000,
 
-  //   createdAt: "2024-03-12",
+    // createdAt: "2024-03-12",
 
-  //   approvalType: "DTCP",
-  //   clearTitle: true,
-  //   loanAvailable: true,
+    // approvalType: "DTCP",
+    // clearTitle: true,
+    // loanAvailable: true,
 
-  //   image: "/project-residential.jpg",
-  //   gallery: [],
+    // image: "/project-residential.jpg",
+    // gallery: [],
 
   //   coordinates: {
   //     lat: 12.740,
@@ -766,32 +766,32 @@ export const projects: Project[] = [
   //   id: "4",
   //   slug: "chola-farms-pollachi",
 
-  //   name: "Chola Farms",
-  //   tagline: "Agricultural Investment in Pollachi",
+    // name: "Chola Farms",
+    // tagline: "Agricultural Investment in Pollachi",
 
-  //   location: "Pollachi, Coimbatore",
-  //   region: "Tamil Nadu",
+    // location: "Pollachi, Coimbatore",
+    // region: "Tamil Nadu",
 
-  //   type: "farmland",
-  //   status: "ongoing",
+    // type: "farmland",
+    // status: "ongoing",
 
-  //   description:
-  //     "Chola Farms provides premium agricultural land with established coconut plantations and canal irrigation in Pollachi.",
+    // description:
+    //   "Chola Farms provides premium agricultural land with established coconut plantations and canal irrigation in Pollachi.",
 
-  //   features: [
-  //     "Established Coconut Grove",
-  //     "Canal Water Irrigation",
-  //     "Compound Wall",
-  //     "Approach Road",
-  //     "Agricultural Conversion Done",
-  //     "Regular Maintenance",
-  //   ],
+    // features: [
+    //   "Established Coconut Grove",
+    //   "Canal Water Irrigation",
+    //   "Compound Wall",
+    //   "Approach Road",
+    //   "Agricultural Conversion Done",
+    //   "Regular Maintenance",
+    // ],
 
-  //   amenities: [
-  //     "Coconut Processing Support",
-  //     "Cold Storage Access",
-  //     "Agricultural Guidance",
-  //   ],
+    // amenities: [
+    //   "Coconut Processing Support",
+    //   "Cold Storage Access",
+    //   "Agricultural Guidance",
+    // ],
 
   //   highlights: [
   //     "High Yield Area",

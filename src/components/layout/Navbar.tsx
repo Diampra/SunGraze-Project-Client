@@ -43,10 +43,10 @@ export function Navbar() {
           : "bg-black/20 backdrop-blur-md py-4 px-8"
       )}>
         {/* Desktop Layout - 3-Column Grid for perfect centering */}
-        <div className="hidden lg:grid grid-cols-3 items-center relative h-16 xl:h-20">
+        <div className="hidden lg:grid grid-cols-3 items-center relative h-16 xl:h-10">
 
           {/* Left Column */}
-          <nav className="flex items-center justify-end gap-6 xl:gap-10 pr-12 xl:pr-20 -translate-y-1/3">
+          <nav className="flex items-center justify-end gap-6 xl:gap-10 pr-12 xl:pr-20 pb-20">
             {leftLinks.map((link) => {
               const active = location.pathname === link.path;
               return (
@@ -88,8 +88,8 @@ export function Navbar() {
           </div>
 
           {/* Right Column - Navigation + CTA */}
-          <div className="flex items-center justify-start pl-12 xl:pl-20 gap-8 xl:gap-10">
-            <nav className="flex items-center gap-6 xl:gap-10 -translate-y-1/3">
+          <div className="flex items-center justify-end gap-6 xl:gap-10 pr-12 xl:pr-20 pb-20">
+            <nav className="flex items-center gap-6 xl:gap-10">
               {rightLinks.map((link) => {
                 const active = location.pathname === link.path;
                 return (
