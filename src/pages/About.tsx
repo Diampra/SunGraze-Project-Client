@@ -2,614 +2,425 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { motion, useScroll, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
-  Target,
+  ArrowRight,
+  Award,
+  CheckCircle2,
   Eye,
   Heart,
-  Award,
-  Users,
   MapPin,
-  Calendar,
-  ArrowRight,
-  CheckCircle,
-  Sparkles,
-  Quote
+  ShieldCheck,
+  Target,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
 
 const values = [
   {
-    icon: Target,
+    icon: ShieldCheck,
     title: "Integrity",
-    description: "We conduct business with complete honesty and transparency in all our dealings.",
+    description:
+      "Every transaction is handled with disciplined documentation, honest guidance, and complete accountability.",
   },
   {
     icon: Eye,
     title: "Transparency",
-    description: "Clear documentation, fair pricing, and no hidden charges - ever.",
+    description:
+      "Clear pricing, verified records, and visible due diligence help families invest with confidence.",
   },
   {
     icon: Heart,
-    title: "Customer First",
-    description: "Your satisfaction and trust are at the heart of everything we do.",
+    title: "Client care",
+    description:
+      "We design each experience around trust, clarity, and long-term relationships rather than short-term sales.",
   },
   {
     icon: Award,
     title: "Quality",
-    description: "We never compromise on the quality of land, documentation, or service.",
+    description:
+      "From land selection to project planning, we focus on locations with enduring value and strong fundamentals.",
   },
 ];
 
 const milestones = [
-  { year: "2014", event: "Sungraze Projects founded in Bangalore" },
-  { year: "2016", event: "First residential project launched - 100+ plots sold" },
-  { year: "2018", event: "Expanded to Tamil Nadu with farmland projects" },
-  { year: "2020", event: "Crossed 300+ happy customers milestone" },
-  { year: "2022", event: "Launched managed farmland vertical" },
-  { year: "2024", event: "15+ projects across 2 states, 500+ families served" },
+  {
+    year: "2014",
+    event: "Sungraze Projects was founded in Bangalore with a vision to simplify secure land ownership.",
+  },
+  {
+    year: "2018",
+    event: "The portfolio expanded across Karnataka and Tamil Nadu with a stronger farmland investment focus.",
+  },
+  {
+    year: "2022",
+    event: "Managed farmland services were introduced to support buyers seeking both ownership and stewardship.",
+  },
+  {
+    year: "2024",
+    event: "More than 500 families had chosen Sungraze for projects built on trust, clarity, and verified growth.",
+  },
 ];
 
 const stats = [
-  { value: "10+", label: "Years Experience" },
-  { value: "15+", label: "Projects Delivered" },
-  { value: "500+", label: "Happy Families" },
-  { value: "2", label: "States Coverage" },
+  { value: "10+", label: "Years of real-estate experience" },
+  { value: "15+", label: "Projects delivered" },
+  { value: "500+", label: "Families served" },
+  { value: "2", label: "High-growth states covered" },
 ];
 
-// const PremiumTimeline = ({ milestones }: { milestones: typeof import("./About").milestones }) => {
-//   const ref = useRef(null);
-//   const { scrollYProgress } = useScroll({
-//     target: ref,
-//     offset: ["start start", "end end"],
-//   });
+const advantages = [
+  "Near major economic and infrastructure corridors",
+  "Verified legal and masterplan compliance",
+  "Locations chosen for long-term appreciation potential",
+  "Farmland opportunities with strong natural fundamentals",
+];
 
-//   const [activeIndex, setActiveIndex] = useState(0);
-
-//   useEffect(() => {
-//     return scrollYProgress.on("change", (latest) => {
-//       const index = Math.min(
-//         milestones.length - 1,
-//         Math.floor(latest * milestones.length)
-//       );
-//       setActiveIndex(index);
-//     });
-//   }, [scrollYProgress, milestones.length]);
-
-//   return (
-//     <div
-//       ref={ref}
-//       className="relative py-20"
-//       style={{ height: `${milestones.length * 60}vh` }}
-//     >
-//       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-//         {/* Animated Background Elements */}
-//         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[100px] pointer-events-none" />
-
-//         {/* Vertical Progress Line */}
-//         <div className="absolute left-1/2 -translate-x-1/2 w-0.5 h-full bg-primary-foreground/10 overflow-hidden">
-//           <motion.div 
-//             className="w-full bg-gold shadow-[0_0_20px_rgba(212,175,55,0.5)]"
-//             style={{ 
-//               height: "100%", 
-//               originY: 0,
-//               scaleY: scrollYProgress 
-//             }} 
-//           />
-//         </div>
-
-//         {/* Content Box */}
-//         <div className="relative z-10 w-full max-w-4xl px-6">
-//           <AnimatePresence mode="wait">
-//             <motion.div
-//               key={activeIndex}
-//               initial={{ opacity: 0, x: activeIndex % 2 === 0 ? -50 : 50 }}
-//               animate={{ opacity: 1, x: 0 }}
-//               exit={{ opacity: 0, x: activeIndex % 2 === 0 ? 50 : -50 }}
-//               transition={{ duration: 0.8, ease: "easeOut" }}
-//               className={`flex flex-col ${activeIndex % 2 === 0 ? "md:items-start" : "md:items-end"} items-center text-center`}
-//             >
-//               <div className="relative mb-10">
-//                 <div className="w-24 h-24 rounded-[2rem] bg-gold flex items-center justify-center shadow-2xl ring-4 ring-primary/10 rotate-3 group-hover:rotate-6 transition-transform duration-500">
-//                   <Calendar className="w-8 h-8 text-primary" />
-//                 </div>
-//                 <div className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-white flex items-center justify-center font-bold text-primary shadow-lg border-2 border-gold font-heading text-lg">
-//                   {activeIndex + 1}
-//                 </div>
-//               </div>
-
-//               <h3 className="text-5xl font-heading font-bold text-gold mb-6 italic tracking-tighter drop-shadow-md">
-//                 {milestones[activeIndex].year}
-//               </h3>
-
-//               <div className={`max-w-lg bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-[2.5rem] shadow-3xl ${activeIndex % 2 === 0 ? "md:text-left" : "md:text-right"}`}>
-//                 <p className="text-primary-foreground text-xl leading-relaxed font-light font-serif">
-//                   {milestones[activeIndex].event}
-//                 </p>
-//                 <div className="mt-6 flex items-center gap-3 opacity-60">
-//                   <Sparkles className="w-4 h-4 text-gold" />
-//                   <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary-foreground">Legacy Milestone</span>
-//                 </div>
-//               </div>
-//             </motion.div>
-//           </AnimatePresence>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+const fadeUp = {
+  initial: { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { duration: 0.7, ease: "easeOut" as const },
+};
 
 const About = () => {
-  const animations = {
-    fadeIn: {
-      initial: { opacity: 0, y: 30 },
-      animate: { opacity: 1, y: 0 },
-      transition: { duration: 0.8, ease: "easeOut" as const }
-    }
-  };
-
   return (
     <Layout>
       <Helmet>
         <title>About Us - Sungraze Projects | Trusted Real Estate Developer</title>
-        <meta name="description" content="Learn about Sungraze Projects - a trusted real estate developer with 10+ years of experience in Karnataka and Tamil Nadu. Our mission, values, and commitment to transparency." />
+        <meta
+          name="description"
+          content="Learn about Sungraze Projects, a trusted real-estate developer helping families and investors access transparent land ownership across Karnataka and Tamil Nadu."
+        />
       </Helmet>
 
-      {/* HERO SECTION */}
-      <section className="relative min-h-[60vh] flex items-center justify-center pt-48 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1500"
-            alt="Sungraze Projects Mission"
-            className="w-full h-full object-cover brightness-[0.4]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/80" />
-        </div>
+      <div className="bg-[#F8F6F2] text-[#111827]">
+        <section className="relative isolate overflow-hidden pt-40 md:pt-48 h-125">
+          {/* Background image — full bleed */}
+          <div className="absolute inset-0">
+            <img
+              src="/assets/club-house/restaurant-entrance-1.webp"
+              alt="Contemporary luxury real-estate architecture"
+              className="h-full w-full object-cover object-[70%_center]"
+            />
+          </div>
 
-        <div className="container relative z-10 text-center mb-10">
-          <motion.div className="max-w-4xl mx-auto" {...animations.fadeIn}>
-            <span className="inline-block px-4 py-1.5 rounded-full bg-gold text-primary-foreground text-[10px] font-bold mb-6 uppercase tracking-[0.2em] shadow-xl">
-              Transparency & Trust Since 2014
-            </span>
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-8 tracking-tighter drop-shadow-2xl">
-              Building <span className="text-gold italic font-serif">Futures</span> Through Ethical Excellence
-            </h1>
-            <p className="text-base md:text-lg text-white/90 mb-10 leading-relaxed max-w-2xl mx-auto font-light">
-              We started with a single vision: to simplify land ownership and make it 100% legal,
-              transparent, and high-growth for every family and investor.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button size="xl" className="rounded-full px-10 shadow-gold/20 h-14 font-bold" asChild>
-                <Link to="/contact">Discuss Your Future</Link>
-              </Button>
-              <Button variant="outline" size="xl" className="rounded-full bg-white/5 border-white/20 text-white backdrop-blur-md hover:bg-white/10 px-10 h-14" asChild>
-                <a href="#story">Our Legacy Story</a>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+          {/* Dark overlay container — mirrors HeroSection's bg-black/60 inner div */}
+          <div className="absolute inset-0 bg-black/60" />
 
-      {/* STORY SECTION */}
-      <section id="story" className="py-24 bg-background relative overflow-hidden">
-        <div className="container">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}>
-              <Badge text="The Journey" color="primary" />
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6 leading-none tracking-tight">
-                A Decade of <span className="text-primary italic font-serif">Excellence</span> & Transformation
-              </h2>
-              <div className="space-y-5 text-muted-foreground text-base md:text-lg font-light leading-relaxed">
-                <p>
-                  Sungraze Projects was founded in 2014 with a simple yet powerful vision - to
-                  make land ownership accessible, transparent, and trustworthy for everyone.
-                  What started as a small team passionate about real estate has grown into
-                  one of the most trusted names in South India.
-                </p>
-                <p>
-                  Our founder, having witnessed the complexities and uncertainties in land
-                  transactions firsthand, set out to create a company that prioritizes
-                  customer peace of mind above all else.
-                </p>
-                <p>
-                  Today, with 15+ successful projects and over 500 satisfied families,
-                  we continue to uphold the same values of integrity and transparency.
-                </p>
-              </div>
+          {/* Extra left-side reinforcement so headline never competes with image detail */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(9,20,18,0.50)_0%,rgba(9,20,18,0.10)_60%,transparent_100%)]" />
 
-              <div className="mt-10 p-6 bg-secondary/30 rounded-[2rem] border border-border relative group overflow-hidden">
-                <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <Quote className="w-12 h-12" />
-                </div>
-                <div className="flex items-center gap-4 relative z-10">
-                  <div className="w-14 h-14 rounded-full bg-gold/20 flex items-center justify-center flex-shrink-0">
-                    <Users className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-heading font-bold italic">Founder's Vision</h4>
-                    <p className="text-xs text-muted-foreground mt-1">"Trust is earned through actions, not words."</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
+          <div className="container relative z-10 px-4 pb-24 md:pb-32 text-center text-white">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              className="relative"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
             >
-              <div className="absolute -inset-3 border-2 border-primary/20 rounded-[2.5rem] -z-10 translate-x-3 translate-y-3" />
-              <img
-                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200"
-                alt="Sungraze Projects Excellence"
-                className="rounded-[2rem] shadow-elegant-lg w-full aspect-[4/5] object-cover"
-              />
-              <div className="absolute bottom-8 -left-8 bg-gold text-primary-foreground p-8 rounded-[2rem] shadow-2xl rotate-[-4deg]">
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] mb-1">Since</p>
-                <p className="text-4xl font-heading font-bold tracking-tighter leading-none">2014</p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* VALUES GRID - OUR DNA */}
-      <section className="py-32 bg-gradient-to-br from-background via-secondary/5 to-primary/5 relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] translate-x-1/2 translate-y-1/2" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-gold/3 via-transparent to-transparent rounded-full" />
-
-        <div className="container relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-center max-w-4xl mx-auto mb-20"
-          >
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-gold/10 to-primary/10 border border-gold/20 backdrop-blur-sm mb-8">
-              <Sparkles className="w-5 h-5 text-gold" />
-              <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold">Our DNA</span>
-            </div>
-            <h2 className="text-4xl md:text-6xl font-heading font-bold text-foreground mb-6 leading-none tracking-tight">
-              Values That <span className="text-primary italic font-serif bg-gradient-to-r from-primary to-gold bg-clip-text text-transparent">Define Us</span>
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed max-w-2xl mx-auto">
-              Every decision, every project, every relationship is guided by these core principles that have shaped our decade-long journey.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, idx) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 40, scale: 0.9 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: idx * 0.15, duration: 0.6 }}
-                className="group relative"
-              >
-                {/* Card background with gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/60 to-white/40 backdrop-blur-xl rounded-[2.5rem] border border-white/20 shadow-2xl group-hover:shadow-gold/20 transition-all duration-700" />
-
-                {/* Hover effect overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-primary/5 rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                {/* Content */}
-                <div className="relative p-8 h-full flex flex-col">
-                  {/* Icon with animated background */}
-                  <div className="relative mb-8">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gold/20 to-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg">
-                      <value.icon className="w-8 h-8 text-primary group-hover:text-gold transition-colors duration-500" />
-                    </div>
-                    {/* Floating accent */}
-                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-gold rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </div>
-
-                  <h3 className="text-2xl font-heading font-bold mb-4 tracking-tight group-hover:text-primary transition-colors duration-500">
-                    {value.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed flex-grow group-hover:text-foreground/80 transition-colors duration-500">
-                    {value.description}
-                  </p>
-
-                  {/* Bottom accent line */}
-                  <div className="mt-6 h-1 bg-gradient-to-r from-gold to-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CORE IDENTITY - MISSION & VISION */}
-      <section className="py-32 bg-gradient-to-b from-background to-secondary/10 relative overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute top-1/4 left-0 w-[300px] h-[300px] bg-gold/5 rounded-full blur-[80px]" />
-        <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px]" />
-
-        <div className="container relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-center max-w-3xl mx-auto mb-20"
-          >
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-primary/10 to-gold/10 border border-primary/20 backdrop-blur-sm mb-8">
-              <Target className="w-5 h-5 text-primary" />
-              <span className="text-sm font-bold uppercase tracking-[0.2em] text-primary">Core Identity</span>
-            </div>
-            <h2 className="text-4xl md:text-6xl font-heading font-bold text-foreground mb-6 leading-none tracking-tight">
-              Our <span className="text-gold italic font-serif bg-gradient-to-r from-gold to-primary bg-clip-text text-transparent">Purpose</span> & Direction
-            </h2>
-            <p className="text-lg text-muted-foreground font-light leading-relaxed">
-              What drives us forward and where we're headed as a company.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
-            {/* Mission Card */}
-            <motion.div
-              initial={{ opacity: 0, x: -50, scale: 0.95 }}
-              whileInView={{ opacity: 1, x: 0, scale: 1 }}
-              transition={{ duration: 0.8 }}
-              className="group relative"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-gold/20 via-gold/10 to-transparent rounded-[3rem] blur-xl group-hover:blur-2xl transition-all duration-700" />
-              <div className="relative bg-gradient-to-br from-gold/10 via-white/80 to-gold/5 backdrop-blur-xl p-12 lg:p-16 rounded-[3rem] border border-gold/20 shadow-2xl group-hover:shadow-gold/30 transition-all duration-700">
-                <div className="flex items-center gap-6 mb-8">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gold to-gold/80 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
-                    <Target className="w-8 h-8 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-3xl font-heading font-bold text-foreground tracking-tight">Our Mission</h3>
-                    <div className="w-12 h-1 bg-gold rounded-full mt-2" />
-                  </div>
-                </div>
-                <p className="text-muted-foreground text-lg leading-relaxed font-light">
-                  To democratize land ownership by providing transparent, legally-compliant, and high-quality solutions that empower families and investors to build their future with confidence and peace of mind.
-                </p>
-                <div className="mt-8 flex items-center gap-2 text-gold font-semibold">
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
-                  <span className="text-sm uppercase tracking-[0.1em]">Guiding Every Step</span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Vision Card */}
-            <motion.div
-              initial={{ opacity: 0, x: 50, scale: 0.95 }}
-              whileInView={{ opacity: 1, x: 0, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="group relative"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent rounded-[3rem] blur-xl group-hover:blur-2xl transition-all duration-700" />
-              <div className="relative bg-gradient-to-br from-primary/10 via-white/80 to-primary/5 backdrop-blur-xl p-12 lg:p-16 rounded-[3rem] border border-primary/20 shadow-2xl group-hover:shadow-primary/30 transition-all duration-700">
-                <div className="flex items-center gap-6 mb-8">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
-                    <Eye className="w-8 h-8 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-3xl font-heading font-bold text-foreground tracking-tight">Our Vision</h3>
-                    <div className="w-12 h-1 bg-primary rounded-full mt-2" />
-                  </div>
-                </div>
-                <p className="text-muted-foreground text-lg leading-relaxed font-light">
-                  To become the standard of trust in South India real estate, known for uncompromising integrity, innovative solutions, and creating lasting value for communities and investors alike.
-                </p>
-                <div className="mt-8 flex items-center gap-2 text-primary font-semibold">
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
-                  <span className="text-sm uppercase tracking-[0.1em]">Leading the Future</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* JOURNEY TIMELINE */}
-      {/* <section className="bg-primary text-white overflow-hidden">
-        <div className="container pt-24 pb-0">
-          <div className="text-center max-w-2xl mx-auto mb-16 px-4">
-            <Badge text="The Timeline" />
-            <h2 className="text-3xl md:text-5xl font-heading font-bold text-white mt-6 tracking-tighter leading-none italic">
-              Milestones <span className="text-gold">Achieved</span>
-            </h2>
-          </div>
-        </div>
-        <PremiumTimeline milestones={milestones} />
-      </section> */}
-
-      {/* REGIONAL FOOTPRINT */}
-      <section className="py-32 bg-gradient-to-br from-secondary/10 via-background to-primary/5 relative overflow-hidden">
-        {/* Background elements */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[100px] -translate-x-1/2 translate-y-1/2" />
-
-        <div className="container relative z-10">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-primary/10 to-gold/10 border border-primary/20 backdrop-blur-sm mb-8">
-                <MapPin className="w-5 h-5 text-primary" />
-                <span className="text-sm font-bold uppercase tracking-[0.2em] text-primary">Our Presence</span>
-              </div>
-
-              <h2 className="text-4xl md:text-5xl font-heading font-bold mb-8 tracking-tight leading-none">
-                Strategically Serving <span className="text-gold italic font-serif bg-gradient-to-r from-gold to-primary bg-clip-text text-transparent">South India</span>
-              </h2>
-
-              <p className="text-muted-foreground text-lg leading-relaxed font-light mb-12">
-                We operate across Karnataka and Tamil Nadu, focusing on high-growth areas with verified infrastructure and development potential.
-              </p>
-
-              <div className="space-y-8">
-                <FootprintItem
-                  state="Karnataka"
-                  locations="Bangalore, Mysore, Tumkur, Davangere"
-                  projects="8+ Projects"
-                />
-                <FootprintItem
-                  state="Tamil Nadu"
-                  locations="Hosur, Coimbatore, Chennai, Siruguppa"
-                  projects="7+ Projects"
-                />
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-gold/10 to-transparent rounded-[3rem] blur-xl" />
-              <div className="relative bg-gradient-to-br from-white/80 via-white/60 to-white/40 backdrop-blur-xl p-12 lg:p-14 rounded-[3rem] border border-white/20 shadow-2xl">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-gold flex items-center justify-center">
-                    <Award className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-heading font-bold tracking-tight">Regional Advantages</h3>
-                </div>
-
-                <ul className="space-y-6">
-                  {[
-                    { title: "Near Global Tech Hubs", desc: "Proximity to Bangalore & Chennai tech corridors" },
-                    { title: "Verified Masterplan Compliance", desc: "All projects follow government guidelines" },
-                    { title: "Rich Soil Quality & Water Security", desc: "Prime agricultural land with assured irrigation" },
-                    { title: "High Appreciation Potential", desc: "Strategic locations with growth trajectory" },
-                  ].map((item, idx) => (
-                    <motion.li
-                      key={item.title}
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.1 }}
-                      className="flex items-start gap-4 group"
-                    >
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gold to-primary flex items-center justify-center flex-shrink-0 mt-1 group-hover:scale-110 transition-transform duration-300">
-                        <CheckCircle className="w-4 h-4 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">{item.title}</h4>
-                        <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                      </div>
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-      {/* STATS SECTION */}
-      <section className="py-32 bg-gradient-to-r from-primary via-primary/95 to-primary/90 text-white relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-gold/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-gold/10 via-transparent to-transparent rounded-full" />
-
-        <div className="container relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-center max-w-3xl mx-auto mb-20"
-          >
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8">
-              <Award className="w-5 h-5 text-gold" />
-              <span className="text-sm font-bold uppercase tracking-[0.2em] text-gold">Our Impact</span>
-            </div>
-            <h2 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6 leading-none tracking-tight">
-              Numbers That <span className="text-gold italic font-serif">Matter</span>
-            </h2>
-            <p className="text-lg text-white/80 font-light leading-relaxed">
-              A decade of consistent growth, trust, and excellence in numbers.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
-            {stats.map((stat, idx) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 40, scale: 0.8 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: idx * 0.15, duration: 0.6 }}
-                className="text-center group cursor-default relative"
-              >
-                {/* Background glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent rounded-[2rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                <div className="relative bg-white/10 backdrop-blur-sm border border-white/20 rounded-[2rem] p-8 group-hover:bg-white/15 transition-all duration-500 shadow-2xl group-hover:shadow-gold/20">
-                  <div className="text-5xl md:text-6xl font-heading font-bold text-gold mb-4 group-hover:scale-110 transition-transform duration-700 tracking-tighter drop-shadow-sm">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm uppercase tracking-[0.2em] text-white/80 font-bold leading-relaxed group-hover:text-white transition-colors duration-500">
-                    {stat.label}
-                  </div>
-
-                  {/* Animated accent line */}
-                  <div className="mt-6 mx-auto w-8 h-1 bg-gradient-to-r from-transparent via-gold to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* FINAL CTA SECTION */}
-      <section className="py-32 bg-background">
-        <div className="container">
-          <div className="bg-primary rounded-[4rem] p-12 md:p-24 text-center text-white relative overflow-hidden group border border-white/5 shadow-3xl">
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-white/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
-
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-5xl font-heading font-bold mb-8 italic tracking-tighter text-white leading-none">Ready to Build Your <span className="text-gold">Legacy</span>?</h2>
-              <p className="text-base md:text-lg text-primary-foreground/80 mb-12 max-w-2xl mx-auto font-light leading-relaxed text-balance">
-                Our legacy is built on the trust of over 500 happy families.
+              <span className="inline-block px-4 py-1.5 rounded-full bg-[#D4AF37] text-[#0F3D2E] text-[10px] font-bold mb-6 uppercase tracking-[0.2em] shadow-xl">
+                Trusted Real Estate Developer
+              </span>
+              <h1 className="text-3xl md:text-5xl font-heading font-bold mb-6 tracking-tighter text-white italic font-serif">
+                Building a Brand Around <span className="text-[#D4AF37] not-italic">Clarity, Not Complexity</span>
+              </h1>
+              <p className="text-sm md:text-base text-white/85 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                Sungraze Projects is a trusted land development company helping families and investors access
+                transparent, legally secure land ownership across Karnataka and Tamil Nadu.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="xl" className="px-12 rounded-full h-14 shadow-2xl bg-gold text-primary hover:bg-gold/90 text-base font-bold" asChild>
-                  <Link to="/contact">Get Expert Guidance</Link>
+                <Button
+                  size="xl"
+                  className="rounded-full px-8 h-14 font-bold bg-[#D4AF37] text-[#0F3D2E] hover:bg-[#c9a430] border-0"
+                  asChild
+                >
+                  <Link to="/projects">View Our Projects</Link>
                 </Button>
-                <Button variant="outline" size="xl" className="px-12 rounded-full h-14 border-white/30 text-secondary bg-white/15 backdrop-blur-md hover:bg-white/10" asChild>
-                  <Link to="/projects">View Portfolio</Link>
+                <Button
+                  variant="outline"
+                  size="xl"
+                  className="rounded-full bg-white/5 border-white/25 text-white backdrop-blur-md hover:bg-white/10 px-8 h-14"
+                  asChild
+                >
+                  <Link to="/contact">
+                    Get in Touch <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
                 </Button>
               </div>
+            </motion.div>
+          </div>
+        </section>
+
+        <section id="story" className="border-b border-[#E7E5E4] py-24 md:py-32">
+          <div className="container px-4">
+            <div className="grid gap-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+              <motion.div {...fadeUp}>
+                <p className="text-sm font-medium tracking-[0.08em] text-[#D4AF37]">Our story</p>
+                <h2 className="mt-4 max-w-xl font-heading text-3xl leading-tight text-[#111827] md:text-5xl">
+                  Building a modern real-estate brand around clarity, not complexity.
+                </h2>
+                <div className="mt-8 space-y-5 text-base leading-8 text-[#4B5563] md:text-lg">
+                  <p>
+                    Sungraze Projects began with a simple belief: land ownership should feel grounded, transparent, and
+                    professionally guided from the first conversation to final documentation.
+                  </p>
+                  <p>
+                    Over the last decade, we have focused on locations across Karnataka and Tamil Nadu where legal
+                    confidence, infrastructure visibility, and long-term value can coexist in a single investment story.
+                  </p>
+                  <p>
+                    Today, our work continues to balance premium opportunity with calm decision-making, helping buyers move
+                    forward with certainty rather than pressure.
+                  </p>
+                </div>
+
+                <div className="mt-10 grid gap-4 sm:grid-cols-2">
+                  {milestones.map((item) => (
+                    <div
+                      key={item.year}
+                      className="rounded-[24px] border border-[#E7E5E4] bg-white px-5 py-5 shadow-[0_18px_40px_rgba(15,61,46,0.06)]"
+                    >
+                      <p className="font-heading text-2xl text-[#0F3D2E]">{item.year}</p>
+                      <p className="mt-2 text-sm leading-6 text-[#6B7280]">{item.event}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              <motion.div {...fadeUp} className="space-y-6">
+                <div className="overflow-hidden rounded-[24px] border border-[#E7E5E4] bg-white shadow-[0_24px_60px_rgba(17,24,39,0.08)]">
+                  <div className="overflow-hidden">
+                    <img
+                      src="/assets/club-house/facility-landscape-view.webp"
+                      alt="Sungraze Projects architectural development"
+                      className="aspect-[4/5] w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
+                    />
+                  </div>
+                </div>
+
+                <div className="rounded-[24px] border border-[#E7E5E4] bg-[#FBFAF7] p-7 shadow-[0_18px_40px_rgba(15,61,46,0.05)]">
+                  <p className="text-sm font-medium tracking-[0.08em] text-[#6B7280]">Founder's perspective</p>
+                  <p className="mt-4 font-heading text-2xl leading-tight text-[#111827]">
+                    "Trust is built when every detail feels considered before a client ever has to ask."
+                  </p>
+                  <div className="mt-6 flex items-center gap-3 text-sm text-[#6B7280]">
+                    <span className="h-px w-10 bg-[#D4AF37]" />
+                    Sungraze leadership principle
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <section className="relative overflow-hidden bg-[url('/assets/images/background/dark-dott-pattern.png')] bg-repeat bg-[#FFF9F0] py-24 md:py-32 border-y border-black/5">
+          {/* Decorative blur */}
+          <div className="absolute -bottom-24 -left-24 size-96 bg-primary/5 rounded-full blur-[120px]" />
+
+          {/* Pattern overlay */}
+          <div className="absolute top-0 right-0 opacity-10 pointer-events-none">
+            <img src="/assets/images/background/patern.png" alt="pattern" className="w-96" />
+          </div>
+          <div className="container px-4">
+            <motion.div {...fadeUp} className="max-w-2xl">
+              <p className="text-sm font-medium tracking-[0.08em] text-[#D4AF37]">What guides us</p>
+              <h2 className="mt-4 font-heading text-3xl leading-tight text-[#111827] md:text-5xl">
+                Principles that keep every project calm, rigorous, and client-led.
+              </h2>
+              <p className="mt-6 text-base leading-8 text-[#6B7280] md:text-lg">
+                Our brand is shaped by restraint: fewer promises, better diligence, and a sharper focus on lasting value.
+              </p>
+            </motion.div>
+
+            <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+              {values.map((value, index) => (
+                <motion.article
+                  key={value.title}
+                  {...fadeUp}
+                  transition={{ duration: 0.65, delay: index * 0.08, ease: "easeOut" }}
+                  className="group rounded-[24px] border border-[#E7E5E4] bg-white p-7 shadow-[0_16px_36px_rgba(17,24,39,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_42px_rgba(15,61,46,0.10)]"
+                >
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#E7E5E4] bg-[#F8F6F2] text-[#0F3D2E]">
+                    <value.icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-6 font-heading text-2xl text-[#111827]">{value.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#6B7280]">{value.description}</p>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-y border-[#E7E5E4] bg-white py-24 md:py-32">
+          <div className="container px-4">
+            <motion.div {...fadeUp} className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+              <div>
+                <p className="text-sm font-medium tracking-[0.08em] text-[#D4AF37]">Mission and vision</p>
+                <h2 className="mt-4 font-heading text-3xl leading-tight text-[#111827] md:text-5xl">
+                  Purpose with architectural discipline.
+                </h2>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-2">
+                <div className="rounded-[24px] border border-[#E7E5E4] bg-[#FBFAF7] p-8 shadow-[0_18px_40px_rgba(15,61,46,0.05)]">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0F3D2E] text-white">
+                    <Target className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-8 font-heading text-2xl text-[#111827]">Our mission</h3>
+                  <p className="mt-4 text-sm leading-7 text-[#6B7280] md:text-base">
+                    To make land ownership more transparent, legally secure, and thoughtfully guided for families and
+                    investors who want confidence at every step.
+                  </p>
+                </div>
+
+                <div className="rounded-[24px] border border-[#E7E5E4] bg-[#F6F7F4] p-8 shadow-[0_18px_40px_rgba(15,61,46,0.05)]">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#D4AF37] text-[#0F3D2E]">
+                    <Eye className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-8 font-heading text-2xl text-[#D4AF37]">Our vision</h3>
+                  <p className="mt-4 text-sm leading-7 text-[#6B7280] md:text-base">
+                    To become South India's most trusted premium land brand by combining elegant service, rigorous
+                    diligence, and enduring investment quality.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        <section className="py-24 md:py-32">
+          <div className="container px-4">
+            <div className="grid gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+              <motion.div {...fadeUp}>
+                <p className="text-sm font-medium tracking-[0.08em] text-[#D4AF37]">Regional footprint</p>
+                <h2 className="mt-4 font-heading text-3xl leading-tight text-[#111827] md:text-5xl">
+                  A focused presence across two high-conviction markets.
+                </h2>
+                <p className="mt-6 max-w-xl text-base leading-8 text-[#6B7280] md:text-lg">
+                  Our projects are positioned where growth potential, accessibility, and compliance visibility support more
+                  durable investment decisions.
+                </p>
+
+                <div className="mt-10 space-y-6">
+                  <FootprintItem
+                    title="Karnataka"
+                    description="Bangalore, Mysore, Tumkur, and Davangere projects selected for urban adjacency and long-term demand."
+                  />
+                  <FootprintItem
+                    title="Tamil Nadu"
+                    description="Hosur, Coimbatore, Chennai, and nearby corridors supported by infrastructure momentum and land value potential."
+                  />
+                </div>
+              </motion.div>
+
+              <motion.div
+                {...fadeUp}
+                className="rounded-[24px] border border-[#E7E5E4] bg-white p-6 shadow-[0_24px_60px_rgba(17,24,39,0.06)] md:p-8"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80"
+                  alt="Premium property development landscape"
+                  className="aspect-[16/10] w-full rounded-[20px] object-cover"
+                />
+
+                <div className="mt-8 grid gap-4">
+                  {advantages.map((advantage) => (
+                    <div
+                      key={advantage}
+                      className="flex items-start gap-3 border-t border-[#E7E5E4] pt-4 first:border-t-0 first:pt-0"
+                    >
+                      <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-[#0F3D2E]" />
+                      <p className="text-sm leading-7 text-[#4B5563] md:text-base">{advantage}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#0F3D2E] py-24 text-white md:py-32">
+          <div className="container px-4">
+            <motion.div {...fadeUp} className="max-w-3xl">
+              <p className="text-sm font-medium tracking-[0.08em] text-[#D4AF37]">Measured impact</p>
+              <h2 className="mt-4 font-heading text-3xl leading-tight md:text-5xl text-white">
+                Evidence of a brand built patiently, and built to last.
+              </h2>
+              <p className="mt-6 text-base leading-8 text-white/72 md:text-lg">
+                Our numbers are simple by design: they reflect consistency, trust, and disciplined execution over time.
+              </p>
+            </motion.div>
+
+            <div className="mt-14 grid gap-8 border-t border-white/12 pt-10 md:grid-cols-2 xl:grid-cols-4">
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  {...fadeUp}
+                  transition={{ duration: 0.65, delay: index * 0.08, ease: "easeOut" }}
+                  className="rounded-[24px] border border-white/10 bg-white/[0.03] p-7"
+                >
+                  <p className="font-heading text-5xl text-[#D4AF37]">{stat.value}</p>
+                  <p className="mt-4 max-w-[16rem] text-sm leading-7 text-white/70">{stat.label}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-24 md:py-32">
+          <div className="container px-4">
+            <motion.div
+              {...fadeUp}
+              className="rounded-[24px] border border-[#E7E5E4] bg-white px-6 py-12 shadow-[0_24px_60px_rgba(17,24,39,0.06)] md:px-12 md:py-16"
+            >
+              <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+                <div>
+                  <p className="text-sm font-medium tracking-[0.08em] text-[#D4AF37]">Begin the conversation</p>
+                  <h2 className="mt-4 max-w-2xl font-heading text-3xl leading-tight text-[#111827] md:text-5xl">
+                    If you're looking for a clearer path into premium land ownership, we'd love to help.
+                  </h2>
+                  <p className="mt-6 max-w-2xl text-base leading-8 text-[#6B7280] md:text-lg">
+                    Explore our current portfolio or speak directly with our team for guidance shaped around your goals,
+                    timeline, and investment priorities.
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
+                  <Button
+                    size="xl"
+                    className="h-12 rounded-full bg-[#0F3D2E] px-7 text-sm font-medium text-white hover:bg-[#0c3125]"
+                    asChild
+                  >
+                    <Link to="/projects">View projects</Link>
+                  </Button>
+                  <Button
+                    size="xl"
+                    variant="outline"
+                    className="h-12 rounded-full border-[#0F3D2E]/15 bg-[#F8F6F2] px-7 text-sm font-medium text-[#0F3D2E] hover:bg-[#f2efe8]"
+                    asChild
+                  >
+                    <Link to="/contact">
+                      Contact us
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      </div>
     </Layout>
   );
 };
 
-const Badge = ({ text, color = "gold" }: { text: string; color?: "gold" | "primary" }) => (
-  <span className={`inline-block px-5 py-1.5 rounded-full border text-[10px] font-bold uppercase tracking-[0.2em] mb-4 shadow-sm shadow-black/5 ${color === "gold"
-    ? "bg-gold/10 border-gold text-gold"
-    : "bg-primary/10 border-primary text-primary"
-    }`}>
-    {text}
-  </span>
-);
-
-const FootprintItem = ({ state, locations, projects }: { state: string; locations: string; projects: string }) => (
-  <motion.div
-    initial={{ opacity: 0, x: -20 }}
-    whileInView={{ opacity: 1, x: 0 }}
-    className="group cursor-default"
-  >
-    <div className="flex items-center gap-4 mb-4">
-      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/20 to-gold/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg">
-        <MapPin className="w-6 h-6 text-primary group-hover:text-gold transition-colors duration-500" />
+const FootprintItem = ({ title, description }: { title: string; description: string }) => (
+  <div className="rounded-[24px] border border-[#E7E5E4] bg-white p-6 shadow-[0_14px_34px_rgba(17,24,39,0.04)]">
+    <div className="flex items-center gap-3">
+      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#F8F6F2] text-[#0F3D2E]">
+        <MapPin className="h-4 w-4" />
       </div>
-      <div>
-        <h4 className="text-2xl font-heading font-bold text-foreground group-hover:text-primary transition-colors duration-500">{state}</h4>
-        <div className="text-sm font-semibold text-gold uppercase tracking-[0.1em]">{projects}</div>
-      </div>
+      <h3 className="font-heading text-2xl text-[#111827]">{title}</h3>
     </div>
-    <p className="text-muted-foreground text-base leading-relaxed font-light pl-16 group-hover:text-foreground/80 transition-colors duration-500">
-      {locations}
-    </p>
-  </motion.div>
+    <p className="mt-4 text-sm leading-7 text-[#6B7280] md:text-base">{description}</p>
+  </div>
 );
 
 export default About;

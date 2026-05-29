@@ -442,206 +442,206 @@ export const projects: Project[] = [
       lng: 75.932,
     },
   },
-  {
-    id: "10",
-    slug: "metropolis-anjanapura",
+  // {
+  //   id: "10",
+  //   slug: "metropolis-anjanapura",
 
-    name: "MetroPolis",
-    tagline: "Residential Apartments with Urban Chic Lifestyle",
+  //   name: "MetroPolis",
+  //   tagline: "Residential Apartments with Urban Chic Lifestyle",
 
-    location: "Anjanapura Phase, Bangalore",
-    region: "Karnataka",
+  //   location: "Anjanapura Phase, Bangalore",
+  //   region: "Karnataka",
 
-    type: "residential",
-    status: "completed",
+  //   type: "residential",
+  //   status: "completed",
 
-    description:
-      "MetroPolis is an ultimate reflection of the urban chic lifestyle. The project hosts exclusively designed Residential Apartments, each being an epitome of elegance and simplicity. Located at Anjanapura Phase in Bangalore, MetroPolis is inspiring in design, stirring in luxury and enveloped by verdant surroundings. It is in troupe with many famous schools, hospitals, shopping destinations, tech parks and every civic amenity required, so that you spend less time on the road and more at home.",
+  //   description:
+  //     "MetroPolis is an ultimate reflection of the urban chic lifestyle. The project hosts exclusively designed Residential Apartments, each being an epitome of elegance and simplicity. Located at Anjanapura Phase in Bangalore, MetroPolis is inspiring in design, stirring in luxury and enveloped by verdant surroundings. It is in troupe with many famous schools, hospitals, shopping destinations, tech parks and every civic amenity required, so that you spend less time on the road and more at home.",
 
-    features: [
-      "Residential Apartments",
-      "Modern Architecture",
-      "Premium Design",
-      "Elegant Interiors",
-      "Tech Park Proximity",
-      "Shopping Destinations Nearby",
-    ],
+  //   features: [
+  //     "Residential Apartments",
+  //     "Modern Architecture",
+  //     "Premium Design",
+  //     "Elegant Interiors",
+  //     "Tech Park Proximity",
+  //     "Shopping Destinations Nearby",
+  //   ],
 
-    amenities: [
-      "Landscape",
-      "Indoor Games",
-      "CCTV Cameras & Security",
-      "Gymnasium",
-      "Outdoor Games Play Area",
-      "INTERCOM",
-      "LIFT",
-      "24Hr Backup Electricity",
-      "Gated Community",
-      "24Hr Water Supply",
-    ],
+  //   amenities: [
+  //     "Landscape",
+  //     "Indoor Games",
+  //     "CCTV Cameras & Security",
+  //     "Gymnasium",
+  //     "Outdoor Games Play Area",
+  //     "INTERCOM",
+  //     "LIFT",
+  //     "24Hr Backup Electricity",
+  //     "Gated Community",
+  //     "24Hr Water Supply",
+  //   ],
 
-    highlights: [
-      "Urban chic lifestyle",
-      "Verdant surroundings",
-      "Near schools, hospitals, shopping",
-      "Tech parks proximity",
-    ],
+  //   highlights: [
+  //     "Urban chic lifestyle",
+  //     "Verdant surroundings",
+  //     "Near schools, hospitals, shopping",
+  //     "Tech parks proximity",
+  //   ],
 
-    plotSizes: "1 BHK, 2 BHK & 3 BHK",
-    totalPlots: 200,
+  //   plotSizes: "1 BHK, 2 BHK & 3 BHK",
+  //   totalPlots: 200,
 
-    priceRange: "Contact for Price",
-    priceValue: 0,
+  //   priceRange: "Contact for Price",
+  //   priceValue: 0,
 
-    createdAt: "2026-04-08",
-    isFeatured: false,
+  //   createdAt: "2026-04-08",
+  //   isFeatured: false,
 
-    approvalType: "DTCP",
-    clearTitle: true,
-    loanAvailable: true,
+  //   approvalType: "DTCP",
+  //   clearTitle: true,
+  //   loanAvailable: true,
 
-    image: "/assets/MetroPolis/1.jpg",
-    gallery: [
-      "/assets/MetroPolis/1.jpg",
-      "/assets/MetroPolis/2.jpg",
-      "/assets/MetroPolis/3.jpg",
-      "/assets/MetroPolis/4.jpg",
-    ],
+  //   image: "/assets/MetroPolis/1.jpg",
+  //   gallery: [
+  //     "/assets/MetroPolis/1.jpg",
+  //     "/assets/MetroPolis/2.jpg",
+  //     "/assets/MetroPolis/3.jpg",
+  //     "/assets/MetroPolis/4.jpg",
+  //   ],
 
-    coordinates: {
-      lat: 12.947,
-      lng: 77.638,
-    },
-  },
-  {
-    id: "11",
-    slug: "krishna-mansion-jpnagar",
+  //   coordinates: {
+  //     lat: 12.947,
+  //     lng: 77.638,
+  //   },
+  // },
+  // {
+  //   id: "11",
+  //   slug: "krishna-mansion-jpnagar",
 
-    name: "Krishna Mansion",
-    tagline: "Take a Pristine Home And Be Relaxed For Life",
+  //   name: "Krishna Mansion",
+  //   tagline: "Take a Pristine Home And Be Relaxed For Life",
 
-    location: "JP Nagar 8th Phase, Bangalore",
-    region: "Karnataka",
+  //   location: "JP Nagar 8th Phase, Bangalore",
+  //   region: "Karnataka",
 
-    type: "residential",
-    status: "upcoming",
+  //   type: "residential",
+  //   status: "upcoming",
 
-    description:
-      "Krishna Mansion is designed as the perfect place of modern living. It is close to many well known locations, educational institutions, hospitals and shopping centers. Located at JP Nagar 8th Phase Bangalore, Krishna Mansion offers a pristine home experience with excellent planning and modern amenities.",
+  //   description:
+  //     "Krishna Mansion is designed as the perfect place of modern living. It is close to many well known locations, educational institutions, hospitals and shopping centers. Located at JP Nagar 8th Phase Bangalore, Krishna Mansion offers a pristine home experience with excellent planning and modern amenities.",
 
-    features: [
-      "Well Planned Flats with Excellent Ventilation",
-      "Beautiful Elevation",
-      "CCTV Cameras & Security",
-      "Land scaping & Jogging Track",
-      "Club House with Multipurpose Room",
-      "Yoga & Meditation Room",
-    ],
+  //   features: [
+  //     "Well Planned Flats with Excellent Ventilation",
+  //     "Beautiful Elevation",
+  //     "CCTV Cameras & Security",
+  //     "Land scaping & Jogging Track",
+  //     "Club House with Multipurpose Room",
+  //     "Yoga & Meditation Room",
+  //   ],
 
-    amenities: [
-      "Fitness Center with Equipment",
-      "Children Play Area",
-      "LIFT with Power Backup",
-      "Ample Car Parking",
-      "24Hr Water Supply",
-      "24Hr Security",
-    ],
+  //   amenities: [
+  //     "Fitness Center with Equipment",
+  //     "Children Play Area",
+  //     "LIFT with Power Backup",
+  //     "Ample Car Parking",
+  //     "24Hr Water Supply",
+  //     "24Hr Security",
+  //   ],
 
-    highlights: [
-      "Pristine home living",
-      "Close to educational & shopping centers",
-      "Modern amenities and facilities",
-    ],
+  //   highlights: [
+  //     "Pristine home living",
+  //     "Close to educational & shopping centers",
+  //     "Modern amenities and facilities",
+  //   ],
 
-    plotSizes: "1 BHK, 2 BHK & 3 BHK",
-    totalPlots: 150,
+  //   plotSizes: "1 BHK, 2 BHK & 3 BHK",
+  //   totalPlots: 150,
 
-    priceRange: "Contact for Price",
-    priceValue: 0,
+  //   priceRange: "Contact for Price",
+  //   priceValue: 0,
 
-    createdAt: "2026-04-08",
-    isFeatured: false,
+  //   createdAt: "2026-04-08",
+  //   isFeatured: false,
 
-    approvalType: "DTCP",
-    clearTitle: true,
-    loanAvailable: true,
+  //   approvalType: "DTCP",
+  //   clearTitle: true,
+  //   loanAvailable: true,
 
-    image: "/assets/KRISHNA-MANSION/1.jpg",
-    gallery: [
-      "/assets/KRISHNA-MANSION/1.jpg",
-    ],
+  //   image: "/assets/KRISHNA-MANSION/1.jpg",
+  //   gallery: [
+  //     "/assets/KRISHNA-MANSION/1.jpg",
+  //   ],
 
-    coordinates: {
-      lat: 12.946,
-      lng: 77.639,
-    },
-  },
-  {
-    id: "12",
-    slug: "sungraze-samruddi-siruguppa",
+  //   coordinates: {
+  //     lat: 12.946,
+  //     lng: 77.639,
+  //   },
+  // },
+  // {
+  //   id: "12",
+  //   slug: "sungraze-samruddi-siruguppa",
 
-    name: "SUNGRAZE Samruddi",
-    tagline: "Affordable Luxury Apartments at Great Location",
+  //   name: "SUNGRAZE Samruddi",
+  //   tagline: "Affordable Luxury Apartments at Great Location",
 
-    location: "Siruguppa, Karnataka",
-    region: "Karnataka",
+  //   location: "Siruguppa, Karnataka",
+  //   region: "Karnataka",
 
-    type: "residential",
-    status: "upcoming",
+  //   type: "residential",
+  //   status: "upcoming",
 
-    description:
-      "SUNGRAZE Samruddi offers affordable luxury apartments at a great location in Siruguppa. Designed with modern living in mind, these residential apartments provide comfort, elegance, and value for money. Perfect for families and professionals seeking quality living with excellent amenities.",
+  //   description:
+  //     "SUNGRAZE Samruddi offers affordable luxury apartments at a great location in Siruguppa. Designed with modern living in mind, these residential apartments provide comfort, elegance, and value for money. Perfect for families and professionals seeking quality living with excellent amenities.",
 
-    features: [
-      "Well Planned Flats with Excellent Ventilation",
-      "Beautiful Elevation",
-      "CCTV Cameras & Security",
-      "Land scaping & Jagging Track",
-      "Club House with Multipurpose Room",
-      "Yoga & Meditation Room",
-    ],
+  //   features: [
+  //     "Well Planned Flats with Excellent Ventilation",
+  //     "Beautiful Elevation",
+  //     "CCTV Cameras & Security",
+  //     "Land scaping & Jagging Track",
+  //     "Club House with Multipurpose Room",
+  //     "Yoga & Meditation Room",
+  //   ],
 
-    amenities: [
-      "Fitness Center with Equipment",
-      "Children Play Area",
-      "LIFT with Power Backup",
-      "Ample Car Parking",
-      "24Hr Water Supply",
-      "24Hr Security",
-    ],
+  //   amenities: [
+  //     "Fitness Center with Equipment",
+  //     "Children Play Area",
+  //     "LIFT with Power Backup",
+  //     "Ample Car Parking",
+  //     "24Hr Water Supply",
+  //     "24Hr Security",
+  //   ],
 
-    highlights: [
-      "Affordable luxury apartments",
-      "Great Siruguppa location",
-      "Modern living amenities",
-    ],
+  //   highlights: [
+  //     "Affordable luxury apartments",
+  //     "Great Siruguppa location",
+  //     "Modern living amenities",
+  //   ],
 
-    plotSizes: "1 BHK, 2 BHK & 3 BHK",
-    totalPlots: 120,
+  //   plotSizes: "1 BHK, 2 BHK & 3 BHK",
+  //   totalPlots: 120,
 
-    priceRange: "Contact for Price",
-    priceValue: 0,
+  //   priceRange: "Contact for Price",
+  //   priceValue: 0,
 
-    createdAt: "2026-04-08",
-    isFeatured: false,
+  //   createdAt: "2026-04-08",
+  //   isFeatured: false,
 
-    approvalType: "DTCP",
-    clearTitle: true,
-    loanAvailable: true,
+  //   approvalType: "DTCP",
+  //   clearTitle: true,
+  //   loanAvailable: true,
 
-    image: "/assets/SUNGRAZE-SAMRUDDI/1.jpg",
-    gallery: [
-      "/assets/SUNGRAZE-SAMRUDDI/1.jpg",
-      "/assets/SUNGRAZE-SAMRUDDI/2.jpg",
-      "/assets/SUNGRAZE-SAMRUDDI/3.jpg",
-      "/assets/SUNGRAZE-SAMRUDDI/4.jpg",
-    ],
+  //   image: "/assets/SUNGRAZE-SAMRUDDI/1.jpg",
+  //   gallery: [
+  //     "/assets/SUNGRAZE-SAMRUDDI/1.jpg",
+  //     "/assets/SUNGRAZE-SAMRUDDI/2.jpg",
+  //     "/assets/SUNGRAZE-SAMRUDDI/3.jpg",
+  //     "/assets/SUNGRAZE-SAMRUDDI/4.jpg",
+  //   ],
 
-    coordinates: {
-      lat: 14.154,
-      lng: 75.643,
-    },
-  },
+  //   coordinates: {
+  //     lat: 14.154,
+  //     lng: 75.643,
+  //   },
+  // },
 
   // {
   //   id: "2",

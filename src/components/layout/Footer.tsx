@@ -55,10 +55,11 @@ export function Footer() {
             <div className="lg:col-span-4 col-span-12 sm:px-4">
               <div className="mb-10 lg:pr-8">
                 <Link to="/" className="flex items-center gap-3 mb-8">
-                  <div className="w-12 h-12 rounded-xl bg-gold flex items-center justify-center shadow-gold">
-                    <span className="text-charcoal font-heading font-bold text-2xl">S</span>
-                  </div>
-                  <span className="font-heading font-semibold text-2xl text-white tracking-wide">Sungraze <br />Groups</span>
+                  <img
+                    src="/assets/sungraze_logo.png"
+                    alt="Sungraze Groups Logo"
+                    className="w-[50%] h-[50%] object-contain group-hover:scale-105 duration-500"
+                  />
                 </Link>
                 <p className="mb-8 text-base text-white/70 leading-relaxed max-w-sm">
                   Building trust through transparency. Quality farmland and residential projects across Karnataka and Tamil Nadu.

@@ -33,7 +33,7 @@ export function Navbar() {
     <header
       className={cn(
         "z-[999] transition-all duration-700 w-full fixed px-4 md:px-8",
-        isScrolled ? "top-4" : "top-8"
+        isScrolled ? "top-8" : "top-12"
       )}
     >
       <div className={cn(
@@ -69,11 +69,13 @@ export function Navbar() {
           </nav>
 
           {/* Middle Column - Logo */}
-          <div className="flex justify-center z-[20]">
+          <div className="flex justify-center">
             <Link
               to="/"
               className={cn(
-                "flex items-center justify-center rounded-full bg-white shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-2 border-white/30 transition-all duration-500 group overflow-hidden h-28",
+                "flex items-center justify-center rounded-full bg-white shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-2 border-white/30 transition-all duration-500 group overflow-hidden",
+                "absolute top-16 left-1/2 -translate-x-1/2 -translate-y-1/2",
+                "h-28 w-28 z-20",
                 isScrolled
                   ? "bg-primary/95 backdrop-blur-xl"
                   : "bg-black/20 backdrop-blur-md"
@@ -82,7 +84,7 @@ export function Navbar() {
               <img
                 src="/assets/sungraze_logo.png"
                 alt="Sungraze Groups Logo"
-                className="w-[85%] h-[85%] object-contain group-hover:scale-105 duration-500 mb-4"
+                className="w-[85%] h-[85%] object-contain group-hover:scale-105 duration-500"
               />
             </Link>
           </div>
